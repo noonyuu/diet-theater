@@ -3,10 +3,12 @@ import App from "./App";
 import { LoginPage } from "./pages/admin/login";
 import { Terms } from "./pages/terms";
 import { Agenda } from "./pages/admin/agenda";
+import { Navbar } from "./component/navbar";
 
 export const Routers = () => {
   return (
     <div>
+      <Navbar />
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<App />}></Route>
