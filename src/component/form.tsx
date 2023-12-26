@@ -9,11 +9,10 @@ export const Form = (props: any) => {
 
   return (
     <div className="m-auto w-full text-center">
-      <h2 className="label-wrapper ml-[10%] text-left">{props.title}</h2>
       <input
         type="text"
-        id="new-todo-input"
-        className="input__lg input w-[80%] border border-black bg-white text-black focus:border-black focus:outline-none"
+        id={props.label}
+        className="input w-[80%] border border-black bg-white text-black focus:border-black focus:outline-none"
         name="text"
         autoComplete="off"
         value={name}
