@@ -16,17 +16,21 @@ export const LoginPage = () => {
             action=""
             className="flex h-full flex-col items-center justify-center py-16"
           >
-            <div className="my-8  w-full ">
-              <label className=" ml-[10%] text-left" htmlFor="id">
+            <div className="my-8 flex w-full flex-col">
+              <label className="mb-2 ml-[15%] text-left" htmlFor="id">
                 ID
               </label>
-              <Form title="ID" label="id" />
+              <div className="flex justify-center">
+                <Form title="ID" label="id" />
+              </div>
             </div>
-            <div className="my-8  w-full ">
-              <label className=" ml-[10%] text-left" htmlFor="password">
+            <div className="my-8 flex w-full flex-col">
+              <label className="mb-2 ml-[15%] text-left" htmlFor="password">
                 Password
               </label>
-              <Form title="パスワード" label="password" />
+              <div className="flex justify-center">
+                <Form title="Password" label="password" />
+              </div>
             </div>
             <div className="my-8 flex justify-center">
               <Button
