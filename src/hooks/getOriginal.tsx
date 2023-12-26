@@ -4,7 +4,7 @@ interface MeetingRecord {
   [key: string]: any;
 }
 
-const getPostData = async (): Promise<Map<string, any> | null> => {
+export const getPostData = async (): Promise<Map<string, any> | null> => {
   try {
     const response = await axios.get(
       "https://kokkai.ndl.go.jp/api/meeting?sessionFrom=1&sessionTo=3&nameOfHouse=両院協議会&issueFrom=1&recordPacking=json",
@@ -27,5 +27,3 @@ const getPostData = async (): Promise<Map<string, any> | null> => {
     return null;
   }
 };
-
-export default getPostData;
