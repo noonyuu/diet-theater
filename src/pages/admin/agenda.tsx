@@ -1,6 +1,8 @@
 import { useEffect, useState } from "react"
 import { getPostData } from "../../hooks/getOriginal"
 import { Form } from "../../component/form";
+import { FaSearch } from "react-icons/fa";
+import { Button } from "../../component/button";
 
 export const Agenda = () => {
   const [api, setApi] = useState<Map<string, any>>(new Map());
@@ -32,7 +34,18 @@ export const Agenda = () => {
   return (
     <div>
       <div>
-        <p className="text-center mt-8 font-bold">新規作成する議題を選んでください</p>
+        <p className="pt-8 text-center font-bold">
+          新規作成する議題を選んでください
+        </p>
+        <div className="my-4 flex justify-center">
+          <Form title="議題名" />
+          <Button
+            name={<FaSearch />}
+            color="bg-white text-black"
+            action=""
+            decoration="rounded-lg border border-black"
+          />
+        </div>
       </div>
       {Array.from(api).map(([key, value]) => (
         <div key={key}>
