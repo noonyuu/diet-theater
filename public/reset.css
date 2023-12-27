@@ -3,6 +3,7 @@
 *::before,
 *::after {
   box-sizing: border-box;
+  color: #020202;
 }
 
 /* Prevent font size inflation */

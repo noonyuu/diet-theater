@@ -11,7 +11,6 @@ export const Agenda = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        console.log("Fetching data...");
         const newData = await getPostData();
         const speakers = newData?.get("speechRecord");
         console.log(speakers);
@@ -20,7 +19,6 @@ export const Agenda = () => {
           setApi(newData);
           setSpeaker(speakers);
         } else {
-          // newData が null の場合の処理
           console.error("データが null です");
         }
       } catch (error) {
@@ -28,7 +26,7 @@ export const Agenda = () => {
       }
     };
 
-    fetchData(); // 関数を即座に呼び出す
+    fetchData();
   }, []); 
     
   return (
@@ -52,9 +50,9 @@ export const Agenda = () => {
           <strong>{key}:</strong>
           {value !== null && typeof value === "object" ? (
             <div>
-              {/* <div>Speech ID: {value.speechID}</div>
+              <div>Speech ID: {value.speechID}</div>
               <div>Speech Order: {value.speechOrder}</div>
-              <div>Speaker: {value.speaker}</div> */}
+              <div>Speaker: {value.speaker}</div>
               {/* <div>Speech URL: {value.speechURL}</div> */}
             </div>
           ) : (
@@ -64,11 +62,35 @@ export const Agenda = () => {
         </div>
       ))}
 
-      {speaker.map((item, index) => (
+      {/* {speaker.map((item, index) => (
         <div key={index}>
           <strong>{item.speaker}:</strong> {item.speech}
         </div>
-      ))}
+      ))} */}
+
+      <div className="overflow-x-auto p-4 ">
+        <table className="table text-center">
+          {/* head */}
+          <thead>
+            <tr className="">
+              <th>国会回次</th>
+              <th>院名</th>
+              <th>会議名</th>
+              <th>号数</th>
+              <th>実施年月</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>第{api.get("session")}回</td>
+              <td>{api.get("nameOfHouse")}</td>
+              <td>{api.get("nameOfMeeting")}</td>
+              <td>第{api.get("session")}号</td>
+              <td>{api.get("date")}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
     </div>
   );
 }
