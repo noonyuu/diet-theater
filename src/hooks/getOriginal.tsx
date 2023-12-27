@@ -18,7 +18,7 @@ export const getPostData = async (): Promise<Map<string, any> | null> => {
     }
 
     const oneData = new Map<string, any>(
-      Object.entries(meetingRecord["0"] || {}),
+      Object.entries(meetingRecord || {}),
     );
 
     return oneData;

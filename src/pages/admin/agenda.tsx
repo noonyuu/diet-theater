@@ -1,5 +1,5 @@
-import { useEffect, useState } from "react"
-import { getPostData } from "../../hooks/getOriginal"
+import { useEffect, useState } from "react";
+import { getPostData } from "../../hooks/getOriginal";
 import { Form } from "../../component/form";
 import { FaSearch } from "react-icons/fa";
 import { Button } from "../../component/button";
@@ -13,7 +13,7 @@ export const Agenda = () => {
       try {
         const newData = await getPostData();
         const speakers = newData?.get("speechRecord");
-        console.log(speakers);
+        console.log(newData);
 
         if (newData !== null) {
           setApi(newData);
@@ -27,8 +27,8 @@ export const Agenda = () => {
     };
 
     fetchData();
-  }, []); 
-    
+  }, []);
+
   return (
     <div>
       <div>
@@ -45,34 +45,11 @@ export const Agenda = () => {
           />
         </div>
       </div>
-      {Array.from(api).map(([key, value]) => (
-        <div key={key}>
-          <strong>{key}:</strong>
-          {value !== null && typeof value === "object" ? (
-            <div>
-              <div>Speech ID: {value.speechID}</div>
-              <div>Speech Order: {value.speechOrder}</div>
-              <div>Speaker: {value.speaker}</div>
-              {/* <div>Speech URL: {value.speechURL}</div> */}
-            </div>
-          ) : (
-            // value が null またはオブジェクトでない場合はそのまま表示
-            String(value)
-          )}
-        </div>
-      ))}
-
-      {/* {speaker.map((item, index) => (
-        <div key={index}>
-          <strong>{item.speaker}:</strong> {item.speech}
-        </div>
-      ))} */}
-
-      <div className="overflow-x-auto p-4 ">
+      <div className="overflow-x-auto p-4">
         <table className="table text-center">
           {/* head */}
           <thead>
-            <tr className="">
+            <tr>
               <th>国会回次</th>
               <th>院名</th>
               <th>会議名</th>
@@ -81,16 +58,31 @@ export const Agenda = () => {
             </tr>
           </thead>
           <tbody>
-            <tr>
-              <td>第{api.get("session")}回</td>
-              <td>{api.get("nameOfHouse")}</td>
-              <td>{api.get("nameOfMeeting")}</td>
-              <td>第{api.get("session")}号</td>
-              <td>{api.get("date")}</td>
-            </tr>
+            {Array.from(api).map(([keys, values]) => {
+              const pickData = new Map(Object.entries(values));
+              return (
+                <tr key={keys}>
+                  <td>
+                    <>第{pickData.get("session")}回</>
+                  </td>
+                  <td>
+                    <>{pickData.get("nameOfHouse")}</>
+                  </td>
+                  <td>
+                    <>{pickData.get("nameOfMeeting")}</>
+                  </td>
+                  <td>
+                    <>第{pickData.get("session")}号</>
+                  </td>
+                  <td>
+                    <>{pickData.get("date")}</>
+                  </td>
+                </tr>
+              );
+            })}
           </tbody>
         </table>
       </div>
     </div>
   );
-}
+};
