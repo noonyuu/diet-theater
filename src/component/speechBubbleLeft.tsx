@@ -7,10 +7,10 @@ interface BtnName {
 
 export const BubbleLeft = (props:any) => {
   return (
-    <div className="flex pb-8">
-      <div className="chat chat-end">
-        <div className="chat-bubble tracking-wide">
-          この際、上川外務大臣、辻外務副大臣、高村外務大臣政務官、穂坂外務大臣政務官及び深澤外務大臣政務官から、それぞれ発言を求められておりますので、順次これを許します。外務大臣上川陽子君。
+    <div className="flex pb-5">
+      <div className="chat chat-end w-full">
+        <div className="bg-chat chat-bubble w-[70vw] tracking-wide text-black shadow-lg">
+          {props.content}
         </div>
       </div>
     </div>
