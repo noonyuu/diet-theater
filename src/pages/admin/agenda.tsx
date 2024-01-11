@@ -30,7 +30,7 @@ export const Agenda = () => {
   }, []);
 
   return (
-    <div>
+    <section className="bg-bac-main">
       <div>
         <p className="pt-8 text-center font-bold">
           新規作成する議題を選んでください
@@ -45,16 +45,17 @@ export const Agenda = () => {
           />
         </div>
       </div>
-      <div className="overflow-x-auto p-4">
-        <table className="table text-center">
+      <div className="overflow-x-auto p-4 ">
+        <table className="table mx-auto w-2/3 bg-white shadow-md shadow-slate-200">
           {/* head */}
-          <thead>
+          <thead className="bg-sub_blue">
             <tr>
-              <th>国会回次</th>
-              <th>院名</th>
-              <th>会議名</th>
-              <th>号数</th>
-              <th>実施年月</th>
+              <th className="w-[10%] rounded-tl-xl">国会回次</th>
+              <th className="w-[10%]">院名</th>
+              <th className="w-[30%]">会議名</th>
+              <th className="w-[10%]">号数</th>
+              <th className="w-[20%]">実施年月</th>
+              <th className="w-[20%] rounded-tr-xl"></th>
             </tr>
           </thead>
           <tbody>
@@ -62,7 +63,7 @@ export const Agenda = () => {
               const pickData = new Map(Object.entries(values));
               return (
                 <tr key={keys}>
-                  <td>
+                  <td className="rounded-bl-xl">
                     <>第{pickData.get("session")}回</>
                   </td>
                   <td>
@@ -77,12 +78,20 @@ export const Agenda = () => {
                   <td>
                     <>{pickData.get("date")}</>
                   </td>
+                  <td className="rounded-br-xl">
+                    <button
+                      type="button"
+                      className="bg-sub_blue flex items-center gap-3 rounded-full p-2 text-xs"
+                    >
+                      チャットを開く
+                    </button>
+                  </td>
                 </tr>
               );
             })}
           </tbody>
         </table>
       </div>
-    </div>
+    </section>
   );
 };

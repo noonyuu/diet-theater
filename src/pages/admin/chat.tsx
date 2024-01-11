@@ -44,7 +44,7 @@ export const Chat = () => {
     fetchData();
   }, []);
   return (
-    <section className="bg-bac-main">
+    <section>
       {
         <div className="mx-2 md:mx-12 lg:mx-24">
           {Array.from(api).map(([keys, values], index) => {
