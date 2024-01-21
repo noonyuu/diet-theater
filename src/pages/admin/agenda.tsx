@@ -3,10 +3,24 @@ import { getPostData } from "../../hooks/getOriginal";
 import { Form } from "../../component/form";
 import { FaSearch } from "react-icons/fa";
 import { Button } from "../../component/button";
+import { useNavigate } from "react-router-dom";
 
 export const Agenda = () => {
+  const navigate = useNavigate();
+
   const [api, setApi] = useState<Map<string, any>>(new Map());
   const [speaker, setSpeaker] = useState<any[]>([]);
+
+  interface Entity {
+    detailId: string;
+  }
+
+  const detail = (val: string) => {
+    const entity: Entity = {
+      detailId: val,
+    };
+    navigate("/chat", { state: entity });
+  };
 
   useEffect(() => {
     const fetchData = async () => {
@@ -61,6 +75,7 @@ export const Agenda = () => {
           <tbody>
             {Array.from(api).map(([keys, values]) => {
               const pickData = new Map(Object.entries(values));
+
               return (
                 <tr key={keys}>
                   <td className="rounded-bl-xl">
@@ -81,7 +96,8 @@ export const Agenda = () => {
                   <td className="rounded-br-xl">
                     <button
                       type="button"
-                      className="bg-sub_blue flex items-center gap-3 rounded-full p-2 text-xs"
+                      className="flex items-center gap-3 rounded-full bg-sub_blue p-2 text-xs"
+                      onClick={() => detail(keys)}
                     >
                       チャットを開く
                     </button>

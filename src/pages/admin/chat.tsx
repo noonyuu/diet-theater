@@ -1,14 +1,24 @@
-import { useEffect, useState } from "react";
 import { BubbleLeft } from "../../component/speechBubbleLeft";
 import { BubbleRight } from "../../component/speechBubbleRight";
 import { getPostData } from "../../hooks/getOriginal";
 import icon from "../../assets/icon.png";
-import React from "react";
+import React, { useEffect, useState } from "react";
+import { useLocation, useNavigate } from "react-router-dom";
 
 export const Chat = () => {
+  const location = useLocation();
+  const navigate = useNavigate();
+
+  const [detailId, setDetailId] = useState("");
   const [api, setApi] = useState<Map<string, any>>(new Map());
 
   useEffect(() => {
+    if (!location.state || location.state.detailId == null) {
+      navigate("/agenda");
+      return;
+    }
+    setDetailId(location.state.detailId);
+    // console.log(detailId)
     const fetchData = async () => {
       try {
         const newData = await getPostData();
@@ -16,20 +26,20 @@ export const Chat = () => {
         // console.log(newData);
 
         if (newData !== null) {
-          const a = newData.get("0");
-          const b = a["speechRecord"];
+          // console.log("eeeee" + detailId);
+          // const a = newData.get(location.state.detailId);
+          // const b = a["speechRecord"];
           // console.log(a);
           // console.log(newData);
 
-          // 初期のapiがどのような構造を持っているかわからないため、型もanyとしています。
           const apis: Map<string, any> = newData;
 
           // 新しいMapを作成する
           const newMap = new Map(
-            Array.from(apis).filter(([key, value]) => key === "0"),
+            Array.from(apis).filter(
+              ([key, value]) => key === location.state.detailId,
+            ),
           );
-
-          console.log(newMap);
 
           setApi(newMap);
           // setSpeaker(speakers);
@@ -42,7 +52,7 @@ export const Chat = () => {
     };
 
     fetchData();
-  }, []);
+  }, [location.state]);
   return (
     <section>
       {
@@ -50,7 +60,7 @@ export const Chat = () => {
           {Array.from(api).map(([keys, values], index) => {
             const pickData = new Map(Object.entries(values));
             const speechRecords = pickData.get("speechRecord");
-            console.log("values");
+            // console.log("values");
             return (
               <span
                 key={keys}

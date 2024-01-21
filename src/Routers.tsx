@@ -5,6 +5,7 @@ import { Terms } from "./pages/terms";
 import { Agenda } from "./pages/admin/agenda";
 import { Navbar } from "./component/navbar";
 import { Chat } from "./pages/admin/chat";
+import NotFound from "./component/notFound";
 
 export const Routers = () => {
   return (
@@ -17,6 +18,7 @@ export const Routers = () => {
           <Route path="/terms" element={<Terms />} />
           <Route path="/agenda" element={<Agenda />} />
           <Route path="/chat" element={<Chat />} />
+          <Route path="/*" element={<NotFound />} />
         </Routes>
       </BrowserRouter>
     </div>
