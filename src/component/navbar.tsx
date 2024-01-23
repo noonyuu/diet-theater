@@ -2,7 +2,7 @@ import { RxHamburgerMenu } from "react-icons/rx";
 
 export const Navbar = () => {
   return (
-    <div className="navbar bg-white">
+    <div className="navbar sticky top-0 z-50 p-0 h-[10%] bg-main-color">
       <div className="flex-none">
         <button className="btn btn-ghost text-lg">
           <RxHamburgerMenu />
