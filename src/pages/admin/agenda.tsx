@@ -47,7 +47,8 @@ export const Agenda = () => {
     <section className="bg-bac-main">
       <div>
         <p className="pt-8 text-center font-bold">
-          新規作成する議題を選んでください
+          {/* 新規作成する議題を選んでください */}
+          議題検索
         </p>
         <div className="my-4 flex justify-center">
           <Form title="議題名" />
