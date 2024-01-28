@@ -12,7 +12,7 @@ export const Routers = () => {
   return (
     <>
       <HamburgerMenu />
-      <main className="min-h-[calc(100vh-10vh)] bg-bac-main pt-[5vh]">
+      <main className="min-h-[calc(100vh-5vh)] bg-bac-main pt-[5vh]">
         <BrowserRouter>
           <Routes>
             <Route path="/" element={<App />}></Route>
