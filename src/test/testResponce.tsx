@@ -10,7 +10,7 @@ export const getPostDatas = async (): Promise<Map<string, any> | null> => {
   try {
     const all = Data.all;
     const dataMap = new Map<string, any>(Object.entries(all));
-    const meetingRecord: MeetingRecord = dataMap.get("chiled_speechRecords");
+    const meetingRecord: MeetingRecord = dataMap.get("childe_speechRecords");
 
     if (!meetingRecord) {
       return null;

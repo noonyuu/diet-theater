@@ -1,7 +1,7 @@
 export const Footer = () => {
   return (
     <footer className="h-[5vh] bg-white">
-      <div className="h-full w-full max-w-screen-xl">
+      <div className="h-full w-full">
         <p className="my-auto h-full text-sm text-gray-500 flex items-center justify-center">
           © 2023{" "}
           <a href="#" className="hover:underline">

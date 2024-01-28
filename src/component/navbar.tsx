@@ -9,7 +9,7 @@ export default function App() {
   };
 
   return (
-    <header className="ml-4 flex py-3 h-[5vh]">
+    <header className="ml-4 flex h-[5vh] fixed z-50 bg-white w-screen">
       {/* humbergerbutton */}
       <button
         onClick={handleMenuOpen}
