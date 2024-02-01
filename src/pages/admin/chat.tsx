@@ -4,12 +4,12 @@ import { getPostData } from "../../hooks/getOriginal";
 import icon from "../../assets/icon.png";
 import React, { useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
-import { Button } from "../../component/button";
 import { FaSearch } from "react-icons/fa";
 
 ///
 import Data from "../../test/test.json";
 import ListSvg from "../../assets/ListSvg";
+import { iconRandomColor } from "../../logic/iconRandomColor";
 ///
 
 export const Chat = () => {
@@ -87,40 +87,39 @@ export const Chat = () => {
             const formattedSpeech = origin[i]?.speech
               ? origin[i].speech.replace(/\r\n/g, "\n")
               : null;
-
-            return (
-              <React.Fragment key={i}>
-                {i % 2 === 0 ? (
-                  <div className="flex items-end justify-start">
-                    <div className="w-24 text-center">
-                      <ListSvg
-                        fill="#FF0000"
-                        style={{ margin: "auto" }}
-                        color={"blue"}
-                      />
-                      <p className="pt-1 text-sm md:text-lg">
-                        {origin[i]?.speaker}
-                      </p>
+              return (
+                <React.Fragment key={i}>
+                  {i % 2 === 0 ? (
+                    <div className="flex items-end justify-start">
+                      <div className="w-24 text-center">
+                        <ListSvg
+                          fill="#FF0000"
+                          style={{ margin: "auto" }}
+                          color={iconRandomColor()}
+                        />
+                        <p className="pt-1 text-sm md:text-lg">
+                          {origin[i]?.speaker}
+                        </p>
+                      </div>
+                      <BubbleRight content={formattedSpeech} />
                     </div>
-                    <BubbleRight content={formattedSpeech} />
-                  </div>
-                ) : (
-                  <div className="flex items-end justify-end">
-                    <BubbleLeft content={formattedSpeech} />
-                    <div className="w-24 text-center">
-                      <ListSvg
-                        fill="#FF0000"
-                        style={{ margin: "auto" }}
-                        color={"blue"}
-                      />
-                      <p className="pt-1 text-sm md:text-lg">
-                        {origin[i]?.speaker}
-                      </p>
+                  ) : (
+                    <div className="flex items-end justify-end">
+                      <BubbleLeft content={formattedSpeech} />
+                      <div className="w-24 text-center">
+                        <ListSvg
+                          fill="#FF0000"
+                          style={{ margin: "auto" }}
+                          color={iconRandomColor()}
+                        />
+                        <p className="pt-1 text-sm md:text-lg">
+                          {origin[i]?.speaker}
+                        </p>
+                      </div>
                     </div>
-                  </div>
-                )}
-              </React.Fragment>
-            );
+                  )}
+                </React.Fragment>
+              );
           })}
         </span>
       </div>

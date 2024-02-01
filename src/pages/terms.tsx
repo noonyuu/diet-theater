@@ -3,13 +3,13 @@ import { Button } from "../component/button";
 
 export const Terms = () => {
   const navigate = useNavigate();
-  const addTask = () => {
-    navigate("/");
+  const next = () => {
+    navigate("/agenda");
   };
 
   return (
     <div className="flex justify-center">
-      <div className="text-custom-black mx-[10%] my-[5%] w-10/12 bg-white p-[5%]">
+      <div className="mx-[10%] my-[5%] w-10/12 bg-white p-[5%] text-custom-black">
         <h1 className="mb-16 text-center text-4xl font-bold">利用規約</h1>
         <p>
           この規約はお客様が、神楽（以下「神楽」）が提供する「国会劇場」サービス（以下「本サービス」）
@@ -167,13 +167,13 @@ export const Terms = () => {
           <Button
             name="同意しない"
             color="bg-white"
-            action=""
+            action="/"
             decoration="w-56 h-16 rounded-lg text-main-color border-2 border-main-color text-main-color"
           />
           <Button
             name="同意する"
             color="bg-main-color"
-            action=""
+            action={next}
             decoration="w-56 h-16 rounded-lg text-white"
           />
         </section>

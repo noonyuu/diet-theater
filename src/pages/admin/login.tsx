@@ -4,7 +4,7 @@ import { Button } from "../../component/button";
 
 export const LoginPage = () => {
   return (
-    <div className="flex items-center justify-center h-full">
+    <div className="flex min-h-[calc(100vh-5vh)] items-center justify-center">
       <div className="h-[60vh] w-[80vw] border border-black md:w-[50vw]">
         <form
           action=""
@@ -39,3 +39,4 @@ export const LoginPage = () => {
     </div>
   );
 };
+
