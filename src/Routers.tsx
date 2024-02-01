@@ -15,7 +15,7 @@ export const Routers = () => {
       <main className="min-h-[calc(100vh-5vh)] bg-bac-main pt-[5vh]">
         <BrowserRouter>
           <Routes>
-            <Route path="/" element={<App />}></Route>
+            <Route path="/" element={<Terms />}></Route>
             <Route path="/login" element={<LoginPage />}></Route>
             <Route path="/terms" element={<Terms />} />
             <Route path="/agenda" element={<Agenda />} />
