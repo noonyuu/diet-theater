@@ -9,7 +9,7 @@ export default function App() {
   };
 
   return (
-    <header className="pl-4 flex h-[5vh] fixed z-50 bg-white w-screen">
+    <header className="fixed z-50 flex h-[5vh] w-screen bg-white pl-4">
       {/* humbergerbutton */}
       <button
         onClick={handleMenuOpen}
@@ -44,7 +44,7 @@ export default function App() {
       <nav
         className={
           openMenu
-            ? "fixed left-0 top-0 z-40 flex h-screen w-1/5 flex-col justify-start bg-white pt-8 text-left duration-300 ease-linear"
+            ? "fixed left-0 top-0 z-40 flex h-screen w-3/5 flex-col justify-start bg-white pt-8 text-left duration-300 ease-linear lg:w-1/5"
             : "fixed right-[-100%] duration-300 ease-linear"
         }
       >
