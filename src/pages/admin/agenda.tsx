@@ -61,7 +61,7 @@ export const Agenda = () => {
         </div>
       </div>
       <div className="overflow-x-auto p-4 ">
-        <table className="table mx-auto w-4/5 bg-white shadow-md shadow-slate-200 lg:w-2/3">
+        <table className="table mx-auto bg-white shadow-md shadow-slate-200 lg:w-2/3">
           {/* head */}
           <thead className="bg-sub_blue">
             <tr>
@@ -86,10 +86,10 @@ export const Agenda = () => {
                   <td className="hidden rounded-bl-xl lg:table-cell">
                     <>第{pickData.get("session")}回</>
                   </td>
-                  <td>
+                  <td className="p-0 text-center">
                     <>{pickData.get("nameOfHouse")}</>
                   </td>
-                  <td className="lg:text:lg md:text-md text-xs">
+                  <td className="lg:text:lg md:text-md p-0 text-center text-xs">
                     <>{pickData.get("nameOfMeeting")}</>
                   </td>
                   <td className="hidden lg:table-cell">
