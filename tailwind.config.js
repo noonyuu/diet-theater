@@ -4,12 +4,16 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        "main-color": "#A2B0C7",
-        "sub_blue": "#E8EDF4",
+        "main-color": "#8FCDDB",
+        "sub_blue": "#DEF0F5",
         "custom-black": "#323232",
         "chat": "#FDFDFD",
         "bac-main": "#FBFBFB",
       },
+    },
+    fontFamily: {
+      meiryo: ['メイリオ'],
+      nikomoji: ['nikomoji-plus-v2'],
     },
   },
   plugins: [require("daisyui")],

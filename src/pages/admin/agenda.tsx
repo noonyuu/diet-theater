@@ -44,9 +44,9 @@ export const Agenda = () => {
   }, []);
 
   return (
-    <section className="bg-bac-main">
+    <section className="bg-bac-main font-meiryo">
       <div>
-        <p className="pt-8 text-center font-bold">
+        <p className="text-lg pt-10  text-center font-bold">
           {/* 新規作成する議題を選んでください */}
           議題検索
         </p>
@@ -63,18 +63,14 @@ export const Agenda = () => {
       <div className="overflow-x-auto p-4 ">
         <table className="table mx-auto bg-white shadow-md shadow-slate-200 lg:w-2/3">
           {/* head */}
-          <thead className="bg-sub_blue">
-            <tr>
-              <th className="hidden rounded-tl-xl lg:table-cell lg:min-w-[10%]">
-                国会回次
-              </th>
-              <th className="lg:table-cel min-w-[30%] rounded-tl-xl lg:min-w-[10%] lg:rounded-none">
-                院名
-              </th>
-              <th className="min-w-[40%] lg:min-w-[30%]">会議名</th>
-              <th className="hidden lg:table-cell lg:min-w-[10%]">号数</th>
-              <th className="hidden lg:table-cell lg:min-w-[10%]">実施年月</th>
-              <th className="min-w-[30%] rounded-tr-xl lg:min-w-[20%]"></th>
+          <thead className="bg-main-color">
+            <tr className="text-base">
+              <th className="hidden rounded-tl-xl lg:table-cell lg:min-w-[10%] text-white">国会回次</th>
+              <th className="lg:table-cel min-w-[30%] rounded-tl-xl lg:min-w-[10%] lg:rounded-none text-white">院名</th>
+              <th className="min-w-[40%] lg:min-w-[30%] text-white">会議名</th>
+              <th className="hidden lg:table-cell lg:min-w-[10%] text-white">号数</th>
+              <th className="hidden lg:table-cell lg:min-w-[10%] text-white">実施年月</th>
+              <th className="min-w-[30%] rounded-tr-xl lg:min-w-[20%] rounded-tr-xl"></th>
             </tr>
           </thead>
           <tbody>

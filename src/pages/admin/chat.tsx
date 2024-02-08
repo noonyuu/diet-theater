@@ -235,13 +235,13 @@ export const Chat = () => {
     <section className=" left-0 h-full pt-2">
       <div
         role="tablist"
-        className="tabs-boxed tabs fixed right-1 top-0 z-50 flex h-[5%] items-center justify-end space-x-2 bg-white"
+        className="tabs-boxed tabs fixed right-1 top-0 z-50 flex h-[5%] items-center justify-end space-x-2 bg-sub_blue"
       >
         <a
           role="tab"
           className={`tab ${activeTab === 1 ? "tab-active" : ""} text-black`}
           onClick={() => handleTabClick(1)}
-          style={{ backgroundColor: activeTab === 1 ? "RGB(162,176,199)" : "" }}
+          style={{ backgroundColor: activeTab === 1 ? "RGB(143, 205, 219)" : "" }}
         >
           原文
         </a>
@@ -249,7 +249,7 @@ export const Chat = () => {
           role="tab"
           className={`tab ${activeTab === 2 ? "tab-active" : ""} text-black`}
           onClick={() => handleTabClick(2)}
-          style={{ backgroundColor: activeTab === 2 ? "RGB(162,176,199)" : "" }}
+          style={{ backgroundColor: activeTab === 2 ? "RGB(143, 205, 219)" : "" }}
         >
           要約
         </a>
@@ -257,7 +257,7 @@ export const Chat = () => {
           role="tab"
           className={`tab ${activeTab === 3 ? "tab-active" : ""} text-black`}
           onClick={() => handleTabClick(3)}
-          style={{ backgroundColor: activeTab === 3 ? "RGB(162,176,199)" : "" }}
+          style={{ backgroundColor: activeTab === 3 ? "RGB(143, 205, 219)" : "" }}
         >
           簡易
         </a>
