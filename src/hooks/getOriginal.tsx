@@ -7,7 +7,7 @@ interface MeetingRecord {
 export const getPostData = async (): Promise<Map<string, any> | null> => {
   try {
     const response = await axios.get(
-      "https://kokkai.ndl.go.jp/api/meeting?sessionFrom=1&sessionTo=3&nameOfHouse=両院協議会&issueFrom=1&recordPacking=json",
+      "https://kokkai.ndl.go.jp/api/meeting?sessionFrom=1&sessionTo=10&nameOfHouse=両院協議会&issueFrom=1&maximumRecords=5&recordPacking=json",
     );
 
     const dataMap = new Map<string, any>(Object.entries(response.data));
