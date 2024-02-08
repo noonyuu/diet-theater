@@ -7,10 +7,15 @@ import { useLocation, useNavigate } from "react-router-dom";
 import { IoReturnDownBack } from "react-icons/io5";
 
 ///
-import Data from "../../test/test.json";
+import DataDefo from "../../test/defo.json";
+import Data0 from "../../test/test0.json";
+import Data1 from "../../test/test1.json";
+import Data2 from "../../test/test2.json";
+import Data3 from "../../test/test3.json";
 import ListSvg from "../../assets/ListSvg";
 import { iconRandomColor } from "../../logic/iconRandomColor";
 import { Button } from "../../component/button";
+import { testSetData } from "../../test/testSet";
 ///
 
 export const Chat = () => {
@@ -21,9 +26,9 @@ export const Chat = () => {
   const [api, setApi] = useState<Map<string, any>>(new Map());
   const [activeTab, setActiveTab] = useState(1);
 
-   const returnBack = () => {
-     navigate("/agenda");
-   };
+  const returnBack = () => {
+    navigate("/agenda");
+  };
 
   useEffect(() => {
     if (!location.state || location.state.detailId == null) {
@@ -79,10 +84,9 @@ export const Chat = () => {
       speech: string;
     };
   }
-
-  const concise: SpeechRecord = Data.all.concise_speechRecords;
-  const child: SpeechRecord = Data.all.childe_speechRecords;
-  const origin: SpeechRecord = Data.all.original_speechRecords;
+  let concise: SpeechRecord = testSetData(location.state.detailId)[0];
+  let child: SpeechRecord = testSetData(location.state.detailId)[1];
+  let origin: SpeechRecord = testSetData(location.state.detailId)[2];
 
   const TabContent1 = () => {
     return (
@@ -92,39 +96,39 @@ export const Chat = () => {
             const formattedSpeech = origin[i]?.speech
               ? origin[i].speech.replace(/\r\n/g, "\n")
               : null;
-              return (
-                <React.Fragment key={i}>
-                  {i % 2 === 0 ? (
-                    <div className="flex items-end justify-start">
-                      <div className="w-24 text-center">
-                        <ListSvg
-                          fill="#FF0000"
-                          style={{ margin: "auto" }}
-                          color={iconRandomColor()}
-                        />
-                        <p className="pt-1 text-sm md:text-lg">
-                          {origin[i]?.speaker}
-                        </p>
-                      </div>
-                      <BubbleRight content={formattedSpeech} />
+            return (
+              <React.Fragment key={i}>
+                {i % 2 === 0 ? (
+                  <div className="flex items-end justify-start">
+                    <div className="w-24 text-center">
+                      <ListSvg
+                        fill="#FF0000"
+                        style={{ margin: "auto" }}
+                        color={iconRandomColor()}
+                      />
+                      <p className="pt-1 text-sm md:text-lg">
+                        {origin[i]?.speaker}
+                      </p>
                     </div>
-                  ) : (
-                    <div className="flex items-end justify-end">
-                      <BubbleLeft content={formattedSpeech} />
-                      <div className="w-24 text-center">
-                        <ListSvg
-                          fill="#FF0000"
-                          style={{ margin: "auto" }}
-                          color={iconRandomColor()}
-                        />
-                        <p className="pt-1 text-sm md:text-lg">
-                          {origin[i]?.speaker}
-                        </p>
-                      </div>
+                    <BubbleRight content={formattedSpeech} />
+                  </div>
+                ) : (
+                  <div className="flex items-end justify-end">
+                    <BubbleLeft content={formattedSpeech} />
+                    <div className="w-24 text-center">
+                      <ListSvg
+                        fill="#FF0000"
+                        style={{ margin: "auto" }}
+                        color={iconRandomColor()}
+                      />
+                      <p className="pt-1 text-sm md:text-lg">
+                        {origin[i]?.speaker}
+                      </p>
                     </div>
-                  )}
-                </React.Fragment>
-              );
+                  </div>
+                )}
+              </React.Fragment>
+            );
           })}
         </span>
       </div>
@@ -282,11 +286,13 @@ export const Chat = () => {
         name={<IoReturnDownBack />}
         color="bg-white text-black"
         action={returnBack}
-        decoration="rounded-lg border border-black fixed z-49"
+        decoration="rounded-lg border border-black fixed z-[49]"
       />
-      {activeTab === 1 && <TabContent1 />}
-      {activeTab === 2 && <TabContent2 />}
-      {activeTab === 3 && <TabContent3 />}
+      <div className="mt-10">
+        {activeTab === 1 && <TabContent1 />}
+        {activeTab === 2 && <TabContent2 />}
+        {activeTab === 3 && <TabContent3 />}
+      </div>
     </section>
   );
 };
