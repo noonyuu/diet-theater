@@ -61,16 +61,16 @@ export const Agenda = () => {
         </div>
       </div>
       <div className="overflow-x-auto p-4 ">
-        <table className="table mx-auto w-2/3 bg-white shadow-md shadow-slate-200">
+        <table className="table mx-auto bg-white shadow-md shadow-slate-200 lg:w-2/3">
           {/* head */}
           <thead className="bg-main-color">
             <tr className="text-base">
-              <th className="w-[10%]  rounded-tl-xl text-white">国会回次</th>
-              <th className="w-[10%] text-white">院名</th>
-              <th className="w-[30%] text-white">会議名</th>
-              <th className="w-[10%] text-white">号数</th>
-              <th className="w-[20%] text-white">実施年月</th>
-              <th className="w-[20%] rounded-tr-xl"></th>
+              <th className="hidden rounded-tl-xl lg:table-cell lg:min-w-[10%] text-white">国会回次</th>
+              <th className="lg:table-cel min-w-[30%] rounded-tl-xl lg:min-w-[10%] lg:rounded-none text-white">院名</th>
+              <th className="min-w-[40%] lg:min-w-[30%] text-white">会議名</th>
+              <th className="hidden lg:table-cell lg:min-w-[10%] text-white">号数</th>
+              <th className="hidden lg:table-cell lg:min-w-[10%] text-white">実施年月</th>
+              <th className="min-w-[30%] rounded-tr-xl lg:min-w-[20%] rounded-tr-xl"></th>
             </tr>
           </thead>
           <tbody>
@@ -79,19 +79,19 @@ export const Agenda = () => {
 
               return (
                 <tr key={keys}>
-                  <td className="rounded-bl-xl">
+                  <td className="hidden rounded-bl-xl lg:table-cell">
                     <>第{pickData.get("session")}回</>
                   </td>
-                  <td>
+                  <td className="p-0 text-center">
                     <>{pickData.get("nameOfHouse")}</>
                   </td>
-                  <td>
+                  <td className="lg:text:lg md:text-md p-0 text-center text-xs">
                     <>{pickData.get("nameOfMeeting")}</>
                   </td>
-                  <td>
+                  <td className="hidden lg:table-cell">
                     <>第{pickData.get("session")}号</>
                   </td>
-                  <td>
+                  <td className="hidden lg:table-cell">
                     <>{pickData.get("date")}</>
                   </td>
                   <td className="rounded-br-xl">

@@ -4,12 +4,13 @@ import { getPostData } from "../../hooks/getOriginal";
 import icon from "../../assets/icon.png";
 import React, { useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
-import { FaSearch } from "react-icons/fa";
+import { IoReturnDownBack } from "react-icons/io5";
 
 ///
 import Data from "../../test/test.json";
 import ListSvg from "../../assets/ListSvg";
 import { iconRandomColor } from "../../logic/iconRandomColor";
+import { Button } from "../../component/button";
 ///
 
 export const Chat = () => {
@@ -19,6 +20,10 @@ export const Chat = () => {
   const [detailId, setDetailId] = useState("");
   const [api, setApi] = useState<Map<string, any>>(new Map());
   const [activeTab, setActiveTab] = useState(1);
+
+   const returnBack = () => {
+     navigate("/agenda");
+   };
 
   useEffect(() => {
     if (!location.state || location.state.detailId == null) {
@@ -273,6 +278,12 @@ export const Chat = () => {
           decoration="rounded-lg border border-black h-[50%]"
         />
       </div> */}
+      <Button
+        name={<IoReturnDownBack />}
+        color="bg-white text-black"
+        action={returnBack}
+        decoration="rounded-lg border border-black fixed z-49"
+      />
       {activeTab === 1 && <TabContent1 />}
       {activeTab === 2 && <TabContent2 />}
       {activeTab === 3 && <TabContent3 />}
