@@ -1,3 +1,4 @@
+
 import { useState, FormEvent } from "react";
 
 export const Form = (props: any) => {
@@ -11,7 +12,7 @@ export const Form = (props: any) => {
     <input
       type="text"
       id={props.label}
-      className="input w-[70%] border border-black bg-white text-black focus:border-black focus:outline-none"
+      className="input w-[70%] border border-black bg-white font-meiryo text-black focus:border-black focus:outline-none"
       name="text"
       autoComplete="off"
       value={name}

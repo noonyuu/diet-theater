@@ -44,9 +44,9 @@ export const Agenda = () => {
   }, []);
 
   return (
-    <section className="bg-bac-main">
+    <section className="bg-bac-main font-meiryo">
       <div>
-        <p className="pt-8 text-center font-bold">
+        <p className="text-lg pt-10  text-center font-bold">
           {/* 新規作成する議題を選んでください */}
           議題検索
         </p>
@@ -63,13 +63,13 @@ export const Agenda = () => {
       <div className="overflow-x-auto p-4 ">
         <table className="table mx-auto w-2/3 bg-white shadow-md shadow-slate-200">
           {/* head */}
-          <thead className="bg-sub_blue">
-            <tr>
-              <th className="w-[10%] rounded-tl-xl">国会回次</th>
-              <th className="w-[10%]">院名</th>
-              <th className="w-[30%]">会議名</th>
-              <th className="w-[10%]">号数</th>
-              <th className="w-[20%]">実施年月</th>
+          <thead className="bg-main-color">
+            <tr className="text-base">
+              <th className="w-[10%]  rounded-tl-xl text-white">国会回次</th>
+              <th className="w-[10%] text-white">院名</th>
+              <th className="w-[30%] text-white">会議名</th>
+              <th className="w-[10%] text-white">号数</th>
+              <th className="w-[20%] text-white">実施年月</th>
               <th className="w-[20%] rounded-tr-xl"></th>
             </tr>
           </thead>
