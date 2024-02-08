@@ -3,6 +3,7 @@ import Data0 from "./test0.json";
 import Data1 from "./test1.json";
 import Data2 from "./test2.json";
 import Data3 from "./test3.json";
+import Data4 from "./test4.json";
 
 interface SpeechRecord {
   [key: string]: {
@@ -39,6 +40,12 @@ export const testSetData = (num: string) => {
       concise = Data3.all.concise_speechRecords;
       child = Data3.all.childe_speechRecords;
       origin = Data3.all.original_speechRecords;
+      break;
+    }
+    case "4": {
+      concise = Data4.all.concise_speechRecords;
+      child = Data4.all.childe_speechRecords;
+      origin = Data4.all.original_speechRecords;
       break;
     }
   }
