@@ -8,8 +8,8 @@ export const Terms = () => {
   };
 
   return (
-    <div className="flex justify-center">
-      <div className="mx-[10%] my-[5%] w-10/12 bg-white p-[5%] text-custom-black">
+    <section className="flex justify-center font-meiryo">
+      <div className="mx-[10%] my-[5%] w-10/12 bg-white p-[5%] text-custom-black shadow-md shadow-slate-200">
         <h1 className="mb-16 text-center text-4xl font-bold">利用規約</h1>
         <p>
           この規約はお客様が、神楽（以下「神楽」）が提供する「国会劇場」サービス（以下「本サービス」）
@@ -18,7 +18,7 @@ export const Terms = () => {
         {/* 第1条 */}
         <section>
           <h2 className="mb-4 mt-16 font-bold">第一条（適用）</h2>
-          <p>本規約上で使用する用語の定義は、次に掲げるとおりとします。</p>
+          <p >本規約上で使用する用語の定義は、次に掲げるとおりとします。</p>
           <ol className="m-6 list-outside list-decimal">
             <li className="py-1">
               <div className="flex items-start">
@@ -156,7 +156,7 @@ export const Terms = () => {
             </li>
             <li className="py-1">
               <div className="flex items-start">
-                <span className="whitespace-pre-line ">
+                <span className="whitespace-pre-line">
                   その他、当社が不適切と判断した行為
                 </span>
               </div>
@@ -168,16 +168,16 @@ export const Terms = () => {
             name="同意しない"
             color="bg-white"
             action="/"
-            decoration="w-32 h-12 text-sm md:test:md md:w-56 md:h-16 rounded-lg text-main-color border-2 border-main-color text-main-color"
+            decoration="w-32 h-12 text-sm md:test-md md:w-40 md:h-13 rounded-lg text-main-color border-4 border-main-color text-main-color mr-10 shadow-md shadow-slate-400"
           />
           <Button
             name="同意する"
             color="bg-main-color"
             action={next}
-            decoration="w-32 h-12 md:w-56 md:h-16 rounded-lg text-white"
+            decoration="w-32 h-12 text-sm md:test-md md:w-40 md:h-13 rounded-lg text-white font-black shadow-md shadow-slate-400"
           />
         </section>
       </div>
-    </div>
+    </section>
   );
 };
