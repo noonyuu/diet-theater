@@ -168,13 +168,13 @@ export const Terms = () => {
             name="同意しない"
             color="bg-white"
             action="/"
-            decoration="w-56 h-16 rounded-lg text-main-color border-2 border-main-color text-main-color"
+            decoration="w-32 h-12 text-sm md:test:md md:w-56 md:h-16 rounded-lg text-main-color border-2 border-main-color text-main-color"
           />
           <Button
             name="同意する"
             color="bg-main-color"
             action={next}
-            decoration="w-56 h-16 rounded-lg text-white"
+            decoration="w-32 h-12 md:w-56 md:h-16 rounded-lg text-white"
           />
         </section>
       </div>
