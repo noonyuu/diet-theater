@@ -11,7 +11,7 @@ export const Terms = () => {
       localStorage.setItem("terms", "yes");
       setTerms(true);
     } catch (e) {
-      
+      console.log(e);
     }
     navigate("/agenda");
   };
@@ -22,7 +22,7 @@ export const Terms = () => {
 
   useEffect(() => {
     localStorage.getItem("terms") ? navigate("/agenda") : navigate("/");
-  });
+  },[terms]);
 
   return (
     <section className="flex justify-center font-meiryo">
