@@ -11,12 +11,14 @@ services:
       - ./back:/back
     environment:
       - TZ=Asia/Tokyo
+    networks:
+      - backend
     restart: always
     tty: true
 
   db_diet:
     image: mysql:8.0
-    container_name: diet_db
+    container_name: db_diet
     build: 
       context: .docker/db
     volumes:
@@ -37,7 +39,7 @@ services:
     ports:
       - "3306:3306"
     networks:
-      - back
+      - backend
     tty: true
     stdin_open: true
 
@@ -45,4 +47,4 @@ volumes:
   db_data_diet:
 
 networks:
-  back:
+  backend:
