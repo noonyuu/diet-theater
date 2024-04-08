@@ -1,3 +1,9 @@
-FROM golang:1.20.13-bullseye
+FROM golang
 
-WORKDIR /root/back
+WORKDIR /back
+
+COPY . .
+
+RUN go build -o main .
+
+CMD ["./main"]
