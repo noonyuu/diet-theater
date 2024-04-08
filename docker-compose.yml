@@ -13,3 +13,36 @@ services:
       - TZ=Asia/Tokyo
     restart: always
     tty: true
+
+  db_diet:
+    image: mysql:8.0
+    container_name: diet_db
+    build: 
+      context: .docker/db
+    volumes:
+      - db_data_diet:/var/lib/mysql
+      - type: bind
+        source: './.docker/db/my.cnf'
+        target: '/etc/mysql/conf.d/my.cnf'
+      - type: bind
+        source: './.docker/db/init.sql'
+        target: '/docker-entrypoint-initdb.d/init.sql'
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+      MYSQL_DATABASE: ${MYSQL_DATABASE}
+      MYSQL_USER: ${MYSQL_USER}
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD}
+    command: mysqld --character-set-server=utf8 --collation-server=utf8_unicode_ci --default-time-zone=Asia/Tokyo
+    ports:
+      - "3306:3306"
+    networks:
+      - back
+    tty: true
+    stdin_open: true
+
+volumes:
+  db_data_diet:
+
+networks:
+  back:
