@@ -262,7 +262,7 @@ export const Chat = () => {
     <section className=" left-0 h-full pt-[5%]">
       <div
         role="tablist"
-        className="tabs-boxed tabs fixed right-1 top-0 z-50 flex h-[10%] items-center justify-end space-x-2 bg-sub_blue lg:h-[7%]"
+        className="tabs-boxed tabs fixed right-1 top-0 z-50 flex h-[10%] items-center justify-end space-x-2 bg-white lg:h-[7%]"
       >
         <a
           role="tab"
