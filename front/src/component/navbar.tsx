@@ -9,9 +9,9 @@ export default function App() {
   };
 
   return (
-      <header className="pl-4 flex h-[10vh] lg:h-[7vh] fixed z-50 bg-sub_blue w-screen shadow-md">
+      <header className="pl-4 flex h-[10%] lg:h-[7%] fixed z-50 bg-sub_blue w-screen shadow-md">
       {/* humbergerbutton */}
-      <button
+      {/* <button
         onClick={handleMenuOpen}
         type="button"
         className="z-50 space-y-2 pr-8"
@@ -37,7 +37,7 @@ export default function App() {
               : "h-0.5 w-8 bg-gray-600 transition duration-500 ease-in-out"
           }
         />
-      </button>
+      </button> */}
       <h1 className="flex items-center font-bold text-xl">国会劇場</h1>
 
       {/* nav */}
