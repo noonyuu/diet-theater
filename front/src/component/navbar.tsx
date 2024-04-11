@@ -9,7 +9,7 @@ export default function App() {
   };
 
   return (
-      <header className="pl-4 flex h-[5vh] fixed z-50 bg-sub_blue w-screen shadow-md">
+      <header className="pl-4 flex h-[10vh] fixed z-50 bg-sub_blue w-screen shadow-md">
       {/* humbergerbutton */}
       <button
         onClick={handleMenuOpen}
@@ -38,7 +38,7 @@ export default function App() {
           }
         />
       </button>
-      <h1 className="flex items-center font-bold">国会劇場</h1>
+      <h1 className="flex items-center font-bold text-xl">国会劇場</h1>
 
       {/* nav */}
       <nav

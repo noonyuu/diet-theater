@@ -27,7 +27,7 @@ export const Agenda = () => {
       try {
         const newData = await getPostData();
         const speakers = newData?.get("speechRecord");
-        console.log(newData);
+        console.log("agenda",newData);
 
         if (newData !== null) {
           setApi(newData);
@@ -46,7 +46,7 @@ export const Agenda = () => {
   return (
     <section className="bg-bac-main font-meiryo">
       <div>
-        <p className="text-lg pt-10  text-center font-bold">
+        <p className="text-lg pt-[10%] text-center font-bold">
           {/* 新規作成する議題を選んでください */}
           議題検索
         </p>
@@ -71,7 +71,7 @@ export const Agenda = () => {
               <th className="min-w-[40%] lg:min-w-[30%] text-white">会議名</th>
               <th className="hidden lg:table-cell lg:min-w-[10%] text-white">号数</th>
               <th className="hidden lg:table-cell lg:min-w-[10%] text-white">実施年月</th>
-              <th className="min-w-[30%] rounded-tr-xl lg:min-w-[20%] rounded-tr-xl"></th>
+              <th className="min-w-[30%] rounded-tr-xl lg:min-w-[20%]"></th>
             </tr>
           </thead>
           <tbody>
