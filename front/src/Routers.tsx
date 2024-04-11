@@ -8,13 +8,14 @@ import NotFound from "./component/notFound";
 import HamburgerMenu from "./component/navbar";
 import { Footer } from "./component/footer";
 import { ContextWrapper } from "./context/ContextWrapper";
+import Secret from "./secret/Secret";
 
 export const Routers = () => {
   return (
     <>
       <ContextWrapper>
         <HamburgerMenu />
-        <main className="min-h-[calc(100vh-5vh)] bg-bac-main pt-[5vh]">
+        <main className="min-h-[calc(100vh-10vh)] bg-bac-main pt-[5vh] lg:min-h-[calc(100vh-7vh)]">
           <BrowserRouter>
             <Routes>
               <Route path="/" element={<Terms />}></Route>
@@ -22,6 +23,7 @@ export const Routers = () => {
               <Route path="/terms" element={<Terms />} />
               <Route path="/agenda" element={<Agenda />} />
               <Route path="/chat" element={<Chat />} />
+              <Route path="secret/*" element={<Secret />} />
               <Route path="/*" element={<NotFound />} />
             </Routes>
           </BrowserRouter>

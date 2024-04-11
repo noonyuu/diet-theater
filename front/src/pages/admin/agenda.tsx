@@ -1,9 +1,12 @@
 import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
+// icon
+import { IoIosChatboxes } from "react-icons/io";
+import { FaSearch } from "react-icons/fa";
+// fail to import
 import { getPostData } from "../../hooks/getOriginal";
 import { Form } from "../../component/form";
-import { FaSearch } from "react-icons/fa";
 import { Button } from "../../component/button";
-import { useNavigate } from "react-router-dom";
 
 export const Agenda = () => {
   const navigate = useNavigate();
@@ -44,15 +47,14 @@ export const Agenda = () => {
   }, []);
 
   return (
-    <section className="bg-bac-main font-meiryo">
-      <div>
-        <p className="text-lg pt-[10%] text-center font-bold">
-          {/* 新規作成する議題を選んでください */}
+    // pt-[5%]は仮置き
+    <section className="bg-bac-main font-meiryo pt-[5%]">
+      {/* <div>
+        <p className="pt-[10%] text-center text-lg font-bold">
           議題検索
         </p>
         <div className="my-4 flex justify-center">
           <Form title="議題名" />
-          {/* TODO: ここでエラーがでる */}
           <Button
             name={<FaSearch />}
             color="bg-white text-black"
@@ -60,18 +62,26 @@ export const Agenda = () => {
             decoration="rounded-lg border border-black"
           />
         </div>
-      </div>
+      </div> */}
       <div className="overflow-x-auto p-4 ">
         <table className="table mx-auto bg-white shadow-md shadow-slate-200 lg:w-2/3">
           {/* head */}
           <thead className="bg-main-color">
-            <tr className="text-base">
-              <th className="hidden rounded-tl-xl lg:table-cell lg:min-w-[10%] text-white">国会回次</th>
-              <th className="lg:table-cel min-w-[30%] rounded-tl-xl lg:min-w-[10%] lg:rounded-none text-white">院名</th>
-              <th className="min-w-[40%] lg:min-w-[30%] text-white">会議名</th>
-              <th className="hidden lg:table-cell lg:min-w-[10%] text-white">号数</th>
-              <th className="hidden lg:table-cell lg:min-w-[10%] text-white">実施年月</th>
-              <th className="min-w-[30%] rounded-tr-xl lg:min-w-[20%]"></th>
+            <tr className="text-center text-base">
+              <th className="hidden rounded-tl-xl text-white lg:table-cell lg:min-w-[10%]">
+                国会回次
+              </th>
+              <th className="lg:table-cel max-w-[20%] rounded-tl-xl text-white lg:min-w-[10%] lg:rounded-none">
+                院名
+              </th>
+              <th className="w-[60%] text-white lg:w-[30%]">会議名</th>
+              <th className="hidden text-white lg:table-cell lg:min-w-[10%]">
+                号数
+              </th>
+              <th className="hidden text-white lg:table-cell lg:min-w-[10%]">
+                実施年月
+              </th>
+              <th className="max-w-[20%] rounded-tr-xl lg:min-w-[20%]"></th>
             </tr>
           </thead>
           <tbody>
@@ -79,7 +89,7 @@ export const Agenda = () => {
               const pickData = new Map(Object.entries(values));
 
               return (
-                <tr key={keys}>
+                <tr key={keys} className="text-center">
                   <td className="hidden rounded-bl-xl lg:table-cell">
                     <>第{pickData.get("session")}回</>
                   </td>
@@ -98,10 +108,10 @@ export const Agenda = () => {
                   <td className="rounded-br-xl">
                     <button
                       type="button"
-                      className="flex items-center gap-3 rounded-full bg-sub_blue p-2 text-xs"
+                      className="flex items-center rounded-full bg-sub_blue p-2"
                       onClick={() => detail(keys)}
                     >
-                      チャットを開く
+                      <IoIosChatboxes size={16}/>
                     </button>
                   </td>
                 </tr>

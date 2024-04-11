@@ -17,7 +17,18 @@ import { iconRandomColor } from "../../logic/iconRandomColor";
 import { Button } from "../../component/button";
 import { testSetData } from "../../test/testSet";
 ///
-
+interface Test {
+  ID: number;
+  IssueID: string;
+  Session: number;
+  NameOfHouse: string;
+  NameOfMeeting: string;
+  Issue: string;
+  Date: string;
+  CreatedAt: string;
+  UpdatedAt: string;
+  DeletedAt: string | null;
+}
 export const Chat = () => {
   const location = useLocation();
   const navigate = useNavigate();
@@ -31,6 +42,22 @@ export const Chat = () => {
   };
 
   useEffect(() => {
+    const fetchTest = async () => {
+      try {
+        const response = await fetch(
+          "http://localhost:8080/speech_record/select/all",
+        );
+        const data: Test = await response.json();
+        // setItems(data);
+        console.log(data);
+      } catch (error) {
+        console.error("Failed to fetch data:", error);
+        // setItems(null); // Ensure state is updated even on error
+      }
+    };
+
+    fetchTest();
+
     if (!location.state || location.state.detailId == null) {
       navigate("/agenda");
       return;
@@ -232,7 +259,7 @@ export const Chat = () => {
   };
 
   return (
-    <section className=" left-0 h-full pt-2">
+    <section className=" left-0 h-full pt-[5%]">
       <div
         role="tablist"
         className="tabs-boxed tabs fixed right-1 top-0 z-50 flex h-[5%] items-center justify-end space-x-2 bg-sub_blue"
@@ -241,7 +268,9 @@ export const Chat = () => {
           role="tab"
           className={`tab ${activeTab === 1 ? "tab-active" : ""} text-black`}
           onClick={() => handleTabClick(1)}
-          style={{ backgroundColor: activeTab === 1 ? "RGB(143, 205, 219)" : "" }}
+          style={{
+            backgroundColor: activeTab === 1 ? "RGB(143, 205, 219)" : "",
+          }}
         >
           原文
         </a>
@@ -249,7 +278,9 @@ export const Chat = () => {
           role="tab"
           className={`tab ${activeTab === 2 ? "tab-active" : ""} text-black`}
           onClick={() => handleTabClick(2)}
-          style={{ backgroundColor: activeTab === 2 ? "RGB(143, 205, 219)" : "" }}
+          style={{
+            backgroundColor: activeTab === 2 ? "RGB(143, 205, 219)" : "",
+          }}
         >
           要約
         </a>
@@ -257,7 +288,9 @@ export const Chat = () => {
           role="tab"
           className={`tab ${activeTab === 3 ? "tab-active" : ""} text-black`}
           onClick={() => handleTabClick(3)}
-          style={{ backgroundColor: activeTab === 3 ? "RGB(143, 205, 219)" : "" }}
+          style={{
+            backgroundColor: activeTab === 3 ? "RGB(143, 205, 219)" : "",
+          }}
         >
           簡易
         </a>
@@ -286,7 +319,7 @@ export const Chat = () => {
         name={<IoReturnDownBack />}
         color="bg-white text-black"
         action={returnBack}
-        decoration="rounded-lg border border-black fixed z-[49]"
+        decoration="rounded-lg border border-black fixed z-[49] top-[10%]"
       />
       <div className="mt-10">
         {activeTab === 1 && <TabContent1 />}
