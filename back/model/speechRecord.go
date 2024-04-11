@@ -1,9 +1,9 @@
 package model
 
 type SpeechRecord struct {
-	ID              uint   `gorm:"primaryKey"`                              // 複合主キーの一部としてIDを定義
+	ID              uint   `gorm:"primaryKey"`                        // 複合主キーの一部としてIDを定義
 	IssueID         string `gorm:"primaryKey;type:char(21);not null"` // 複合主キーの一部としてIssueIDを定義
-	SpeechID        string `gorm:"primaryKey;type:int;not null"`     // 複合主キーの一部としてSpeechIDを定義
+	SpeechID        string `gorm:"primaryKey;type:int;not null"`      // 複合主キーの一部としてSpeechIDを定義
 	Speaker         string `gorm:"type:varchar(16);not null"`
 	SpeekerYomi     string `gorm:"type:varchar(32)"`
 	SpeakerRole     string `gorm:"type:varchar(32)"`

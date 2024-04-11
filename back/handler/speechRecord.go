@@ -9,14 +9,18 @@ import (
 
 // スピーチレコードの登録
 func CreateSpeechRecord(c echo.Context) error {
-	speechRecord := new(model.SpeechRecord)
-	if err := c.Bind(speechRecord); err != nil {
-		return c.JSON(http.StatusBadRequest, err)
-	}
-	if err := model.RegisterSpeechRecord(speechRecord); err != nil {
-		return c.JSON(http.StatusInternalServerError, err)
-	}
-	return c.JSON(http.StatusCreated, speechRecord)
+    var speechRecords []*model.SpeechRecord
+    if err := c.Bind(&speechRecords); err != nil {
+        return c.JSON(http.StatusBadRequest, err)
+    }
+
+    for _, speechRecord := range speechRecords {
+        if err := model.RegisterSpeechRecord(speechRecord); err != nil {
+            return c.JSON(http.StatusInternalServerError, err)
+        }
+    }
+
+    return c.JSON(http.StatusCreated, speechRecords)
 }
 
 // 会議レコードの全件取得
