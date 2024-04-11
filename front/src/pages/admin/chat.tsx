@@ -262,7 +262,7 @@ export const Chat = () => {
     <section className=" left-0 h-full pt-[5%]">
       <div
         role="tablist"
-        className="tabs-boxed tabs fixed right-1 top-0 z-50 flex h-[5%] items-center justify-end space-x-2 bg-sub_blue"
+        className="tabs-boxed tabs fixed right-1 top-0 z-50 flex h-[10%] items-center justify-end space-x-2 bg-sub_blue lg:h-[7%]"
       >
         <a
           role="tab"
@@ -319,7 +319,7 @@ export const Chat = () => {
         name={<IoReturnDownBack />}
         color="bg-white text-black"
         action={returnBack}
-        decoration="rounded-lg border border-black fixed z-[49] top-[10%]"
+        decoration="rounded-lg border border-black fixed z-[49] top-[12%] lg:top-[9%]"
       />
       <div className="mt-10">
         {activeTab === 1 && <TabContent1 />}
