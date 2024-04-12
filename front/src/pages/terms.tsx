@@ -38,24 +38,24 @@ export const Terms = () => {
           <p>本規約上で使用する用語の定義は、次に掲げるとおりとします。</p>
           <ol className="m-6 list-outside list-decimal">
             <li className="py-1">
-              <div className="flex items-start">
-                <p className="min-w-[7em]">本サービス</p>
+              <div className="items-start lg:flex">
+                <p className="min-w-[7em] pb-3 lg:pb-0">本サービス</p>
                 <span className="whitespace-pre-line">
                   神楽が運営するサービス及びサービス
                 </span>
               </div>
             </li>
             <li className="py-1">
-              <div className="flex items-start">
-                <div className="min-w-[7em]">本サイト</div>
+              <div className="items-start lg:flex">
+                <p className="min-w-[7em] py-3 lg:py-0">本サイト</p>
                 <span className="whitespace-pre-line">
                   本サービスのコンテンツが掲載されたウェブサイト
                 </span>
               </div>
             </li>
             <li className="py-1">
-              <div className="flex items-start">
-                <span className="min-w-[7em]">本コンテンツ</span>
+              <div className="items-start lg:flex">
+                <p className="min-w-[7em] py-3 lg:py-0">本コンテンツ</p>
                 <span className="whitespace-pre-line">
                   本サービス上で提供される文字、音、静止画、動画、ソフトウェアプログラム、コード等の総称
                   (投稿情報を含む)
