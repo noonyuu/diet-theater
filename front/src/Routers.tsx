@@ -15,7 +15,7 @@ export const Routers = () => {
     <>
       <ContextWrapper>
         <HamburgerMenu />
-        <main className="min-h-[calc(100%-5%)] bg-bac-main pt-[15%] lg:pt-[7%] lg:min-h-[calc(100%-7%)]">
+        <main className="min-h-[calc(100%-5%)] bg-bac-main pt-[15%] lg:pt-[7%] lg:min-h-[calc(100%-5%)]">
           <BrowserRouter>
             <Routes>
               <Route path="/" element={<Terms />}></Route>
