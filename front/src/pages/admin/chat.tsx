@@ -114,98 +114,96 @@ export const Chat = () => {
   let concise: SpeechRecord = testSetData(location.state.detailId)[0];
   let child: SpeechRecord = testSetData(location.state.detailId)[1];
   let origin: SpeechRecord = testSetData(location.state.detailId)[2];
+  console.log("ppppp" , Object.entries(concise).length);
+  console.log("ppppp" , Object.entries(concise));
 
-  const TabContent1 = () => {
-    return (
-      <div>
-        <span className="whitespace-pre" style={{ whiteSpace: "pre-wrap" }}>
-          {Array.from({ length: 6 }, (_, i) => {
-            const formattedSpeech = origin[i]?.speech
-              ? origin[i].speech.replace(/\r\n/g, "\n")
-              : null;
-            return (
-              <React.Fragment key={i}>
-                {i % 2 === 0 ? (
-                  <div className="flex items-end justify-start">
-                    <div className="w-24 text-center">
-                      <ListSvg
-                        fill="#FF0000"
-                        style={{ margin: "auto" }}
-                        color={iconRandomColor()}
-                      />
-                      <p className="pt-1 text-sm md:text-lg">
-                        {origin[i]?.speaker}
-                      </p>
-                    </div>
-                    <BubbleRight content={formattedSpeech} />
-                  </div>
-                ) : (
-                  <div className="flex items-end justify-end">
-                    <BubbleLeft content={formattedSpeech} />
-                    <div className="w-24 text-center">
-                      <ListSvg
-                        fill="#FF0000"
-                        style={{ margin: "auto" }}
-                        color={iconRandomColor()}
-                      />
-                      <p className="pt-1 text-sm md:text-lg">
-                        {origin[i]?.speaker}
-                      </p>
-                    </div>
-                  </div>
-                )}
-              </React.Fragment>
-            );
-          })}
-        </span>
-      </div>
-    );
-  };
+const TabContent1 = () => {
+  return (
+    <div>
+      {Object.entries(origin).map(([key, value], i) => {
+        const formattedSpeech = value.speech
+          ? value.speech.replace(/\r\n/g, "\n")
+          : null;
 
+        return (
+          <span
+            key={key}
+            className="whitespace-pre"
+            style={{ whiteSpace: "pre-wrap" }}
+          >
+            {i % 2 === 0 ? (
+              <div className="flex items-end justify-start">
+                <div className="w-24 text-center">
+                  <ListSvg
+                    fill="#FF0000"
+                    style={{ margin: "auto" }}
+                    color={iconRandomColor()}
+                  />
+                  <p className="pt-1 text-sm md:text-lg">{value.speaker}</p>
+                </div>
+                <BubbleRight content={formattedSpeech} />
+              </div>
+            ) : (
+              <div className="flex items-end justify-end">
+                <BubbleLeft content={formattedSpeech} />
+                <div className="w-24 text-center">
+                  <ListSvg
+                    fill="#FF0000"
+                    style={{ margin: "auto" }}
+                    color={iconRandomColor()}
+                  />
+                  <p className="pt-1 text-sm md:text-lg">{value.speaker}</p>
+                </div>
+              </div>
+            )}
+          </span>
+        );
+      })}
+    </div>
+  );
+};
   const TabContent2 = () => {
     return (
       <div>
-        <span className="whitespace-pre" style={{ whiteSpace: "pre-wrap" }}>
-          {Array.from({ length: 6 }, (_, i) => {
-            const formattedSpeech = concise[i]?.speech
-              ? concise[i].speech.replace(/\r\n/g, "\n")
-              : null;
+        {Object.entries(concise).map(([key, value], i) => {
+          const formattedSpeech = value.speech
+            ? value.speech.replace(/\r\n/g, "\n")
+            : null;
 
-            return (
-              <React.Fragment key={i}>
-                {i % 2 === 0 ? (
-                  <div className="flex items-end justify-start">
-                    <div className="w-24 text-center">
-                      <ListSvg
-                        fill="#FF0000"
-                        style={{ margin: "auto" }}
-                        color={"blue"}
-                      />
-                      <p className="pt-1 text-sm md:text-lg">
-                        {origin[i]?.speaker}
-                      </p>
-                    </div>
-                    <BubbleRight content={formattedSpeech} />
+          return (
+            <span
+              key={key}
+              className="whitespace-pre"
+              style={{ whiteSpace: "pre-wrap" }}
+            >
+              {i % 2 === 0 ? (
+                <div className="flex items-end justify-start">
+                  <div className="w-24 text-center">
+                    <ListSvg
+                      fill="#FF0000"
+                      style={{ margin: "auto" }}
+                      color={iconRandomColor()}
+                    />
+                    <p className="pt-1 text-sm md:text-lg">{value.speaker}</p>
                   </div>
-                ) : (
-                  <div className="flex items-end justify-end">
-                    <BubbleLeft content={formattedSpeech} />
-                    <div className="w-24 text-center">
-                      <ListSvg
-                        fill="#FF0000"
-                        style={{ margin: "auto" }}
-                        color={"blue"}
-                      />
-                      <p className="pt-1 text-sm md:text-lg">
-                        {origin[i]?.speaker}
-                      </p>
-                    </div>
+                  <BubbleRight content={formattedSpeech} />
+                </div>
+              ) : (
+                <div className="flex items-end justify-end">
+                  <BubbleLeft content={formattedSpeech} />
+                  <div className="w-24 text-center">
+                    <ListSvg
+                      fill="#FF0000"
+                      style={{ margin: "auto" }}
+                      color={iconRandomColor()}
+                    />
+                    <p className="pt-1 text-sm md:text-lg">{value.speaker}</p>
                   </div>
-                )}
-              </React.Fragment>
-            );
-          })}
-        </span>
+                </div>
+              )}
+            </span>
+          );
+        })}
       </div>
     );
   };
@@ -213,47 +211,45 @@ export const Chat = () => {
   const TabContent3 = () => {
     return (
       <div>
-        <span className="whitespace-pre" style={{ whiteSpace: "pre-wrap" }}>
-          {Array.from({ length: 6 }, (_, i) => {
-            const formattedSpeech = child[i]?.speech
-              ? child[i].speech.replace(/\r\n/g, "\n")
-              : null;
+        {Object.entries(child).map(([key, value], i) => {
+          const formattedSpeech = value.speech
+            ? value.speech.replace(/\r\n/g, "\n")
+            : null;
 
-            return (
-              <React.Fragment key={i}>
-                {i % 2 === 0 ? (
-                  <div className="flex items-end justify-start">
-                    <div className="w-24 text-center">
-                      <ListSvg
-                        fill="#FF0000"
-                        style={{ margin: "auto" }}
-                        color={"blue"}
-                      />
-                      <p className="pt-1 text-sm md:text-lg">
-                        {origin[i]?.speaker}
-                      </p>
-                    </div>
-                    <BubbleRight content={formattedSpeech} />
+          return (
+            <span
+              key={key}
+              className="whitespace-pre"
+              style={{ whiteSpace: "pre-wrap" }}
+            >
+              {i % 2 === 0 ? (
+                <div className="flex items-end justify-start">
+                  <div className="w-24 text-center">
+                    <ListSvg
+                      fill="#FF0000"
+                      style={{ margin: "auto" }}
+                      color={iconRandomColor()}
+                    />
+                    <p className="pt-1 text-sm md:text-lg">{value.speaker}</p>
                   </div>
-                ) : (
-                  <div className="flex items-end justify-end">
-                    <BubbleLeft content={formattedSpeech} />
-                    <div className="w-24 text-center">
-                      <ListSvg
-                        fill="#FF0000"
-                        style={{ margin: "auto" }}
-                        color={"blue"}
-                      />
-                      <p className="pt-1 text-sm md:text-lg">
-                        {origin[i]?.speaker}
-                      </p>
-                    </div>
+                  <BubbleRight content={formattedSpeech} />
+                </div>
+              ) : (
+                <div className="flex items-end justify-end">
+                  <BubbleLeft content={formattedSpeech} />
+                  <div className="w-24 text-center">
+                    <ListSvg
+                      fill="#FF0000"
+                      style={{ margin: "auto" }}
+                      color={iconRandomColor()}
+                    />
+                    <p className="pt-1 text-sm md:text-lg">{value.speaker}</p>
                   </div>
-                )}
-              </React.Fragment>
-            );
-          })}
-        </span>
+                </div>
+              )}
+            </span>
+          );
+        })}
       </div>
     );
   };
