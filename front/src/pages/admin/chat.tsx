@@ -242,7 +242,7 @@ export const Chat = () => {
 
     var cont: number = 0;
     return (
-      <div>
+      <div className="mt-16">
         {Object.entries(child).map(([key, value], index, array) => {
           const formattedSpeech = value.speech
             ? value.speech.replace(/\r\n/g, "\n")
