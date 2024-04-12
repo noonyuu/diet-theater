@@ -68,10 +68,10 @@ export const Agenda = () => {
           {/* head */}
           <thead className="bg-main-color">
             <tr className="text-center text-base">
-              <th className="hidden rounded-tl-xl text-white lg:table-cell lg:min-w-[10%]">
+              <th className="rounded-tl-xl text-white lg:table-cell lg:min-w-[10%]">
                 国会回次
               </th>
-              <th className="lg:table-cel max-w-[20%] rounded-tl-xl text-white lg:min-w-[10%] lg:rounded-none">
+              <th className="lg:table-cel max-w-[10%] text-white lg:min-w-[10%]">
                 院名
               </th>
               <th className="w-[60%] text-white lg:w-[30%]">会議名</th>
@@ -90,7 +90,7 @@ export const Agenda = () => {
 
               return (
                 <tr key={keys} className="text-center">
-                  <td className="hidden rounded-bl-xl lg:table-cell">
+                  <td className="rounded-bl-xl lg:table-cell">
                     <>第{pickData.get("session")}回</>
                   </td>
                   <td className="p-0 text-center">
