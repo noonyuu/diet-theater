@@ -48,7 +48,7 @@ export const Agenda = () => {
 
   return (
     // pt-[5%]は仮置き
-    <section className="bg-bac-main font-meiryo pt-[5%]">
+    <section className="bg-bac-main font-meiryo">
       {/* <div>
         <p className="pt-[10%] text-center text-lg font-bold">
           議題検索
