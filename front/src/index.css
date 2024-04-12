@@ -17,3 +17,8 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+/* タブ選択時のテキストカラー */
+.tabs-boxed .tab-active:not(.tab-disabled):not([disabled]), .tabs-boxed :is(input:checked){
+  color: #020202
+}
