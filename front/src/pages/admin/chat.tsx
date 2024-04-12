@@ -175,66 +175,66 @@ export const Chat = () => {
       </div>
     );
   };
-  const TabContent2 = () => {
-    // true -> 同じ発言者, false -> 違う発言者, null -> 初期値
-    var originViewLocation: boolean | null = true;
+  // const TabContent2 = () => {
+  //   // true -> 同じ発言者, false -> 違う発言者, null -> 初期値
+  //   var originViewLocation: boolean | null = true;
 
-    var cont: number = 0;
+  //   var cont: number = 0;
 
-    return (
-      <div>
-        {Object.entries(concise).map(([key, value], index, array) => {
-          const formattedSpeech = value.speech
-            ? value.speech.replace(/\r\n/g, "\n")
-            : null;
+  //   return (
+  //     <div>
+  //       {Object.entries(concise).map(([key, value], index, array) => {
+  //         const formattedSpeech = value.speech
+  //           ? value.speech.replace(/\r\n/g, "\n")
+  //           : null;
 
-          // 発言者の連続判定
-          originViewLocation =
-            index > 0
-              ? value.speaker == array[index - 1][1].speaker
-                ? (originViewLocation = true)
-                : (originViewLocation = false)
-              : false;
+  //         // 発言者の連続判定
+  //         originViewLocation =
+  //           index > 0
+  //             ? value.speaker == array[index - 1][1].speaker
+  //               ? (originViewLocation = true)
+  //               : (originViewLocation = false)
+  //             : false;
 
-          originViewLocation ? (cont += 2) : (cont += 1);
+  //         originViewLocation ? (cont += 2) : (cont += 1);
 
-          return (
-            <span
-              key={key}
-              className="whitespace-pre"
-              style={{ whiteSpace: "pre-wrap" }}
-            >
-              {cont % 2 === 1 ? (
-                <div className="flex items-end justify-start">
-                  <div className="w-24 text-center">
-                    <ListSvg
-                      fill="#FF0000"
-                      style={{ margin: "auto" }}
-                      color={iconRandomColor()}
-                    />
-                    <p className="pt-1 text-sm md:text-lg">{value.speaker}</p>
-                  </div>
-                  <BubbleLeft content={formattedSpeech} />
-                </div>
-              ) : (
-                <div className="flex items-end justify-end">
-                  <BubbleRight content={formattedSpeech} />
-                  <div className="w-24 text-center">
-                    <ListSvg
-                      fill="#FF0000"
-                      style={{ margin: "auto" }}
-                      color={iconRandomColor()}
-                    />
-                    <p className="pt-1 text-sm md:text-lg">{value.speaker}</p>
-                  </div>
-                </div>
-              )}
-            </span>
-          );
-        })}
-      </div>
-    );
-  };
+  //         return (
+  //           <span
+  //             key={key}
+  //             className="whitespace-pre"
+  //             style={{ whiteSpace: "pre-wrap" }}
+  //           >
+  //             {cont % 2 === 1 ? (
+  //               <div className="flex items-end justify-start">
+  //                 <div className="w-24 text-center">
+  //                   <ListSvg
+  //                     fill="#FF0000"
+  //                     style={{ margin: "auto" }}
+  //                     color={iconRandomColor()}
+  //                   />
+  //                   <p className="pt-1 text-sm md:text-lg">{value.speaker}</p>
+  //                 </div>
+  //                 <BubbleLeft content={formattedSpeech} />
+  //               </div>
+  //             ) : (
+  //               <div className="flex items-end justify-end">
+  //                 <BubbleRight content={formattedSpeech} />
+  //                 <div className="w-24 text-center">
+  //                   <ListSvg
+  //                     fill="#FF0000"
+  //                     style={{ margin: "auto" }}
+  //                     color={iconRandomColor()}
+  //                   />
+  //                   <p className="pt-1 text-sm md:text-lg">{value.speaker}</p>
+  //                 </div>
+  //               </div>
+  //             )}
+  //           </span>
+  //         );
+  //       })}
+  //     </div>
+  //   );
+  // };
 
   const TabContent3 = () => {
     // true -> 同じ発言者, false -> 違う発言者, null -> 初期値
@@ -312,7 +312,7 @@ export const Chat = () => {
         >
           原文
         </a>
-        <a
+        {/* <a
           role="tab"
           className={`tab ${activeTab === 2 ? "tab-active" : ""} text-black`}
           onClick={() => handleTabClick(2)}
@@ -321,7 +321,7 @@ export const Chat = () => {
           }}
         >
           要約
-        </a>
+        </a> */}
         <a
           role="tab"
           className={`tab ${activeTab === 3 ? "tab-active" : ""} text-black`}
@@ -330,7 +330,7 @@ export const Chat = () => {
             backgroundColor: activeTab === 3 ? "RGB(143, 205, 219)" : "",
           }}
         >
-          簡易
+          要約
         </a>
       </div>
       {/* <div className="fixed right-0 top-20 flex h-[5%] items-center justify-end space-x-2">
@@ -361,7 +361,7 @@ export const Chat = () => {
       />
       <div className="mt-10">
         {activeTab === 1 && <TabContent1 />}
-        {activeTab === 2 && <TabContent2 />}
+        {/* {activeTab === 2 && <TabContent2 />} */}
         {activeTab === 3 && <TabContent3 />}
       </div>
     </section>
