@@ -114,61 +114,29 @@ export const Chat = () => {
   let concise: SpeechRecord = testSetData(location.state.detailId)[0];
   let child: SpeechRecord = testSetData(location.state.detailId)[1];
   let origin: SpeechRecord = testSetData(location.state.detailId)[2];
-  console.log("ppppp" , Object.entries(concise).length);
-  console.log("ppppp" , Object.entries(concise));
 
-const TabContent1 = () => {
-  return (
-    <div>
-      {Object.entries(origin).map(([key, value], i) => {
-        const formattedSpeech = value.speech
-          ? value.speech.replace(/\r\n/g, "\n")
-          : null;
+  const TabContent1 = () => {
+    // true -> 同じ発言者, false -> 違う発言者, null -> 初期値
+    var originViewLocation: boolean | null = true;
 
-        return (
-          <span
-            key={key}
-            className="whitespace-pre"
-            style={{ whiteSpace: "pre-wrap" }}
-          >
-            {i % 2 === 0 ? (
-              <div className="flex items-end justify-start">
-                <div className="w-24 text-center">
-                  <ListSvg
-                    fill="#FF0000"
-                    style={{ margin: "auto" }}
-                    color={iconRandomColor()}
-                  />
-                  <p className="pt-1 text-sm md:text-lg">{value.speaker}</p>
-                </div>
-                <BubbleRight content={formattedSpeech} />
-              </div>
-            ) : (
-              <div className="flex items-end justify-end">
-                <BubbleLeft content={formattedSpeech} />
-                <div className="w-24 text-center">
-                  <ListSvg
-                    fill="#FF0000"
-                    style={{ margin: "auto" }}
-                    color={iconRandomColor()}
-                  />
-                  <p className="pt-1 text-sm md:text-lg">{value.speaker}</p>
-                </div>
-              </div>
-            )}
-          </span>
-        );
-      })}
-    </div>
-  );
-};
-  const TabContent2 = () => {
+    var cont: number = 0;
+
     return (
       <div>
-        {Object.entries(concise).map(([key, value], i) => {
+        {Object.entries(origin).map(([key, value], index, array) => {
           const formattedSpeech = value.speech
             ? value.speech.replace(/\r\n/g, "\n")
             : null;
+
+          // 発言者の連続判定
+          originViewLocation =
+            index > 0
+              ? value.speaker == array[index - 1][1].speaker
+                ? (originViewLocation = true)
+                : (originViewLocation = false)
+              : false;
+
+          originViewLocation ? (cont += 2) : (cont += 1);
 
           return (
             <span
@@ -176,7 +144,7 @@ const TabContent1 = () => {
               className="whitespace-pre"
               style={{ whiteSpace: "pre-wrap" }}
             >
-              {i % 2 === 0 ? (
+              {cont % 2 === 1 ? (
                 <div className="flex items-end justify-start">
                   <div className="w-24 text-center">
                     <ListSvg
@@ -186,11 +154,71 @@ const TabContent1 = () => {
                     />
                     <p className="pt-1 text-sm md:text-lg">{value.speaker}</p>
                   </div>
-                  <BubbleRight content={formattedSpeech} />
+                  <BubbleLeft content={formattedSpeech} />
                 </div>
               ) : (
                 <div className="flex items-end justify-end">
+                  <BubbleRight content={formattedSpeech} />
+                  <div className="w-24 text-center">
+                    <ListSvg
+                      fill="#FF0000"
+                      style={{ margin: "auto" }}
+                      color={iconRandomColor()}
+                    />
+                    <p className="pt-1 text-sm md:text-lg">{value.speaker}</p>
+                  </div>
+                </div>
+              )}
+            </span>
+          );
+        })}
+      </div>
+    );
+  };
+  const TabContent2 = () => {
+    // true -> 同じ発言者, false -> 違う発言者, null -> 初期値
+    var originViewLocation: boolean | null = true;
+
+    var cont: number = 0;
+
+    return (
+      <div>
+        {Object.entries(concise).map(([key, value], index, array) => {
+          const formattedSpeech = value.speech
+            ? value.speech.replace(/\r\n/g, "\n")
+            : null;
+
+          // 発言者の連続判定
+          originViewLocation =
+            index > 0
+              ? value.speaker == array[index - 1][1].speaker
+                ? (originViewLocation = true)
+                : (originViewLocation = false)
+              : false;
+
+          originViewLocation ? (cont += 2) : (cont += 1);
+
+          return (
+            <span
+              key={key}
+              className="whitespace-pre"
+              style={{ whiteSpace: "pre-wrap" }}
+            >
+              {cont % 2 === 1 ? (
+                <div className="flex items-end justify-start">
+                  <div className="w-24 text-center">
+                    <ListSvg
+                      fill="#FF0000"
+                      style={{ margin: "auto" }}
+                      color={iconRandomColor()}
+                    />
+                    <p className="pt-1 text-sm md:text-lg">{value.speaker}</p>
+                  </div>
                   <BubbleLeft content={formattedSpeech} />
+                </div>
+              ) : (
+                <div className="flex items-end justify-end">
+                  <BubbleRight content={formattedSpeech} />
                   <div className="w-24 text-center">
                     <ListSvg
                       fill="#FF0000"
@@ -209,12 +237,26 @@ const TabContent1 = () => {
   };
 
   const TabContent3 = () => {
+    // true -> 同じ発言者, false -> 違う発言者, null -> 初期値
+    var originViewLocation: boolean | null = true;
+
+    var cont: number = 0;
     return (
       <div>
-        {Object.entries(child).map(([key, value], i) => {
+        {Object.entries(child).map(([key, value], index, array) => {
           const formattedSpeech = value.speech
             ? value.speech.replace(/\r\n/g, "\n")
             : null;
+
+          // 発言者の連続判定
+          originViewLocation =
+            index > 0
+              ? value.speaker == array[index - 1][1].speaker
+                ? (originViewLocation = true)
+                : (originViewLocation = false)
+              : false;
+
+          originViewLocation ? (cont += 2) : (cont += 1);
 
           return (
             <span
@@ -222,7 +264,7 @@ const TabContent1 = () => {
               className="whitespace-pre"
               style={{ whiteSpace: "pre-wrap" }}
             >
-              {i % 2 === 0 ? (
+              {cont % 2 === 1 ? (
                 <div className="flex items-end justify-start">
                   <div className="w-24 text-center">
                     <ListSvg
@@ -232,11 +274,11 @@ const TabContent1 = () => {
                     />
                     <p className="pt-1 text-sm md:text-lg">{value.speaker}</p>
                   </div>
-                  <BubbleRight content={formattedSpeech} />
+                  <BubbleLeft content={formattedSpeech} />
                 </div>
               ) : (
                 <div className="flex items-end justify-end">
-                  <BubbleLeft content={formattedSpeech} />
+                  <BubbleRight content={formattedSpeech} />
                   <div className="w-24 text-center">
                     <ListSvg
                       fill="#FF0000"

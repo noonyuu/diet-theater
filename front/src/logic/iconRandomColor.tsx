@@ -1,11 +1,11 @@
 export const iconRandomColor = () => {
   var color: Array<string> = [
-    "red",
+    // "red",
     "blue",
-    "yellow",
-    "green",
-    "pink",
-    "purple",
+    // "yellow",
+    // "green",
+    // "pink",
+    // "purple",
   ];
 
   return color[generateRandom(color.length)];
