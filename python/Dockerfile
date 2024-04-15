@@ -1,10 +1,10 @@
-FROM Python:3.8
+FROM python:3.8
 
-WORKDIR /app
+WORKDIR /python
 
-COPY . /app
+COPY . /python
 
-RUN pip install -r requirements.txt
+# RUN pip install -r requirements.txt
 
 # コンテナ起動時にapp.pyを実行
 CMD ["python", "app.py"]
