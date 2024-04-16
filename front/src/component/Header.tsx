@@ -9,7 +9,7 @@ export default function App() {
   };
 
   return (
-    <header className="sticky top-0 z-50 flex h-[10%] w-screen bg-white pl-4 shadow-md lg:h-[7%]">
+    <header className="sticky top-0 z-50 flex py-6 w-screen bg-white pl-4 shadow-md lg:h-[7%]">
       {/* humbergerbutton */}
       {/* <button
         onClick={handleMenuOpen}
