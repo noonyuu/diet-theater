@@ -39,9 +39,13 @@ export default function App() {
         />
       </button> */}
       <h1 className="flex items-center text-xl font-bold">国会劇場</h1>
+      <div className="absolute right-2">
+        {/* TODO: icon */}
+        <div className="size-8 rounded-full bg-red-200"></div>
+      </div>
 
       {/* nav */}
-      <nav
+      {/* <nav
         className={
           openMenu
             ? "fixed left-0 top-0 z-40 flex h-screen w-3/5 flex-col justify-start bg-white pt-8 text-left duration-300 ease-linear lg:w-1/5"
@@ -60,7 +64,7 @@ export default function App() {
             </a>
           </li>
         </ul>
-      </nav>
+      </nav> */}
     </header>
   );
 }
