@@ -15,7 +15,7 @@ export const Routers = () => {
   return (
     <>
       <ContextWrapper>
-        <div className="flex min-h-screen flex-col">
+        <div className="flex min-h-svh flex-col">
           <Header />
           <main className=" bg-bac-main">
             <BrowserRouter>
