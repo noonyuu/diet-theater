@@ -357,7 +357,7 @@ export const Chat = () => {
         name={<IoReturnDownBack />}
         color="bg-white text-black"
         action={returnBack}
-        decoration="rounded-lg border border-black fixed z-[49] top-[12%] lg:top-[9%]"
+        decoration="rounded-lg border border-black fixed z-[49] top-[12%] lg:top-[9%] h-8"
       />
       <div className="mt-10">
         {activeTab === 1 && <TabContent1 />}
