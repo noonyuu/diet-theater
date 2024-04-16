@@ -20,8 +20,8 @@ const Tab: FC<Props> = ({ onChange, data }) => {
             }}
             className={
               index === tab
-                ? "flex h-9 w-1/2 cursor-pointer place-items-center justify-center border-2 text-center text-xs font-bold text-white transition-[0.2s]"
-                : "flex w-1/2 items-center justify-center text-xs text-white"
+                ? "flex h-6 w-1/2 cursor-pointer place-items-center justify-center border-2 text-center text-[0.5rem] font-bold text-white transition-[0.2s]"
+                : "flex w-1/2 items-center justify-center text-[0.5rem] text-white"
             }
           >
             {content.text}
