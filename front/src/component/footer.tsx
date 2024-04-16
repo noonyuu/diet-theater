@@ -1,8 +1,10 @@
-export const Footer = () => {
+import React from 'react'
+
+const Footer = () => {
   return (
-    <footer className="h-[5%] bg-white relative bottom-0">
+    <footer className="mt-auto h-[5%] bg-white">
       <div className="size-full">
-        <p className="my-auto h-full text-sm text-gray-500 flex items-center justify-center">
+        <p className="my-auto flex h-full items-center justify-center text-sm text-gray-500">
           © 2023-2024{" "}
           <a href="#" className="hover:underline">
             Diet Theater™
@@ -12,4 +14,7 @@ export const Footer = () => {
       </div>
     </footer>
   );
-};
+}
+
+export default Footer;
+
