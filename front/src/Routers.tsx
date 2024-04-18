@@ -17,7 +17,7 @@ export const Routers = () => {
       <ContextWrapper>
         <div className="flex min-h-svh flex-col">
           <Header />
-          <main className=" bg-bac-main">
+          <main className="">
             <BrowserRouter>
               <Routes>
                 <Route path="/" element={<Terms />}></Route>
