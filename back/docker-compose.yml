@@ -1,10 +1,12 @@
-version: '3'
+version: "3"
 
 services:
   app:
-    build: ./app
+    build:
+      context: ./app
+      dockerfile: Dockerfile
     container_name: app-server
-    image: golang:1.20.13-bullseye
+    image: app-server-image:latest 
     command: sh -c "go run main.go"
     ports:
       - "8080:8080"
@@ -15,25 +17,28 @@ services:
     restart: always
     tty: true
     depends_on:
-        - redis
-        - db_diet
+      - redis
+      - db_diet
 
   gin_goth:
-      build: ./gin_goth
-      container_name: auth_server
-      image: golang:1.20.13-bullseye
-      command: sh -c "go run main.go"
-      ports:
-        - 10005:10005
-      volumes:
-        - ./gin_goth:/root/gin_goth
-      environment:
-        - TZ=Asia/Tokyo
-      restart: always
-      tty: true
-      depends_on:
-        - redis
-        - db_diet
+    build:
+      context: ./gin_goth
+      dockerfile: Dockerfile
+    container_name: auth_server
+    image: auth-server-image:latest 
+    command: sh -c "go run main.go"
+    ports:
+      - 10005:10005
+    volumes:
+      - ./gin_goth:/root/gin_goth
+    environment:
+      - TZ=Asia/Tokyo
+    restart: always
+    tty: true
+    depends_on:
+      - redis
+      - db_diet
+      - app
 
   db_diet:
     image: mysql:8.0
@@ -61,7 +66,7 @@ services:
   #     - backend
   #   restart: always
   #   tty: true
-  
+
   nginx:
     restart: always
     image: nginx:latest
