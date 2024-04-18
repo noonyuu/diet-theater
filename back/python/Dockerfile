@@ -7,4 +7,4 @@ COPY . /python
 # RUN pip install -r requirements.txt
 
 # コンテナ起動時にapp.pyを実行
-CMD ["python", "app.py"]
+CMD ["python", "api.py"]

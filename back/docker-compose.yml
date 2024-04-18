@@ -1,19 +1,17 @@
 version: '3'
 
 services:
-  back:
-    build: ./back
-    container_name: back-server
+  app:
+    build: ./app
+    container_name: app-server
     image: golang:1.20.13-bullseye
     command: sh -c "go run main.go"
     ports:
       - "8080:8080"
     volumes:
-      - ./back:/back
+      - ./app:/root/app
     environment:
       - TZ=Asia/Tokyo
-    networks:
-      - backend
     restart: always
     tty: true
     depends_on:
@@ -24,6 +22,7 @@ services:
       build: ./gin_goth
       container_name: auth_server
       image: golang:1.20.13-bullseye
+      command: sh -c "go run main.go"
       ports:
         - 10005:10005
       volumes:
@@ -39,16 +38,6 @@ services:
   db_diet:
     image: mysql:8.0
     container_name: db_diet
-    build: 
-      context: .docker/db
-    volumes:
-      - db_data_diet:/var/lib/mysql
-      - type: bind
-        source: './.docker/db/my.cnf'
-        target: '/etc/mysql/conf.d/my.cnf'
-      - type: bind
-        source: './.docker/db/init.sql'
-        target: '/docker-entrypoint-initdb.d/init.sql'
     restart: always
     environment:
       MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
@@ -58,22 +47,20 @@ services:
     command: mysqld --character-set-server=utf8 --collation-server=utf8_unicode_ci --default-time-zone=Asia/Tokyo
     ports:
       - "3306:3306"
-    networks:
-      - backend
     tty: true
     stdin_open: true
 
-  gtp:
-    container_name: gtp
-    build: ./python
-    ports:
-      - "5000:5000"
-    environment:
-      - TZ=Asia/Tokyo
-    networks:
-      - backend
-    restart: always
-    tty: true
+  # gpt:
+  #   container_name: gpt
+  #   build: ./python
+  #   ports:
+  #     - "5050:5050"
+  #   environment:
+  #     - TZ=Asia/Tokyo
+  #   networks:
+  #     - backend
+  #   restart: always
+  #   tty: true
   
   nginx:
     restart: always
@@ -89,18 +76,15 @@ services:
     extra_hosts:
       - host.docker.internal:host-gateway
 
-    redis:
-      container_name: redis
-      image: "redis:latest"
-      ports:
-        - "6379:6379"
-      restart: always
-      volumes:
-        - ./redis:/data
-      command: redis-server --appendonly yes
+  redis:
+    container_name: redis
+    image: "redis:latest"
+    ports:
+      - "6379:6379"
+    restart: always
+    volumes:
+      - ./redis:/data
+    command: redis-server --appendonly yes
 
 volumes:
   db_data_diet:
-
-networks:
-  backend:
