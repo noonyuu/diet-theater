@@ -1,9 +1,14 @@
 import React, { FC, useState } from "react";
 import style from "./tab.scss";
 
+interface Detail {
+  context: string;
+  path: string;
+}
+
 interface Props {
   onChange: (tab: number) => void | (() => void);
-  data: Array<{ text: string; path: string }>;
+  data: Array<{ text: string; detail: Detail[] }>;
 }
 
 const Tab: FC<Props> = ({ onChange, data }) => {
@@ -14,9 +19,10 @@ const Tab: FC<Props> = ({ onChange, data }) => {
       <div className="flex">
         {data.map((content, index) => (
           <div
+            key={index}
             onClick={() => {
               setTab(index);
-              onChange(tab);
+              onChange(index);
             }}
             className={
               index === tab
@@ -28,8 +34,18 @@ const Tab: FC<Props> = ({ onChange, data }) => {
           </div>
         ))}
       </div>
-
-      <div />
+      <div>
+        {/* 現在選択されているタブの詳細だけを表示 */}
+        <div>
+          <ul>
+            {data[tab].detail.map((detailItem, detailIndex) => (
+              <li key={detailIndex}>
+                <a href={detailItem.path}>{detailItem.context}</a>
+              </li>
+            ))}
+          </ul>
+        </div>
+      </div>
     </div>
   );
 };
