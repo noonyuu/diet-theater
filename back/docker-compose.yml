@@ -45,10 +45,10 @@ services:
     container_name: db_diet
     restart: always
     environment:
-      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
-      MYSQL_DATABASE: ${MYSQL_DATABASE}
-      MYSQL_USER: ${MYSQL_USER}
-      MYSQL_PASSWORD: ${MYSQL_PASSWORD}
+      - MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+      - MYSQL_DATABASE: ${MYSQL_DATABASE}
+      - MYSQL_USER: ${MYSQL_USER}
+      - MYSQL_PASSWORD: ${MYSQL_PASSWORD}
     command: mysqld --character-set-server=utf8 --collation-server=utf8_unicode_ci --default-time-zone=Asia/Tokyo
     ports:
       - "3306:3306"
@@ -93,3 +93,4 @@ services:
 
 volumes:
   db_data_diet:
+
