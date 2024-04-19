@@ -5,8 +5,12 @@ import (
 	"net/http"
 )
 
-func main() {
-	fmt.Println("Hello world!")
+// "context"
 
+// func contextWithProviderName(ctx *gin.Context, provider string) *http.Request {
+// 	return ctx.Request.WithContext(context.WithValue(ctx.Request.Context(), "provider", provider))
+// }
+func main() {
+	fmt.Println("Hello, World!")
 	http.ListenAndServe(":10005", nil)
 }
