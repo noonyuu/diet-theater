@@ -1,12 +1,13 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-// icon
-import { IoIosChatboxes } from "react-icons/io";
-import { FaSearch } from "react-icons/fa";
 // fail to import
 import { getPostData } from "../../hooks/getOriginal";
 import { Form } from "../../component/form";
 import { Button } from "../../component/button";
+import { MdiChat } from "../../assets/Chat";
+
+// アイコン
+// import { FaSearch } from "react-icons/fa";
 
 export const Agenda = () => {
   const navigate = useNavigate();
@@ -48,7 +49,7 @@ export const Agenda = () => {
 
   return (
     // pt-[5%]は仮置き
-    <section className="bg-bac-main font-meiryo pt-2">
+    <section className="bg-bac-main pt-2 font-meiryo">
       {/* <div>
         <p className="pt-[10%] text-center text-lg font-bold">
           議題検索
@@ -56,7 +57,7 @@ export const Agenda = () => {
         <div className="my-4 flex justify-center">
           <Form title="議題名" />
           <Button
-            name={<FaSearch />}
+            name={<MaterialSymbolsSearch />}
             color="bg-white text-black"
             action=""
             decoration="rounded-lg border border-black"
@@ -111,7 +112,7 @@ export const Agenda = () => {
                       className="flex items-center rounded-full bg-sub_blue p-2"
                       onClick={() => detail(keys)}
                     >
-                      <IoIosChatboxes size={16}/>
+                      <MdiChat />
                     </button>
                   </td>
                 </tr>

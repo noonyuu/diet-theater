@@ -1,9 +1,10 @@
 import { useEffect, useState } from "react";
 import { getPostData } from "../../hooks/getOriginal";
 import { Form } from "../../component/form";
-import { FaSearch } from "react-icons/fa";
 import { Button } from "../../component/button";
 import { useNavigate } from "react-router-dom";
+// アイコン
+import { MaterialSymbolsSearch } from "../../assets/Search";
 
 export const AdminAgenda = () => {
   const navigate = useNavigate();
@@ -55,7 +56,7 @@ export const AdminAgenda = () => {
           <Form title="議題名" />
           {/* TODO: ここでエラーがでる */}
           <Button
-            name={<FaSearch />}
+            name={<MaterialSymbolsSearch />}
             color="bg-white text-black"
             action=""
             decoration="rounded-lg border border-black"
@@ -80,7 +81,7 @@ export const AdminAgenda = () => {
               <th className="hidden text-white lg:table-cell lg:min-w-[10%]">
                 実施年月
               </th>
-              <th className="min-w-[30%] rounded-tr-xl rounded-tr-xl lg:min-w-[20%]"></th>
+              <th className="min-w-[30%] rounded-tr-xl lg:min-w-[20%]"></th>
             </tr>
           </thead>
           <tbody>

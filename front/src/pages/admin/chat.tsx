@@ -4,18 +4,12 @@ import { getPostData } from "../../hooks/getOriginal";
 import icon from "../../assets/icon.png";
 import React, { useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
-import { IoReturnDownBack } from "react-icons/io5";
-
-///
-import DataDefo from "../../test/defo.json";
-import Data0 from "../../test/test0.json";
-import Data1 from "../../test/test1.json";
-import Data2 from "../../test/test2.json";
-import Data3 from "../../test/test3.json";
 import ListSvg from "../../assets/ListSvg";
 import { iconRandomColor } from "../../logic/iconRandomColor";
 import { Button } from "../../component/button";
 import { testSetData } from "../../test/testSet";
+// アイコン
+import { ReturnBtn } from "../../assets/Return";
 ///
 interface Test {
   ID: number;
@@ -354,7 +348,7 @@ export const Chat = () => {
         />
       </div> */}
       <Button
-        name={<IoReturnDownBack />}
+        name={<ReturnBtn />}
         color="bg-white text-black"
         action={returnBack}
         decoration="rounded-lg border border-black fixed z-[49] top-[12%] lg:top-[9%] h-8"
