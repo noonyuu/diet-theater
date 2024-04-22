@@ -5,15 +5,13 @@ services:
     build:
       context: ./app
       dockerfile: Dockerfile
-    container_name: app-server
-    image: app-server-image:latest 
-    command: sh -c "go run main.go"
+    container_name: app_server
+    image: app-server-image:latest
+    command: sh -c "cd gin_main && go run ."
     ports:
       - "8080:8080"
     volumes:
       - ./app:/root/app
-    environment:
-      - TZ=Asia/Tokyo
     restart: always
     tty: true
     depends_on:
@@ -25,14 +23,12 @@ services:
       context: ./gin_goth
       dockerfile: Dockerfile
     container_name: auth_server
-    image: auth-server-image:latest 
-    command: sh -c "go run main.go"
+    image: auth-server-image:latest
+    command: sh -c "go run ."
     ports:
       - 10005:10005
     volumes:
       - ./gin_goth:/root/gin_goth
-    environment:
-      - TZ=Asia/Tokyo
     restart: always
     tty: true
     depends_on:
@@ -42,14 +38,13 @@ services:
 
   db_diet:
     image: mysql:8.0
-    container_name: db_diet
-    restart: always
     environment:
-      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
-      MYSQL_DATABASE: ${MYSQL_DATABASE}
-      MYSQL_USER: ${MYSQL_USER}
-      MYSQL_PASSWORD: ${MYSQL_PASSWORD}
-    command: mysqld --character-set-server=utf8 --collation-server=utf8_unicode_ci --default-time-zone=Asia/Tokyo
+      - MYSQL_ROOT_HOST=${DB_ROOT_HOST}
+      - MYSQL_DATABASE=${DB_NAME}
+      - MYSQL_USER=${DB_USER}
+      - MYSQL_PASSWORD=${DB_PASS}
+      - MYSQL_ROOT_PASSWORD=${DB_ROOT_PASS}
+      - TZ=${TZ}
     ports:
       - "3306:3306"
     tty: true
@@ -74,8 +69,9 @@ services:
       - "8443:80"
     volumes:
       - ./nginx/default.conf:/etc/nginx/conf.d/default.conf
-      - ./front/dist:/var/www
+      - ../front/dist:/var/www
       - ./nginx/static:/etc/nginx/static
+      - ./nginx/keys:/etc/nginx/keys
     tty: true
 
     extra_hosts:
