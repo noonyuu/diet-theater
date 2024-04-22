@@ -2,3 +2,4 @@
 server.crt
 server.key
 .devdbrc
+back/gin_goth/auth.db
