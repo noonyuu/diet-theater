@@ -7,20 +7,23 @@
   </head>
   <body>
     <main>
-      <a href="/auth/google?redirect_path=/auth/">googleログイン</a>
+      <div><a href="/auth/google?redirect_path=/app/">googleログイン</a></div>
     </main>
     <style>
       main {
         height: 100vh;
       }
+      div {
+        margin: 2rem 0 0 2rem;
+      }
       a {
-        height: 2rem;
-        width: 10rem;
-        background-color: blue;
-        color: white;
-        text-align: center;
         text-decoration: none;
-        display: block;
+        flex: none;
+        height: 3rem;
+        width: fit-content;
+        border: 1px solid black;
+        padding: 1rem;
+        background-color: white;
       }
     </style>
   </body>
