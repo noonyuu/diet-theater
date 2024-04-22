@@ -11,7 +11,7 @@ const Article = () => {
         <Button
           name="Search"
           color="bg-blue-500"
-          decoration="rounded-r-lg h-8"
+          decoration="rounded-r-lg"
           font="text-white text-sm"
           action={() => {}}
         />

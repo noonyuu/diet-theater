@@ -7,7 +7,7 @@ const Search = () => {
         type="text"
         name=""
         id=""
-        className="h-8 rounded-l-lg rounded-r-none border-2 bg-white"
+        className="rounded-l-lg rounded-r-none border-2 bg-white"
       />
     </>
   );
