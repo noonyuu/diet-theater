@@ -1,0 +1,70 @@
+// import "./styles.css";
+import React, { useState } from "react";
+
+export default function App() {
+  const [openMenu, setOpenMenu] = useState(false);
+
+  const handleMenuOpen = () => {
+    setOpenMenu(!openMenu);
+  };
+
+  return (
+    <header className="sticky top-0 z-50 flex py-5 w-full bg-white pl-4 shadow-md">
+      {/* humbergerbutton */}
+      {/* <button
+        onClick={handleMenuOpen}
+        type="button"
+        className="z-50 space-y-2 pr-8"
+      >
+        <div
+          className={
+            openMenu
+              ? "h-0.5 w-8 translate-y-2.5 rotate-45 bg-gray-600 transition duration-500 ease-in-out"
+              : "h-0.5 w-8 bg-gray-600 transition duration-500 ease-in-out"
+          }
+        />
+        <div
+          className={
+            openMenu
+              ? "opacity-0 transition duration-500 ease-in-out"
+              : "h-0.5 w-8 bg-gray-600 transition duration-500 ease-in-out"
+          }
+        />
+        <div
+          className={
+            openMenu
+              ? "h-0.5 w-8 -rotate-45 bg-gray-600 transition duration-500 ease-in-out"
+              : "h-0.5 w-8 bg-gray-600 transition duration-500 ease-in-out"
+          }
+        />
+      </button> */}
+      <h1 className="flex items-center text-xl font-bold">国会劇場</h1>
+      <div className="absolute right-2">
+        {/* TODO: icon */}
+        <div className="size-8 rounded-full bg-red-200"></div>
+      </div>
+
+      {/* nav */}
+      {/* <nav
+        className={
+          openMenu
+            ? "fixed left-0 top-0 z-40 flex h-screen w-3/5 flex-col justify-start bg-white pt-8 text-left duration-300 ease-linear lg:w-1/5"
+            : "fixed right-[-100%] duration-300 ease-linear"
+        }
+      >
+        <ul className="ml-4 mt-6">
+          <li className="">
+            <a href="/login" className="inline-block py-2">
+              管理者
+            </a>
+          </li>
+          <li className="">
+            <a href="/agenda" className="inline-block py-2">
+              記事一覧
+            </a>
+          </li>
+        </ul>
+      </nav> */}
+    </header>
+  );
+}
