@@ -1,25 +1,18 @@
 import { SVGProps } from "react";
 
-export function ReturnBtn(
-  props: SVGProps<SVGSVGElement>,
-) {
+export function IcSharpKeyboardReturn(props: SVGProps<SVGSVGElement>) {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
       width="1em"
       height="1em"
-      viewBox="0 0 14 14"
+      viewBox="0 0 24 24"
       {...props}
     >
-      <g
-        fill="none"
-        stroke="#ffffff"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-      >
-        <path d="M.5 9.5h9a4 4 0 0 0 0-8h-3"></path>
-        <path d="m3.5 6.5l-3 3l3 3"></path>
-      </g>
+      <path
+        fill="#000000"
+        d="M19 7v4H5.83l3.58-3.59L8 6l-6 6l6 6l1.41-1.41L5.83 13H21V7z"
+      ></path>
     </svg>
   );
 }
