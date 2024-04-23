@@ -11,7 +11,7 @@ export const Terms = () => {
     } catch (e) {
       console.log(e);
     }
-    navigate("/agenda");
+    navigate("/secret/agenda");
   };
 
   const cancel = () => {
@@ -19,7 +19,7 @@ export const Terms = () => {
   };
 
   useEffect(() => {
-    localStorage.getItem("terms") ? navigate("/agenda") : navigate("/");
+    localStorage.getItem("terms") ? navigate("/secret/agenda") : navigate("/");
   },[]);
 
   return (

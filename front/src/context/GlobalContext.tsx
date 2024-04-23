@@ -1,7 +1,17 @@
-import exp from "constants";
 import React from "react";
 
 export const GlobalContext = React.createContext({
-  terms: false,
-  setTerms: (value: boolean) => {},
+  profile: [] as {
+    id: string;
+    name: string;
+    avatar_url: string;
+    email: string;
+  }[],
+  setProfile: (
+    value: {
+      id: string;
+      name: string;
+      avatar_url: string;
+      email: string;
+    }[]) => {},
 });

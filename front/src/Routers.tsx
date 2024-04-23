@@ -1,38 +1,32 @@
+import { useContext, useEffect, useState } from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import App from "./App";
-import { LoginPage } from "./pages/admin/login";
-import { Terms } from "./pages/terms";
-import { Agenda } from "./pages/admin/agenda";
-import { Chat } from "./pages/admin/chat";
+// routes
+import Secret from "./secret/Secret";
+// pages
+import Login from "./pages/Login";
+import { Terms } from "./pages/Terms";
+// components
 import NotFound from "./component/notFound";
 import Header from "./component/Header";
-import { ContextWrapper } from "./context/ContextWrapper";
-import Secret from "./secret/Secret";
-import Article from "./pages/user/Article";
 import Footer from "./component/Footer";
+// contexts
+import { ContextWrapper } from "./context/ContextWrapper";
 
 export const Routers = () => {
+
   return (
     <>
       <ContextWrapper>
-        <div className="flex min-h-svh flex-col">
-          <Header />
-          <main className="">
-            <BrowserRouter>
-              <Routes>
-                <Route path="/" element={<Terms />}></Route>
-                <Route path="/login" element={<LoginPage />}></Route>
-                <Route path="/terms" element={<Terms />} />
-                <Route path="/agenda" element={<Agenda />} />
-                <Route path="/chat" element={<Chat />} />
-                <Route path="secret/*" element={<Secret />} />
-                <Route path="/article" element={<Article />} />
-                <Route path="/*" element={<NotFound />} />
-              </Routes>
-            </BrowserRouter>
-          </main>
-          <Footer />
-        </div>
+        <BrowserRouter>
+          <Routes>
+            <Route path="/" element={<Terms />}></Route>
+            <Route path="secret/*" element={<Secret />} />
+            <Route path="/*" element={<NotFound />} />
+
+            {/* test */}
+            <Route path="/login-test" element={<Login />} />
+          </Routes>
+        </BrowserRouter>
       </ContextWrapper>
     </>
   );

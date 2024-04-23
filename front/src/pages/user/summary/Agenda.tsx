@@ -23,7 +23,7 @@ export const Agenda = () => {
     const entity: Entity = {
       detailId: val,
     };
-    navigate("/chat", { state: entity });
+    navigate("/secret/chat", { state: entity });
   };
 
   useEffect(() => {
