@@ -1,11 +1,11 @@
 import React from "react";
-import Search from "../../component/Search";
-import { Button } from "../../component/button";
-import Card from "../../component/Card";
+import Search from "../../../component/Search";
+import { Button } from "../../../component/button";
+import Card from "../../../component/Card";
 
 const Article = () => {
   return (
-    <>
+    <main className="mt-16 flex-1 bg-black">
       <div className="m-4 flex justify-center">
         <Search />
         <Button
@@ -17,7 +17,7 @@ const Article = () => {
         />
       </div>
       <Card />
-    </>
+    </main>
   );
 };
 
