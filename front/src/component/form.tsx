@@ -12,7 +12,7 @@ export const Form = (props: any) => {
     <input
       type="search"
       id={props.label}
-      className="input w-[70%] border border-black bg-white font-meiryo text-black focus:border-black focus:outline-none"
+      className="input w-[70%] h-auto border border-black bg-white font-meiryo text-black focus:border-black focus:outline-none"
       name="text"
       autoComplete="off"
       value={name}

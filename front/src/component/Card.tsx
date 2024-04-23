@@ -37,6 +37,12 @@ const Card = (props: any) => {
     },
   ];
 
+  const pledge = [
+    "あいうえおかきくけこさしすせそたちつてとなにぬねの",
+    "あいうえおかきくけこさしすせそたちつてとなにぬねの",
+    "あいうえおかきくけこさしすせそたちつてとなにぬねの",
+  ]; 
+
   return (
     <>
       <div className="Kaisei Tokumin h-52 w-44 rounded-md border-2">
@@ -53,9 +59,11 @@ const Card = (props: any) => {
         {/* 公約 */}
         <div className="scroll-bar h-2/5 overflow-auto p-2 pl-0 text-xs">
           <ul className="">
-            <li>あいうえおかきくけこさしすせそたちつてとなにぬねの</li>
-            <li>あいうえおかきくけこさしすせそたちつてとなにぬねの</li>
-            <li>あいうえおかきくけこさしすせそたちつてとなにぬねの</li>
+            {pledge.map((item, index) => (
+              <li key={index} className="text-white">
+                {item}
+              </li>
+            ))}
           </ul>
         </div>
         <div className="h-2/5 border-t-2">

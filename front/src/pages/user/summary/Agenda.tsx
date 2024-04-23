@@ -1,12 +1,15 @@
 import { useEffect, useState } from "react";
-import { getPostData } from "../../hooks/getOriginal";
-import { Form } from "../../component/form";
-import { Button } from "../../component/button";
 import { useNavigate } from "react-router-dom";
-// アイコン
-import { MaterialSymbolsSearch } from "../../assets/Search";
+// fail to import
+import { getPostData } from "../../../hooks/getOriginal";
+import { Form } from "../../../component/form";
+import { Button } from "../../../component/button";
+import { MdiChat } from "../../../assets/Chat";
 
-export const AdminAgenda = () => {
+// アイコン
+// import { FaSearch } from "react-icons/fa";
+
+export const Agenda = () => {
   const navigate = useNavigate();
 
   const [api, setApi] = useState<Map<string, any>>(new Map());
@@ -20,8 +23,7 @@ export const AdminAgenda = () => {
     const entity: Entity = {
       detailId: val,
     };
-    console.log("entity", entity);
-    navigate(`/secret/standby-screen/${val}`, { state: entity });
+    navigate("/chat", { state: entity });
   };
 
   useEffect(() => {
@@ -29,7 +31,7 @@ export const AdminAgenda = () => {
       try {
         const newData = await getPostData();
         const speakers = newData?.get("speechRecord");
-        console.log("AdminAgenda", newData?.get("issueID"));
+        console.log("agenda", newData);
 
         if (newData !== null) {
           setApi(newData);
@@ -46,16 +48,15 @@ export const AdminAgenda = () => {
   }, []);
 
   return (
-    <main className="mt-16 flex-1">
-      <section className="bg-bac-main font-meiryo">
-        <div>
-          <p className="pt-10 text-center  text-lg font-bold">
-            {/* 新規作成する議題を選んでください */}
+    // pt-[5%]は仮置き
+    <main className="mt-16 flex-1 bg-bac-main">
+      <section className="h-full font-meiryo">
+        {/* <div>
+          <p className="pt-[10%] text-center text-lg font-bold">
             議題検索
           </p>
           <div className="my-4 flex justify-center">
             <Form title="議題名" />
-            {/* TODO: ここでエラーがでる */}
             <Button
               name={<MaterialSymbolsSearch />}
               color="bg-white text-black"
@@ -63,34 +64,34 @@ export const AdminAgenda = () => {
               decoration="rounded-lg border border-black"
             />
           </div>
-        </div>
-        <div className="overflow-x-auto p-4 ">
+        </div> */}
+        <div className="overflow-x-auto p-4">
           <table className="table mx-auto bg-white shadow-md shadow-slate-200 lg:w-2/3">
             {/* head */}
             <thead className="bg-main-color">
-              <tr className="text-base">
-                <th className="hidden rounded-tl-xl text-white lg:table-cell lg:min-w-[10%]">
+              <tr className="text-center text-base">
+                <th className="rounded-tl-xl text-white lg:table-cell lg:min-w-[10%]">
                   国会回次
                 </th>
-                <th className="lg:table-cel min-w-[30%] rounded-tl-xl text-white lg:min-w-[10%] lg:rounded-none">
+                <th className="lg:table-cel max-w-[10%] text-white lg:min-w-[10%]">
                   院名
                 </th>
-                <th className="min-w-[40%] text-white lg:min-w-[30%]">会議名</th>
+                <th className="w-[60%] text-white lg:w-[30%]">会議名</th>
                 <th className="hidden text-white lg:table-cell lg:min-w-[10%]">
                   号数
                 </th>
                 <th className="hidden text-white lg:table-cell lg:min-w-[10%]">
                   実施年月
                 </th>
-                <th className="min-w-[30%] rounded-tr-xl lg:min-w-[20%]"></th>
+                <th className="max-w-[20%] rounded-tr-xl lg:min-w-[20%]"></th>
               </tr>
             </thead>
             <tbody>
               {Array.from(api).map(([keys, values]) => {
                 const pickData = new Map(Object.entries(values));
                 return (
-                  <tr key={keys}>
-                    <td className="hidden rounded-bl-xl lg:table-cell">
+                  <tr key={keys} className="text-center">
+                    <td className="rounded-bl-xl lg:table-cell">
                       <>第{pickData.get("session")}回</>
                     </td>
                     <td className="p-0 text-center">
@@ -108,10 +109,10 @@ export const AdminAgenda = () => {
                     <td className="rounded-br-xl">
                       <button
                         type="button"
-                        className="flex items-center gap-3 rounded-full bg-sub_blue p-2 text-xs"
+                        className="flex items-center rounded-full bg-sub_blue p-2"
                         onClick={() => detail(keys)}
                       >
-                        要約を作成する
+                        <MdiChat />
                       </button>
                     </td>
                   </tr>

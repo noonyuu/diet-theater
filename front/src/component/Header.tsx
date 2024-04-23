@@ -9,7 +9,7 @@ export default function App() {
   };
 
   return (
-    <header className="sticky top-0 z-50 flex py-5 w-full bg-white pl-4 shadow-md">
+    <header className="fixed top-0 z-50 flex h-16 w-full bg-white shadow-md">
       {/* humbergerbutton */}
       {/* <button
         onClick={handleMenuOpen}
@@ -38,8 +38,8 @@ export default function App() {
           }
         />
       </button> */}
-      <h1 className="flex items-center text-xl font-bold">国会劇場</h1>
-      <div className="absolute right-2">
+      <h1 className="flex items-center text-xl font-bold ml-4">国会劇場</h1>
+      <div className="absolute right-2 flex h-full items-center">
         {/* TODO: icon */}
         <div className="size-8 rounded-full bg-red-200"></div>
       </div>
