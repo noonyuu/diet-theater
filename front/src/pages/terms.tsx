@@ -5,11 +5,9 @@ import { GlobalContext } from "../context/GlobalContext";
 
 export const Terms = () => {
   const navigate = useNavigate();
-  const { terms, setTerms } = useContext(GlobalContext);
   const next = () => {
     try {
       localStorage.setItem("terms", "yes");
-      setTerms(true);
     } catch (e) {
       console.log(e);
     }
@@ -22,7 +20,7 @@ export const Terms = () => {
 
   useEffect(() => {
     localStorage.getItem("terms") ? navigate("/agenda") : navigate("/");
-  },[terms]);
+  },[]);
 
   return (
     <main className="mt-16 flex-1 bg-bac-main">
