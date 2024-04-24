@@ -23,7 +23,7 @@ export const Terms = () => {
   },[]);
 
   return (
-    <main className="mt-16 flex-1 bg-bac-main">
+    <main className="flex-1 bg-bac-main">
       <section className="flex justify-center font-meiryo">
         <div className="mx-[10%] my-[5%] w-10/12 bg-white p-[5%] text-custom-black shadow-md shadow-slate-200">
           <h1 className="mb-16 text-center text-4xl font-bold">利用規約</h1>
