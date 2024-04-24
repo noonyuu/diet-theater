@@ -101,7 +101,7 @@ export const Agenda = () => {
                       <>{pickData.get("nameOfMeeting")}</>
                     </td>
                     <td className="hidden lg:table-cell">
-                      <>第{pickData.get("session")}号</>
+                      <>{pickData.get("issue")}</>
                     </td>
                     <td className="hidden lg:table-cell">
                       <>{pickData.get("date")}</>
