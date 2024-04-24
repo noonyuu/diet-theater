@@ -3,8 +3,8 @@ WORKDIR /root/gin_goth
 
 COPY go.mod go.sum ./
 RUN go mod download
-COPY . .
+# COPY . .
 
-RUN go build -o main /root/gin_goth/main.go
+# RUN go build -o main /root/gin_goth/main.go
 
-CMD ["./main"]
+# CMD ["./main"]
