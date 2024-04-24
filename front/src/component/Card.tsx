@@ -48,11 +48,11 @@ const Card = (props: any) => {
       <div className="Kaisei Tokumin h-52 w-44 rounded-md border-2">
         {/* 党 */}
         <div className="h-1/5">
-          <div className="relative left-1 top-1 flex size-6 items-center justify-center text-sm text-white">
+          <div className="relative left-1 top-1 flex size-6 items-center justify-center text-sm text-black">
             自
           </div>
           {/* 議員の名前 */}
-          <div className="-translate-y-1/2 text-center text-base text-white">
+          <div className="-translate-y-1/2 text-center text-base text-black">
             岸田文雄
           </div>
         </div>
@@ -60,7 +60,7 @@ const Card = (props: any) => {
         <div className="scroll-bar h-2/5 overflow-auto p-2 pl-0 text-xs">
           <ul className="">
             {pledge.map((item, index) => (
-              <li key={index} className="text-white">
+              <li key={index} className="text-black">
                 {item}
               </li>
             ))}

@@ -18,7 +18,7 @@ export const getPostData = async (): Promise<Map<string, any> | null> => {
     const kobeOneData = new Map<string, any>(
       Object.entries(kobeMeetingRecord || {}),
     );
-    console.log("kobeOneData", kobeOneData);
+    // console.log("kobeOneData", kobeOneData);
 
     const dataMap = new Map<string, any>(Object.entries(response.data));
     const meetingRecord: MeetingRecord = dataMap.get("meetingRecord");
@@ -31,10 +31,10 @@ export const getPostData = async (): Promise<Map<string, any> | null> => {
     
 
     oneData.set("5", kobeOneData.get("0"));
-    console.log("oneData", oneData);
+    // console.log("oneData", oneData);
 
     oneData.forEach((element: any) => {
-      console.log("speechRecord", element);
+      // console.log("speechRecord", element);
     });
 
     return oneData;

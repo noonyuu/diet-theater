@@ -327,7 +327,7 @@ func main() {
 	})
 
 	// ユーザー取得
-	server.POST("/get_user", func(c *gin.Context) {
+	server.POST("/get-user", func(c *gin.Context) {
 		// 認証済みか判定
 		autoed := c.MustGet("autoed").(bool)
 		if !autoed {

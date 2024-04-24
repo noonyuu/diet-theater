@@ -7,7 +7,7 @@ services:
       dockerfile: Dockerfile
     container_name: app_server
     image: app-server-image:latest
-    command: sh -c "cd gin_main && go run ."
+    # command: sh -c "cd gin_main && go run ."
     ports:
       - "8080:8080"
     volumes:
@@ -24,7 +24,7 @@ services:
       dockerfile: Dockerfile
     container_name: auth_server
     image: auth-server-image:latest
-    command: sh -c "go run ."
+    # command: sh -c "go run ."
     ports:
       - 10005:10005
     volumes:

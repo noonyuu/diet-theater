@@ -1,39 +1,55 @@
-import { BrowserRouter, Routes, Route } from "react-router-dom";
-import App from "./App";
-import { LoginPage } from "./pages/admin/login";
-import { Terms } from "./pages/terms";
-import { Agenda } from "./pages/admin/agenda";
-import { Chat } from "./pages/admin/chat";
-import NotFound from "./component/notFound";
-import Header from "./component/Header";
-import { ContextWrapper } from "./context/ContextWrapper";
+import { useEffect } from "react";
+import { Routes, Route, useNavigate } from "react-router-dom";
+// routes
 import Secret from "./secret/Secret";
-import Article from "./pages/user/Article";
-import Footer from "./component/Footer";
+// pages
+import Login from "./pages/Login";
+// components
+import NotFound from "./component/notFound";
+import { GetUser, RefreshToken } from "./script/Auth";
+import { Terms } from "./pages/Terms";
 
-export const Routers = () => {
+const Routers = () => {
+  const navigate = useNavigate();
+
+  // useEffect(() => {
+  //   const fetchUser = async () => {
+  //     try {
+  //       const [logInned, userInfo] = await GetUser();
+  //       if (logInned && userInfo) {
+  //         // トークン更新
+  //         RefreshToken();
+  //         // ログイン済みの場合
+  //         if (
+  //           window.location.pathname === "/" ||
+  //           window.location.pathname === "/login-test"
+  //         ) {
+  //           navigate("/secret/agenda");
+  //         } else {
+  //           navigate(window.location.pathname, { replace: true });
+  //         }
+  //       } else {
+  //         navigate("/login-test");
+  //       }
+  //     } catch (e) {
+  //       console.log(e);
+  //     }
+  //   };
+  //   fetchUser();
+  // }, []);
+
   return (
     <>
-      <ContextWrapper>
-        <div className="flex min-h-svh flex-col">
-          <Header />
-          <main className="">
-            <BrowserRouter>
-              <Routes>
-                <Route path="/" element={<Terms />}></Route>
-                <Route path="/login" element={<LoginPage />}></Route>
-                <Route path="/terms" element={<Terms />} />
-                <Route path="/agenda" element={<Agenda />} />
-                <Route path="/chat" element={<Chat />} />
-                <Route path="secret/*" element={<Secret />} />
-                <Route path="/article" element={<Article />} />
-                <Route path="/*" element={<NotFound />} />
-              </Routes>
-            </BrowserRouter>
-          </main>
-          <Footer />
-        </div>
-      </ContextWrapper>
+      <Routes>
+        <Route path="/" element={<Terms />}></Route>
+        <Route path="secret/*" element={<Secret />} />
+        <Route path="/*" element={<NotFound />} />
+
+        {/* test */}
+        <Route path="/login-test" element={<Login />} />
+      </Routes>
     </>
   );
 };
+
+export default Routers;

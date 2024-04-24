@@ -1,15 +1,39 @@
-// import "./styles.css";
-import React, { useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
+// context
+import { GlobalContext } from "../context/GlobalContext";
+import { GetUser } from "../script/Auth";
 
 export default function App() {
-  const [openMenu, setOpenMenu] = useState(false);
+  const { profile, setProfile } = useContext(GlobalContext);
+  const [isLoad, setIsLoad] = useState(true);
+  useEffect(() => {
+    // 初期化処理
+    if (!isLoad) return;
 
-  const handleMenuOpen = () => {
-    setOpenMenu(!openMenu);
-  };
+    GetUser()
+      .then((res) => {
+        const [success, user] = res;
+        if (success) {
+          setProfile([
+            {
+              id: user.id,
+              name: user.name,
+              avatar_url: user.avatar_url,
+              email: user.email,
+            },
+          ]);
+        }
+      })
+      .then(() => {
+        setIsLoad(false);
+      });
+  }, [isLoad]); // profileを依存配列から削除
+
+  // profileが変更された時にのみ実行される
+  useEffect(() => {}, [profile]);
 
   return (
-    <header className="fixed top-0 z-50 flex h-16 w-full bg-white shadow-md">
+    <header className="fixed top-0 z-50 flex h-16 w-full bg-black shadow-md">
       {/* humbergerbutton */}
       {/* <button
         onClick={handleMenuOpen}
@@ -38,10 +62,16 @@ export default function App() {
           }
         />
       </button> */}
-      <h1 className="flex items-center text-xl font-bold ml-4">国会劇場</h1>
+      <h1 className="ml-4 flex items-center text-xl font-bold text-white">国会劇場</h1>
       <div className="absolute right-2 flex h-full items-center">
         {/* TODO: icon */}
-        <div className="size-8 rounded-full bg-red-200"></div>
+        {profile.length > 0 && (
+          <img
+            src={profile[0].avatar_url}
+            alt=""
+            className="size-8 rounded-full"
+          />
+        )}
       </div>
 
       {/* nav */}

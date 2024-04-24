@@ -1,4 +1,4 @@
-import React, { useReducer, useState, useEffect } from "react";
+import React, { useState } from "react";
 import { GlobalContext } from "./GlobalContext";
 
 interface ContextWrapperProps {
@@ -6,13 +6,15 @@ interface ContextWrapperProps {
 }
 
 export const ContextWrapper: React.FC<ContextWrapperProps> = (props) => {
-  const [terms, setTerms] = useState(false);
+  const [profile, setProfile] = useState<
+    { id: string; name: string; avatar_url: string; email: string }[]
+  >([]);
 
   return (
     <GlobalContext.Provider
       value={{
-        terms,
-        setTerms,
+        profile,
+        setProfile,
       }}
     >
       {props.children}
