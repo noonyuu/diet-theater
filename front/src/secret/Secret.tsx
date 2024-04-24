@@ -16,19 +16,21 @@ import Footer from "../component/Footer";
 const Secret = () => {
   return (
     <>
-      <Header />
-      <Routes>
-        <Route path="/admin-agenda" element={<AdminAgenda />} />
-        <Route path="/standby-screen/:issueID" element={<StandbyScreen />} />
-        <Route path="/crate-card" element={<CreateCard />} />
-        <Route path="/x" element={<ExcelReader />} />
-        <Route path="/login" element={<LoginPage />}></Route>
-        <Route path="/terms" element={<Terms />} />
-        <Route path="/agenda" element={<Agenda />} />
-        <Route path="/chat" element={<Chat />} />
-        <Route path="/article" element={<Article />} />
-      </Routes>
-      <Footer />
+      <ContextWrapper>
+        <Header />
+        <Routes>
+          <Route path="/admin-agenda" element={<AdminAgenda />} />
+          <Route path="/standby-screen/:issueID" element={<StandbyScreen />} />
+          <Route path="/crate-card" element={<CreateCard />} />
+          <Route path="/x" element={<ExcelReader />} />
+          <Route path="/login" element={<LoginPage />}></Route>
+          <Route path="/terms" element={<Terms />} />
+          <Route path="/agenda" element={<Agenda />} />
+          <Route path="/chat" element={<Chat />} />
+          <Route path="/article" element={<Article />} />
+        </Routes>
+        <Footer />
+      </ContextWrapper>
     </>
   );
 };
