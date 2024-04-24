@@ -5,7 +5,7 @@ import Card from "../../../component/Card";
 
 const Article = () => {
   return (
-    <main className="mt-16 flex-1 bg-black">
+    <main className="mt-16 flex-1 bg-bac-main">
       <div className="m-4 flex justify-center">
         <Search />
         <Button

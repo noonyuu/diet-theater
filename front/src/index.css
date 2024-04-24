@@ -42,11 +42,11 @@ ul {
 }
 
 .scroll-bar::-webkit-scrollbar {
-  background: #000;
+  background: white;
   width: 2px;
 }
 .scroll-bar::-webkit-scrollbar-thumb {
-  background-color: white;
+  background-color: black;
   width: 2px;
 }
 .scroll-bar::-webkit-scrollbar-thumb:hover {

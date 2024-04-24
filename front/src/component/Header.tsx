@@ -33,7 +33,7 @@ export default function App() {
   useEffect(() => {}, [profile]);
 
   return (
-    <header className="fixed top-0 z-50 flex h-16 w-full bg-white shadow-md">
+    <header className="fixed top-0 z-50 flex h-16 w-full bg-black shadow-md">
       {/* humbergerbutton */}
       {/* <button
         onClick={handleMenuOpen}
@@ -62,7 +62,7 @@ export default function App() {
           }
         />
       </button> */}
-      <h1 className="ml-4 flex items-center text-xl font-bold">国会劇場</h1>
+      <h1 className="ml-4 flex items-center text-xl font-bold text-white">国会劇場</h1>
       <div className="absolute right-2 flex h-full items-center">
         {/* TODO: icon */}
         {profile.length > 0 && (
