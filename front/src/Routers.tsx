@@ -6,12 +6,35 @@ import Secret from "./secret/Secret";
 import Login from "./pages/Login";
 // components
 import NotFound from "./component/notFound";
+import { GetUser, RefreshToken } from "./script/Auth";
 
 const Routers = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    localStorage.getItem("terms") ? navigate("/secret/agenda") : navigate("/");
+    const fetchUser = async () => {
+      try {
+        const [logInned, userInfo] = await GetUser();
+        if (logInned && userInfo) {
+          // トークン更新
+          RefreshToken();
+          // ログイン済みの場合
+          if (
+            window.location.pathname === "/" ||
+            window.location.pathname === "/login-test"
+          ) {
+            navigate("/secret/agenda");
+          } else {
+            navigate(window.location.pathname, { replace: true });
+          }
+        } else {
+          navigate("/login-test");
+        }
+      } catch (e) {
+        console.log(e);
+      }
+    };
+    fetchUser();
   }, []);
 
   return (
