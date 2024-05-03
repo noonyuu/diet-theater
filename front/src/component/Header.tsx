@@ -54,13 +54,13 @@ export default function App() {
   useEffect(()=>{
     if(location.pathname === "/secret/admin-agenda"){
       setSelectMenu(1);
-    }else if(location.pathname === "/secret/theater-create"){
+    }else if (location.pathname === "/secret/theater-create-table") {
       setSelectMenu(2);
-    }else if(location.pathname === "/secret/theater-edit"){
+    } else if (location.pathname === "/secret/theater-edit") {
       setSelectMenu(3);
-    }else if(location.pathname === "/secret/theater-other"){
+    } else if (location.pathname === "/secret/theater-other") {
       setSelectMenu(4);
-    }else if(location.pathname === "/secret/logout"){
+    } else if (location.pathname === "/secret/logout") {
       setSelectMenu(5);
     }
   },[location.pathname])
@@ -151,7 +151,7 @@ export default function App() {
           >
             <button
               type="button"
-              onClick={() => handleSelectMenu("theater-create")}
+              onClick={() => handleSelectMenu("theater-create-table")}
               className="inline-block w-full text-start"
             >
               劇作成<span className="float-end">&gt;</span>

@@ -12,15 +12,15 @@ import Footer from "./component/Footer";
 import Header from "./component/Header";
 import { ContextWrapper } from "./context/ContextWrapper";
 import { AdminAgenda } from "./pages/admin/AdminAgenda";
-import CreateCard from "./pages/admin/CreateCard";
 import StandbyScreen from "./pages/admin/StandbyScreen";
 import { LoginPage } from "./pages/admin/login";
 import ExcelReader from "./pages/admin/xlsx";
 import Test from "./pages/user/Test";
 import { Agenda } from "./pages/user/summary/Agenda";
 import { Chat } from "./pages/user/summary/Chat";
-import { TheaterCreate } from "./pages/admin/TheaterCreate";
 import AdminLogin from "./pages/admin/AdminLogin";
+import { TheaterCreateTable } from "./pages/admin/TheaterCreateTable";
+import TheaterCreate from "./pages/admin/TheaterCreate";
 
 const Routers = () => {
   const navigate = useNavigate();
@@ -83,6 +83,12 @@ const Routers = () => {
         <Route
           path={`/secret/admin-agenda`}
           element={<LayoutWithHeaderAndFooter element={<AdminAgenda />} />}
+        />
+        <Route
+          path={`/secret/theater-create-table`}
+          element={
+            <LayoutWithHeaderAndFooter element={<TheaterCreateTable />} />
+          }
         />
         <Route
           path={`/secret/theater-create`}
