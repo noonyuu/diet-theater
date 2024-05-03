@@ -17,13 +17,17 @@ import StandbyScreen from "./pages/admin/StandbyScreen";
 import { LoginPage } from "./pages/admin/login";
 import ExcelReader from "./pages/admin/xlsx";
 import Test from "./pages/user/Test";
-import Article from "./pages/user/article/Article";
 import { Agenda } from "./pages/user/summary/Agenda";
 import { Chat } from "./pages/user/summary/Chat";
+import { TheaterCreate } from "./pages/admin/TheaterCreate";
+import AdminLogin from "./pages/admin/AdminLogin";
 
 const Routers = () => {
   const navigate = useNavigate();
 
+  useEffect(() => {
+    localStorage.getItem("terms") ? "" : navigate("/");
+  }, []);
   // useEffect(() => {
   //   const fetchUser = async () => {
   //     try {
@@ -51,34 +55,64 @@ const Routers = () => {
   // }, []);
 
   return (
-    <>
+    <ContextWrapper>
       <Routes>
-        <Route path="/" element={<Terms />}></Route>
-        <Route path="/home" element={<Secret />} />
-        {/* <Route path="/*" element={<NotFound />} /> */}
+        {/* ヘッダーとフッターなしで表示したいページ */}
+        <Route
+          path="/"
+          element={<LayoutWithoutHeaderAndFooter element={<Terms />} />}
+        />
 
-        {/* test */}
-        <Route path="/login-test" element={<Login />} />
+        {/* ヘッダーとフッターを含むページ */}
+        {/* 一覧画面 */}
+        <Route
+          path="/agenda"
+          element={<LayoutWithHeaderAndFooter element={<Agenda />} />}
+        />
+        {/* チャット画面 */}
+        <Route
+          path="/chat"
+          element={<LayoutWithHeaderAndFooter element={<Chat />} />}
+        />
+
+        {/* 管理者 */}
+        <Route
+          path={`/${import.meta.env.VITE_APP_ADMIN}`}
+          element={<LayoutWithHeaderAndFooter element={<AdminLogin />} />}
+        />
+        <Route
+          path={`/secret/admin-agenda`}
+          element={<LayoutWithHeaderAndFooter element={<AdminAgenda />} />}
+        />
+        <Route
+          path={`/secret/theater-create`}
+          element={<LayoutWithHeaderAndFooter element={<TheaterCreate />} />}
+        />
+
+        {/* 404 NotFound ページ */}
+        <Route path="*" element={<NotFound />} />
       </Routes>
-      
-      <ContextWrapper>
-        <Header />
-        <Routes>
-          <Route path="/admin-agenda" element={<AdminAgenda />} />
-          <Route path="/standby-screen/:issueID" element={<StandbyScreen />} />
-          <Route path="/crate-card" element={<CreateCard />} />
-          <Route path="/x" element={<ExcelReader />} />
-          <Route path="/login" element={<LoginPage />}></Route>
-          <Route path="/terms" element={<Terms />} />
-          <Route path="/agenda" element={<Agenda />} />
-          <Route path="/chat" element={<Chat />} />
-          <Route path="/article" element={<Article />} />
-          <Route path="/test" element={<Test />} />
-        </Routes>
-        <Footer />
-      </ContextWrapper>
-    </>
+    </ContextWrapper>
   );
 };
 
+interface LayoutProps {
+  element: JSX.Element;
+}
+
+function LayoutWithoutHeaderAndFooter({ element }: LayoutProps) {
+  // ヘッダーとフッターなしで要素を表示
+  return <>{element}</>;
+}
+
+function LayoutWithHeaderAndFooter({ element }: LayoutProps) {
+  // ヘッダーとフッターを含めて要素を表示
+  return (
+    <>
+      <Header />
+      {element}
+      <Footer />
+    </>
+  );
+}
 export default Routers;
