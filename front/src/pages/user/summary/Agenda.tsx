@@ -5,6 +5,7 @@ import { getPostData } from "../../../hooks/getOriginal";
 import { Form } from "../../../component/form";
 import { Button } from "../../../component/button";
 import { MdiChat } from "../../../assets/Chat";
+import { MaterialSymbolsSearch } from "../../../assets/Search";
 
 // アイコン
 // import { FaSearch } from "react-icons/fa";
@@ -23,7 +24,7 @@ export const Agenda = () => {
     const entity: Entity = {
       detailId: val,
     };
-    navigate("/secret/chat", { state: entity });
+    navigate("/chat", { state: entity });
   };
 
   useEffect(() => {
@@ -48,71 +49,63 @@ export const Agenda = () => {
   }, []);
 
   return (
-    // pt-[5%]は仮置き
-    <main className="mt-16 flex-1 bg-bac-main">
-      <section className="h-full font-meiryo">
-        {/* <div>
-          <p className="pt-[10%] text-center text-lg font-bold">
-            議題検索
-          </p>
-          <div className="my-4 flex justify-center">
-            <Form title="議題名" />
-            <Button
-              name={<MaterialSymbolsSearch />}
-              color="bg-white text-black"
-              action=""
-              decoration="rounded-lg border border-black"
-            />
-          </div>
-        </div> */}
-        <div className="overflow-x-auto p-4">
-          <table className="table mx-auto bg-white shadow-md shadow-slate-200 lg:w-2/3">
-            {/* head */}
-            <thead className="bg-main-color">
-              <tr className="text-center text-base">
-                <th className="rounded-tl-xl text-white lg:table-cell lg:min-w-[10%]">
-                  国会回次
+    <main className="-mb-8 mt-16 flex flex-1 justify-center bg-gray-100">
+      <div className="mx-4 my-auto h-[80vh] w-full rounded-3xl bg-white p-8 shadow lg:mx-24">
+        <div className="flex space-x-8 lg:space-x-24">
+          <h1 className="text-lg font-bold lg:text-4xl">開演中</h1>
+          <span className="flex items-center text-xs font-light lg:text-3xl">
+            2024年シーズン
+          </span>
+        </div>
+
+        <div className="mt-4 flex items-center rounded-md bg-white">
+          <button className="px-1">
+            <MaterialSymbolsSearch />
+          </button>
+          <input
+            type="search"
+            className="w-full rounded-md border-[1px] border-gray-200 bg-white p-1 focus:border-green-200 focus:outline-none"
+            placeholder="検索"
+          />
+        </div>
+
+        <div className="mt-4 lg:mt-10">
+          <table className="table mx-auto w-full rounded-b-none bg-white">
+            <thead className="">
+              <tr className="border-gray-100 text-center text-base">
+                <th className="w-5/6 text-xs text-gray-400 lg:w-3/6 lg:text-xl">
+                  議題
                 </th>
-                <th className="lg:table-cel max-w-[10%] text-white lg:min-w-[10%]">
-                  院名
+                <th className="hidden w-1/6 text-xs text-gray-400 lg:table-cell lg:text-xl">
+                  政党
                 </th>
-                <th className="w-[60%] text-white lg:w-[30%]">会議名</th>
-                <th className="hidden text-white lg:table-cell lg:min-w-[10%]">
-                  号数
+                <th className="hidden w-1/6 text-xs text-gray-400 lg:table-cell lg:text-xl">
+                  日付
                 </th>
-                <th className="hidden text-white lg:table-cell lg:min-w-[10%]">
-                  実施年月
-                </th>
-                <th className="max-w-[20%] rounded-tr-xl lg:min-w-[20%]"></th>
+                <th className="w-1/6 text-xs text-gray-400 lg:text-xl"></th>
               </tr>
             </thead>
-            <tbody>
+            <tbody className="border-none">
               {Array.from(api).map(([keys, values]) => {
                 const pickData = new Map(Object.entries(values));
                 return (
-                  <tr key={keys} className="text-center">
-                    <td className="rounded-bl-xl lg:table-cell">
-                      <>第{pickData.get("session")}回</>
-                    </td>
-                    <td className="p-0 text-center">
-                      <>{pickData.get("nameOfHouse")}</>
-                    </td>
-                    <td className="lg:text:lg md:text-md p-0 text-center text-xs">
+                  <tr key={keys} className="border-gray-100 text-center">
+                    <td className="p-0 text-center text-xs font-thin lg:text-lg">
                       <>{pickData.get("nameOfMeeting")}</>
                     </td>
-                    <td className="hidden lg:table-cell">
-                      <>{pickData.get("issue")}</>
+                    <td className="hidden p-0 text-center text-xs lg:table-cell lg:text-lg">
+                      <>{pickData.get("nameOfHouse")}</>
                     </td>
-                    <td className="hidden lg:table-cell">
+                    <td className="hidden p-0 text-center text-xs lg:table-cell lg:text-lg">
                       <>{pickData.get("date")}</>
                     </td>
-                    <td className="rounded-br-xl">
+                    <td className="rounded-br-xl p-0 px-1 py-3 text-xs lg:text-lg">
                       <button
                         type="button"
-                        className="flex items-center rounded-full bg-sub_blue p-2"
+                        className="mx-auto flex items-center rounded-md border-2 border-green-500 bg-green-100 px-1 py-1 text-xs text-green-500 lg:px-8"
                         onClick={() => detail(keys)}
                       >
-                        <MdiChat />
+                        入場
                       </button>
                     </td>
                   </tr>
@@ -121,7 +114,7 @@ export const Agenda = () => {
             </tbody>
           </table>
         </div>
-      </section>
+      </div>
     </main>
   );
 };
