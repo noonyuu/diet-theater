@@ -1,6 +1,6 @@
 const Footer = () => {
   return (
-    <footer className="mt-auto h-[5%] bg-white">
+    <footer className="mt-auto h-8 bg-white">
       <div className="size-full">
         <p className="my-auto flex h-full items-center justify-center text-sm text-gray-500">
           © 2023-2024{" "}
