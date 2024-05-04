@@ -26,10 +26,8 @@ export const TheaterCreateTable = () => {
     const entity: Entity = {
       details: val,
     };
-    console.log("entity", entity.details.get("issueID"));
-    navigate(`/secret/standby-screen/${entity.details.get("issueID")}`, {
-      state: entity.details.get("issueID"),
-    });
+    // console.log("entity", entity.details.get("issueID"));
+    navigate(`/secret/theater-create/${entity.details}`);
   };
 
   useEffect(() => {
@@ -138,7 +136,7 @@ export const TheaterCreateTable = () => {
                       <button
                         type="button"
                         className="mx-auto flex items-center justify-center rounded-md border-2 border-green-500 bg-green-100 px-1 py-1 text-xs text-green-500 lg:w-24"
-                        onClick={() => detail(keys)}
+                        onClick={() => detail(pickData.get("issueID"))}
                       >
                         GENERATE
                       </button>
