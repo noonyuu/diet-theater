@@ -1,21 +1,12 @@
 import { useEffect } from "react";
 import { Routes, Route, useNavigate } from "react-router-dom";
-// routes
-import Secret from "./secret/Secret";
-// pages
-import Login from "./pages/Login";
 // components
 import NotFound from "./component/notFound";
-// import { GetUser, RefreshToken } from "./script/Auth";
 import { Terms } from "./pages/Terms";
 import Footer from "./component/Footer";
 import Header from "./component/Header";
 import { ContextWrapper } from "./context/ContextWrapper";
 import { AdminAgenda } from "./pages/admin/AdminAgenda";
-import StandbyScreen from "./pages/admin/StandbyScreen";
-import { LoginPage } from "./pages/admin/login";
-import ExcelReader from "./pages/admin/xlsx";
-import Test from "./component/Test";
 import { Agenda } from "./pages/user/summary/Agenda";
 import { Chat } from "./pages/user/summary/Chat";
 import AdminLogin from "./pages/admin/AdminLogin";
