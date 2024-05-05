@@ -1,7 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
 
 const DayBox = () => {
-  const isFirstRender = useRef(false);
   const [date, setDate] = useState(new Map());
   const [year, setYear] = useState<number>();
 
