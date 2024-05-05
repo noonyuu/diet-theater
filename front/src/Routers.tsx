@@ -15,12 +15,13 @@ import { AdminAgenda } from "./pages/admin/AdminAgenda";
 import StandbyScreen from "./pages/admin/StandbyScreen";
 import { LoginPage } from "./pages/admin/login";
 import ExcelReader from "./pages/admin/xlsx";
-import Test from "./pages/user/Test";
+import Test from "./component/Test";
 import { Agenda } from "./pages/user/summary/Agenda";
 import { Chat } from "./pages/user/summary/Chat";
 import AdminLogin from "./pages/admin/AdminLogin";
 import { TheaterCreateTable } from "./pages/admin/TheaterCreateTable";
 import TheaterCreate from "./pages/admin/TheaterCreate";
+import TheaterShow from "./pages/user/TheaterShow";
 
 const Routers = () => {
   const navigate = useNavigate();
@@ -74,6 +75,11 @@ const Routers = () => {
           path="/chat"
           element={<LayoutWithHeaderAndFooter element={<Chat />} />}
         />
+        {/* 劇一覧 */}
+        <Route
+          path="/theater-show"
+          element={<LayoutWithHeaderAndFooter element={<TheaterShow />} />}
+        />
 
         {/* 管理者 */}
         <Route
@@ -91,7 +97,7 @@ const Routers = () => {
           }
         />
         <Route
-          path={`/secret/theater-create`}
+          path={`/secret/theater-create/:issueID`}
           element={<LayoutWithHeaderAndFooter element={<TheaterCreate />} />}
         />
 
