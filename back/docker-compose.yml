@@ -47,6 +47,8 @@ services:
       - TZ=${TZ}
     ports:
       - "3306:3306"
+    volumes:
+      - .db//my.cnf:/etc/mysql/conf.d/my.cnf
     tty: true
     stdin_open: true
 
