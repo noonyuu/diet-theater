@@ -12,6 +12,7 @@ import { Agenda } from "../pages/user/summary/Agenda";
 import { Chat } from "../pages/user/summary/Chat";
 import Header from "../component/Header";
 import Footer from "../component/Footer";
+import { Anime } from "../pages/user/Anime";
 
 const Secret = () => {
   return (
@@ -28,12 +29,12 @@ const Secret = () => {
           <Route path="/agenda" element={<Agenda />} />
           <Route path="/chat" element={<Chat />} />
           <Route path="/article" element={<Article />} />
+          <Route path="/anime" element={<Anime />} />
         </Routes>
         <Footer />
       </ContextWrapper>
     </>
   );
 };
-
 
 export default Secret;
