@@ -7,7 +7,7 @@ services:
       dockerfile: Dockerfile
     container_name: app_server
     image: app-server-image:latest
-    # command: sh -c "cd gin_main && go run ."
+    command: sh -c "cd gin_main && go run ."
     ports:
       - "8080:8080"
     volumes:
@@ -24,7 +24,7 @@ services:
       dockerfile: Dockerfile
     container_name: auth_server
     image: auth-server-image:latest
-    # command: sh -c "go run ."
+    command: sh -c "go run ."
     ports:
       - 10005:10005
     volumes:
@@ -50,17 +50,16 @@ services:
     tty: true
     stdin_open: true
 
-  # gpt:
-  #   container_name: gpt
-  #   build: ./python
-  #   ports:
-  #     - "5050:5050"
-  #   environment:
-  #     - TZ=Asia/Tokyo
-  #   networks:
-  #     - backend
-  #   restart: always
-  #   tty: true
+  gpt:
+    image: gpt:latest
+    container_name: gpt
+    build: ./python
+    ports:
+      - "5050:5050"
+    environment:
+      - TZ=Asia/Tokyo
+    restart: always
+    tty: true
 
   nginx:
     restart: always
