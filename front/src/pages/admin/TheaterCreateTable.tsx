@@ -15,19 +15,19 @@ export const TheaterCreateTable = () => {
   const [speaker, setSpeaker] = useState<any[]>([]);
 
   interface Entity {
-    details: any;
+    generates: any;
   }
 
   interface MeetingRecord {
     [key: string]: any;
   }
 
-  const detail = (val: any) => {
+  const generate = (val: any) => {
     const entity: Entity = {
-      details: val,
+      generates: val,
     };
-    // console.log("entity", entity.details.get("issueID"));
-    navigate(`/secret/theater-create/${entity.details}`);
+    // console.log("entity", entity.generates.get("issueID"));
+    navigate(`/secret/theater-create/${entity.generates}`);
   };
 
   useEffect(() => {
@@ -127,7 +127,7 @@ export const TheaterCreateTable = () => {
                       <button
                         type="button"
                         className="mx-auto flex items-center justify-center rounded-md border-2 border-green-500 bg-green-100 px-1 py-1 text-xs text-green-500 lg:w-24"
-                        onClick={() => detail(keys)}
+                        onClick={() => generate(keys)}
                       >
                         NOT CREATED
                       </button>
@@ -136,7 +136,7 @@ export const TheaterCreateTable = () => {
                       <button
                         type="button"
                         className="mx-auto flex items-center justify-center rounded-md border-2 border-green-500 bg-green-100 px-1 py-1 text-xs text-green-500 lg:w-24"
-                        onClick={() => detail(pickData.get("issueID"))}
+                        onClick={() => generate(pickData.get("issueID"))}
                       >
                         GENERATE
                       </button>
