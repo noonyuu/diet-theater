@@ -36,32 +36,32 @@ func GeminiAI(apiKey string) (*genai.GenerativeModel, error) {
 }
 
 // AIに問い合わせ
-func QuestionAI(issueID string) ([]string, error) {
+func QuestionAI(issueID string) ([]map[string]interface{}, error) {
 	c := context.Background()
 	//モデル取得
-	ai_model := model
+	aiModel := model
 
 	url := "https://kokkai.ndl.go.jp/api/speech?issueID=" + issueID + "&recordPacking=json"
-	diet_res, err := http.Get(url)
+	dietRes, err := http.Get(url)
 	if err != nil {
 		log.Println(err)
 		return nil, err
 	}
 
-	defer diet_res.Body.Close()
-	byte_array, err := io.ReadAll(diet_res.Body)
+	defer dietRes.Body.Close()
+	byteArray, err := io.ReadAll(dietRes.Body)
 	if err != nil {
 		log.Println(err)
 		return nil, err
 	}
 	// レスポンスをパース
 	var data map[string]interface{}
-	err = json.Unmarshal(byte_array, &data)
+	err = json.Unmarshal(byteArray, &data)
 	if err != nil {
 		log.Println(err)
 		return nil, err
 	}
-	var speeches []string // speechデータを集めるスライス
+	var speeches []map[string]interface{}// speechデータを集めるスライス
 	var count int = 0
 	// speechRecordキーからデータを取得し、speechキーに関連するデータを表示
 	if speechRecords, ok := data["speechRecord"].([]interface{}); ok {
@@ -78,13 +78,17 @@ func QuestionAI(issueID string) ([]string, error) {
 					}
 					//生成
 					query := speech + "\nこの話を要点を押さえつつ最大100文字程度にまとめてください(人の名前などは省略しない)" // ここで文字列を正しく結合
-					var response, err = ai_model.GenerateContent(c, genai.Text(query))
+					var response, err = aiModel.GenerateContent(c, genai.Text(query))
 					if err != nil {
 						log.Println(err)
 						return nil, err
 					}
-					fmt.Println(speaker)
-					speeches = append(speeches, printResponse(response)) // `speech`データをスライスに追加
+					newSpeaker := printResponse(response)
+					mixDate := map[string]interface{}{
+						"speaker": speaker,
+						"speech":  newSpeaker,
+					}
+					speeches = append(speeches, mixDate) // speechデータをスライスに追加
 				}
 			}
 		}
@@ -93,25 +97,25 @@ func QuestionAI(issueID string) ([]string, error) {
 }
 
 func printResponse(resp *genai.GenerateContentResponse) string {
-	result_text := ""
+	resultText := ""
 	for _, cand := range resp.Candidates {
 		if cand.Content != nil {
 			for _, part := range cand.Content.Parts {
-				result_text += fmt.Sprint(part)
+				resultText += fmt.Sprint(part)
 			}
 		}
 	}
-	return result_text
+	return resultText
 }
 
 // AIに聞く
-func CallAI(id string, issueID string) ([]string, error) {
+func CallAI(id string, issueID string) ([]map[string]interface{}, error) {
 	//AI生成
-	ai_generate, err := QuestionAI(issueID)
+	aiGenerate, err := QuestionAI(issueID)
 	if err != nil {
 		log.Println(err)
 		return nil, nil
 	}
 
-	return ai_generate, nil
+	return aiGenerate, nil
 }
