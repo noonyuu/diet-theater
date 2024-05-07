@@ -1,9 +1,14 @@
+/**
+ * 意義のナンバー
+ * 0:   何もなし
+ * 1: 〔「異議なし」と呼ぶ者あり〕
+ * 2: 〔「異議あり」と呼ぶ者あり〕
+ */
+
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { useFetcher, useParams } from "react-router-dom";
 import { TablerPencilPlus } from "../../assets/AddPen";
-
-import styles from "./PopUp.css";
 
 const TheaterCreate = () => {
   const { issueID } = useParams();
@@ -38,6 +43,7 @@ const TheaterCreate = () => {
   useEffect(() => {
     const loadedData = loadData();
     if (loadedData !== null) {
+      console.log("データがあります");
       setSummary(loadedData!);
       if (summary.length > 0) {
         // summaryが空でない場合にのみisGeneをtrueに設定
@@ -134,15 +140,95 @@ const TheaterCreate = () => {
     if (readOnly[index]) {
       // 編集完了
       const editData = summary;
-      editData[index].speech = document.getElementsByTagName("textarea")[index].value;
+      editData[index].speech =
+        document.getElementsByTagName("textarea")[index].value;
       setSummary(editData);
       saveStorage(editData);
     }
-      // ポップアップを非表示
-      setIsShown((prevIsShown) => ({
-        ...prevIsShown,
-        [index]: !prevIsShown[index],
-      }));
+    // ポップアップを非表示
+    setIsShown((prevIsShown) => ({
+      ...prevIsShown,
+      [index]: !prevIsShown[index],
+    }));
+  };
+
+  const register = async () => {
+    console.log("register");
+    console.log("loadedData", summary);
+    // 会議データの送信データの作成
+    const meetingPostData = {
+      "IssueID": issueID,
+      "Session": speechData[0].session,
+      "NameOfHouse": nameOfHouse,
+      "NameOfMeeting": nameOfMeeting,
+      "Issue": speechData[0].issue,
+      "Date": date?.toString(),
+    };
+    // meetingPostData.set("Date", date.toISOString().split("T")[0]);
+    // 発言内容の送信データの作成
+    const speechPostData: any = [];
+    speechData.forEach((data, index) => {
+      let igiContain: string = "0";
+      if (speechData[index].speech.includes("〔「異議なし」と呼ぶ者あり〕")) {
+        igiContain = "1";
+      } else if ("〔「異議あり」と呼ぶ者あり〕") {
+        igiContain = "1";
+      }
+      speechPostData.push({
+        IssueID: issueID,
+        SpeechID: data.speechID,
+        Speaker: data.speaker,
+        SpeakerYomi: data.speakerYomi,
+        SpeakerRole: data.speakerRole,
+        SpeakerGroup: data.speakerGroup,
+        SpeakerPosition: data.speakerPosition,
+        SpeechOrigin: data.speech,
+        SpeechSummary: summary[index].speech,
+        AnimationPoint: igiContain,
+      });
+    });
+    // データの送信
+    await axios
+      .post("https://localhost:8443/app/meeting_record/insert", meetingPostData)
+      .then(
+        (response) => {
+          console.log("response", response);
+        },
+        (error) => {
+          if (error.response) {
+            // サーバーからの応答がある場合
+            console.log("Error Data:", error.response.data);
+            console.log("Error Status:", error.response.status);
+            console.log("Error Headers:", error.response.headers);
+          } else if (error.request) {
+            // リクエストは送信されたが、応答が受信されなかった場合
+            console.log("No response received:", error.request);
+          } else {
+            // リクエストの設定時に何かが発生した場合
+            console.log("Error", error.message);
+          }
+        },
+      );
+    // データの送信
+    axios
+      .post("https://localhost:8443/app/speech_record/insert", speechData)
+      .then((response) => {
+        console.log("response", response);
+      })
+      .catch((error) => {
+        if (error.response) {
+          // サーバーからの応答がある場合
+          console.log("Error Data:", error.response.data);
+          console.log("Error Status:", error.response.status);
+          console.log("Error Headers:", error.response.headers);
+        } else if (error.request) {
+          // リクエストは送信されたが、応答が受信されなかった場合
+          console.log("No response received:", error.request);
+        } else {
+          // リクエストの設定時に何かが発生した場合
+          console.log("Error", error.message);
+        }
+      });
   };
 
   if (isGeneConnect) {
@@ -151,6 +237,16 @@ const TheaterCreate = () => {
   return (
     <main className="mt-16 flex-1">
       <div className="mb-4 mt-24">
+        {/* 登録ボタン */}
+        <div className="flex w-full justify-end">
+          <button
+            type="submit"
+            className="mr-16 w-16 bg-green-300 text-center"
+            onClick={() => register()}
+          >
+            登録
+          </button>
+        </div>
         {/* API取得データ */}
         <div className="flex justify-center">
           <div className="flex w-full justify-center">{nameOfHouse}</div>
