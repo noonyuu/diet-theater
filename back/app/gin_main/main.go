@@ -2,6 +2,8 @@ package main
 
 import (
 	"api/database"
+	"api/model"
+
 	// "io"
 	"net/http"
 
@@ -84,6 +86,38 @@ func main() {
 	// 	})
 	// })
 
+	// 会議レコードの登録
+	server.POST("/meeting_record/insert", func(c *gin.Context) {
+		fmt.Println("meeting_record insert")
+		meetingRecord := new(model.MeetingRecord)
+		if err := c.ShouldBindJSON(meetingRecord); err != nil {
+			c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+			return
+		}
+
+		dbConn, err := database.GetDB()
+		if err != nil {
+			// データベース接続の取得に失敗した場合のエラーハンドリング
+			c.JSON(http.StatusInternalServerError, gin.H{"error": "Failed to connect to the database."})
+			return
+		}
+		if dbConn == nil {
+			// dbConnがnilの場合のエラーハンドリング
+			c.JSON(http.StatusInternalServerError, gin.H{"error": "Database connection is nil."})
+			return
+		}
+
+		tx := dbConn.Begin() // トランザクションの開始
+		if err := tx.Create(meetingRecord).Error; err != nil {
+			tx.Rollback() // エラーが発生した場合はロールバック
+			c.JSON(http.StatusInternalServerError, err)
+			return
+		}
+		tx.Commit() // トランザクションのコミット
+		c.JSON(http.StatusCreated, meetingRecord)
+	})
+
+	//　発言レコードの登録
 	server.POST("/speech_record/insert", func(c *gin.Context) {
 		fmt.Println("speech_record insert")
 		var speechRecords []*database.SpeechRecord
