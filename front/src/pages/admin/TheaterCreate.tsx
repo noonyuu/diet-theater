@@ -31,7 +31,7 @@ const TheaterCreate = () => {
 
   const [readOnly, setReadOnly] = useState<ReadOnly>({}); // テキストエリアの編集可否
 
-  const [registerCheck, setRegisterCheck] = useState<boolean[]>([true, true]);  // 送信確認
+  const [registerCheck, setRegisterCheck] = useState<boolean[]>([false, false]);  // 送信確認
 
   interface MeetingRecord {
     [key: string]: any;
