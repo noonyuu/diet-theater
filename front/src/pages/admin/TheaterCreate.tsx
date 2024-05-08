@@ -242,6 +242,8 @@ const TheaterCreate = () => {
 
   useEffect(() => {
     if (registerCheck[0] && registerCheck[1]) {
+      // セッション削除
+      localStorage.removeItem("summary-data");
       navigate("/secret/theater-create-table");
     }
   }
