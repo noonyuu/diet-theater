@@ -87,7 +87,7 @@ const TheaterCreate = () => {
     // const geneData = await axios.get("https://localhost:8443/app/test");
     setIsGeneConnect(true);
     await axios
-      .get("https:// " + path + "/gpt/" + issueID)
+      .get("https://" + path + "/gpt/" + issueID)
       .then((response) => {
         console.log("response", response.data.message);
         setSummary(response.data.message);
