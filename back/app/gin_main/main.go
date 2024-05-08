@@ -117,6 +117,28 @@ func main() {
 		c.JSON(http.StatusCreated, meetingRecord)
 	})
 
+	server.GET("/meeting_record/select/all", func(c *gin.Context) {
+		var meetingRecords []model.MeetingRecord
+
+		dbConn, err := database.GetDB()
+		if err != nil {
+			// データベース接続の取得に失敗した場合のエラーハンドリング
+			c.JSON(http.StatusInternalServerError, gin.H{"error": "Failed to connect to the database."})
+			return
+		}
+		if dbConn == nil {
+			// dbConnがnilの場合のエラーハンドリング
+			c.JSON(http.StatusInternalServerError, gin.H{"error": "Database connection is nil."})
+			return
+		}
+
+		if err := dbConn.Find(&meetingRecords).Error; err != nil {
+			c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
+			return
+		}
+		c.JSON(http.StatusOK, meetingRecords)
+	})
+
 	//　発言レコードの登録
 	server.POST("/speech_record/insert", func(c *gin.Context) {
 		fmt.Println("speech_record insert")
