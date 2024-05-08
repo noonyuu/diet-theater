@@ -60,6 +60,8 @@ services:
       - "5050:5050"
     environment:
       - TZ=Asia/Tokyo
+    volumes:
+      - ./python:/python
     restart: always
     tty: true
 
