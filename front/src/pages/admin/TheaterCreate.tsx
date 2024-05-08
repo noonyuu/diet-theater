@@ -7,11 +7,13 @@
 
 import axios from "axios";
 import React, { useEffect, useState } from "react";
-import { useFetcher, useParams } from "react-router-dom";
+import { useFetcher, useNavigate, useParams } from "react-router-dom";
 import { TablerPencilPlus } from "../../assets/AddPen";
 
 var path = import.meta.env.VITE_APP_PATH
 const TheaterCreate = () => {
+  const navigate = useNavigate();
+  
   const { issueID } = useParams();
 
   const [isFirst, setIsFirst] = useState<boolean>(false);
@@ -28,6 +30,8 @@ const TheaterCreate = () => {
   const [speechData, setSpeechData] = useState<any[]>([]);
 
   const [readOnly, setReadOnly] = useState<ReadOnly>({}); // テキストエリアの編集可否
+
+  const [registerCheck, setRegisterCheck] = useState<boolean[]>([true, true]);  // 送信確認
 
   interface MeetingRecord {
     [key: string]: any;
@@ -209,7 +213,9 @@ const TheaterCreate = () => {
             console.log("Error", error.message);
           }
         },
-      );
+      ).then(() => {
+        setRegisterCheck([true, false]);
+      });
     // データの送信
     axios
       .post("https://" + path + "/app/speech_record/insert", speechData)
@@ -229,8 +235,17 @@ const TheaterCreate = () => {
           // リクエストの設定時に何かが発生した場合
           console.log("Error", error.message);
         }
+      }).then(()=>{
+        setRegisterCheck([true, true]);
       });
   };
+
+  useEffect(() => {
+    if (registerCheck[0] && registerCheck[1]) {
+      navigate("/secret/theater-create-table");
+    }
+  }
+  , [registerCheck]);
 
   if (isGeneConnect) {
     return <div className="mt-16 flex flex-1 justify-center">Loading...</div>;
