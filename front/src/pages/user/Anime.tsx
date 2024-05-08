@@ -1,13 +1,11 @@
 import React from "react";
-import "./anime.css";
+import { Animation } from "./animation/Animation";
+
 export const Anime = () => {
+  const argValue = 3;
   return (
     <div>
-      <div id="wrap"></div>
-      <div>
-        <div id="upper"></div>
-        <div id="lower"></div>
-      </div>
+      <Animation arg={2}></Animation>
     </div>
   );
 };
