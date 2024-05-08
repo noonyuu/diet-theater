@@ -184,6 +184,28 @@ func main() {
 		tx.Commit() // トランザクションのコミット
 		c.JSON(http.StatusCreated, speechRecords)
 	})
+	//	発言レコードの全件取得
+	server.GET("/speech_record/select/all", func(c *gin.Context) {
+		var speechRecords []database.SpeechRecord
+
+		dbConn, err := database.GetDB()
+		if err != nil {
+			// データベース接続の取得に失敗した場合のエラーハンドリング
+			c.JSON(http.StatusInternalServerError, gin.H{"error": "Failed to connect to the database."})
+			return
+		}
+		if dbConn == nil {
+			// dbConnがnilの場合のエラーハンドリング
+			c.JSON(http.StatusInternalServerError, gin.H{"error": "Database connection is nil."})
+			return
+		}
+
+		if err := dbConn.Find(&speechRecords).Error; err != nil {
+			c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
+			return
+		}
+		c.JSON(http.StatusOK, speechRecords)
+	})
 
 	/**
 	 * 以下はテスト用のエンドポイント
