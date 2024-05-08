@@ -10,6 +10,7 @@ import React, { useEffect, useState } from "react";
 import { useFetcher, useParams } from "react-router-dom";
 import { TablerPencilPlus } from "../../assets/AddPen";
 
+var path = import.meta.env.VITE_APP_PATH
 const TheaterCreate = () => {
   const { issueID } = useParams();
 
@@ -86,7 +87,7 @@ const TheaterCreate = () => {
     // const geneData = await axios.get("https://localhost:8443/app/test");
     setIsGeneConnect(true);
     await axios
-      .get("https://localhost:8443/gpt/" + issueID)
+      .get("https:// " + path + "/gpt/" + issueID)
       .then((response) => {
         console.log("response", response.data.message);
         setSummary(response.data.message);
@@ -189,7 +190,7 @@ const TheaterCreate = () => {
     });
     // データの送信
     await axios
-      .post("https://localhost:8443/app/meeting_record/insert", meetingPostData)
+      .post("https://" + path + "/app/meeting_record/insert", meetingPostData)
       .then(
         (response) => {
           console.log("response", response);
@@ -211,7 +212,7 @@ const TheaterCreate = () => {
       );
     // データの送信
     axios
-      .post("https://localhost:8443/app/speech_record/insert", speechData)
+      .post("https://" + path + "/app/speech_record/insert", speechData)
       .then((response) => {
         console.log("response", response);
       })
