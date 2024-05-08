@@ -2,18 +2,9 @@ package main
 
 import (
 	"api/database"
-	"api/model"
-
-	// "io"
-	"net/http"
-
-	// "net/http"
-
-	// "net/http"
-
-	// "api/handler"
 	"api/middleware"
-	// "api/model"
+
+	"net/http"
 
 	"fmt"
 	"log"
@@ -89,7 +80,7 @@ func main() {
 	// 会議レコードの登録
 	server.POST("/meeting_record/insert", func(c *gin.Context) {
 		fmt.Println("meeting_record insert")
-		meetingRecord := new(model.MeetingRecord)
+		meetingRecord := new(database.MeetingRecord)
 		if err := c.ShouldBindJSON(meetingRecord); err != nil {
 			c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 			return
@@ -116,9 +107,9 @@ func main() {
 		tx.Commit() // トランザクションのコミット
 		c.JSON(http.StatusCreated, meetingRecord)
 	})
-
+	//	会議レコードの全件取得
 	server.GET("/meeting_record/select/all", func(c *gin.Context) {
-		var meetingRecords []model.MeetingRecord
+		var meetingRecords []database.MeetingRecord
 
 		dbConn, err := database.GetDB()
 		if err != nil {
@@ -138,8 +129,30 @@ func main() {
 		}
 		c.JSON(http.StatusOK, meetingRecords)
 	})
+	// 会議レコードの一件取得
+	server.GET("/meeting_record/select/once/:issueID", func(c *gin.Context) {
+		issueID := c.Param("issueID")
+		var meetingRecord database.MeetingRecord
 
-	//　発言レコードの登録
+		dbConn, err := database.GetDB()
+		if err != nil {
+			// データベース接続の取得に失敗した場合のエラーハンドリング
+			c.JSON(http.StatusInternalServerError, gin.H{"error": "Failed to connect to the database."})
+			return
+		}
+		if dbConn == nil {
+			// dbConnがnilの場合のエラーハンドリング
+			c.JSON(http.StatusInternalServerError, gin.H{"error": "Database connection is nil."})
+			return
+		}
+
+		if err := dbConn.Where("issue_id = ?", issueID).First(&meetingRecord).Error; err != nil {
+			c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
+			return
+		}
+		c.JSON(http.StatusOK, meetingRecord)
+	})
+	//	発言レコードの登録
 	server.POST("/speech_record/insert", func(c *gin.Context) {
 		fmt.Println("speech_record insert")
 		var speechRecords []*database.SpeechRecord
