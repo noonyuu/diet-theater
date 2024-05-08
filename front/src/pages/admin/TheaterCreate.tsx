@@ -10,10 +10,10 @@ import React, { useEffect, useState } from "react";
 import { useFetcher, useNavigate, useParams } from "react-router-dom";
 import { TablerPencilPlus } from "../../assets/AddPen";
 
-var path = import.meta.env.VITE_APP_PATH
+var path = import.meta.env.VITE_APP_PATH;
 const TheaterCreate = () => {
   const navigate = useNavigate();
-  
+
   const { issueID } = useParams();
 
   const [isFirst, setIsFirst] = useState<boolean>(false);
@@ -31,7 +31,7 @@ const TheaterCreate = () => {
 
   const [readOnly, setReadOnly] = useState<ReadOnly>({}); // テキストエリアの編集可否
 
-  const [registerCheck, setRegisterCheck] = useState<boolean[]>([false, false]);  // 送信確認
+  const [registerCheck, setRegisterCheck] = useState<boolean[]>([false, false]); // 送信確認
 
   interface MeetingRecord {
     [key: string]: any;
@@ -60,14 +60,14 @@ const TheaterCreate = () => {
 
     const fetchData = async () => {
       try {
-        const kobe = await axios.get(
+        const dietData = await axios.get(
           `https://kokkai.ndl.go.jp/api/meeting?issueID=${issueID}&recordPacking=json`,
         );
-        const kobeData = new Map<string, any>(Object.entries(kobe.data));
-        const kobeMeetingRecord: MeetingRecord = kobeData.get("meetingRecord");
+        const dietDataData = new Map<string, any>(Object.entries(dietData.data));
+        const dietDataMeetingRecord: MeetingRecord = dietDataData.get("meetingRecord"); // meetingRecordのデータを取得
 
         var oneData = new Map<string, any>(
-          Object.entries(kobeMeetingRecord || {}),
+          Object.entries(dietDataMeetingRecord || {}),
         );
         console.log("TheaterCreate", oneData.get("0").speechRecord);
         const fixedSpeechData: any[] = oneData.get("0").speechRecord;
@@ -162,12 +162,12 @@ const TheaterCreate = () => {
     console.log("loadedData", summary);
     // 会議データの送信データの作成
     const meetingPostData = {
-      "IssueID": issueID,
-      "Session": speechData[0].session,
-      "NameOfHouse": nameOfHouse,
-      "NameOfMeeting": nameOfMeeting,
-      "Issue": speechData[0].issue,
-      "Date": date?.toString(),
+      IssueID: issueID,
+      Session: speechData[0].session,
+      NameOfHouse: nameOfHouse,
+      NameOfMeeting: nameOfMeeting,
+      Issue: speechData[0].issue,
+      Date: date?.toString(),
     };
     // meetingPostData.set("Date", date.toISOString().split("T")[0]);
     // 発言内容の送信データの作成
@@ -213,7 +213,8 @@ const TheaterCreate = () => {
             console.log("Error", error.message);
           }
         },
-      ).then(() => {
+      )
+      .then(() => {
         setRegisterCheck([true, false]);
       });
     // データの送信
@@ -235,7 +236,8 @@ const TheaterCreate = () => {
           // リクエストの設定時に何かが発生した場合
           console.log("Error", error.message);
         }
-      }).then(()=>{
+      })
+      .then(() => {
         setRegisterCheck([true, true]);
       });
   };
@@ -246,8 +248,7 @@ const TheaterCreate = () => {
       localStorage.removeItem("summary-data");
       navigate("/secret/theater-create-table");
     }
-  }
-  , [registerCheck]);
+  }, [registerCheck]);
 
   if (isGeneConnect) {
     return <div className="mt-16 flex flex-1 justify-center">Loading...</div>;
