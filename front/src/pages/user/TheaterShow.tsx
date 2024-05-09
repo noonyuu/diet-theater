@@ -1,4 +1,5 @@
 import DayBox from "../../component/DayBox";
+import ShowSpeech from "./ShowSpeech";
 
 const TheaterShow = () => {
   const handlePaginate = (page: number) => {
@@ -7,7 +8,7 @@ const TheaterShow = () => {
 
   return (
     <main className="mt-16 flex-1 bg-gray-100">
-      <div className="mx-auto mt-4 w-[calc(12rem*7+2rem)] overflow-hidden">
+      <div className="mx-auto mt-4">
         {/* カレンダーアイコン */}
         <button type="button">
           {/* <UilCalender fontSize={32} /> */}
@@ -15,6 +16,7 @@ const TheaterShow = () => {
         <div className="">
           <DayBox />
         </div>
+        <ShowSpeech />
       </div>
     </main>
   );
