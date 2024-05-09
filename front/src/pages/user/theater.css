@@ -1,4 +1,4 @@
-div {
+.theater-back {
   background-image: url(./theater_img/theater.png);
   background-repeat: no-repeat; /* 背景画像の繰り返しをやめる */
   background-size: cover; /* 背景画像を要素全体にカバーする */
@@ -6,4 +6,31 @@ div {
 
 .no-scroll {
   overflow: hidden;
+}
+
+.balloon1 {
+  position: relative;
+  display: inline-block;
+  margin: 1.5em 0;
+  padding: 7px 10px;
+  min-width: 120px;
+  max-width: 100%;
+  color: #555;
+  font-size: 16px;
+  background: #79b1ff;
+}
+
+.balloon1:before {
+  content: "";
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  margin-left: -15px;
+  border: 15px solid transparent;
+  border-top: 15px solid #79b1ff;
+}
+
+.balloon1 p {
+  margin: 0;
+  padding: 0;
 }
