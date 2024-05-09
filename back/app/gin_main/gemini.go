@@ -13,12 +13,12 @@ import (
 	"google.golang.org/api/option"
 )
 
-var model *genai.GenerativeModel
+var models *genai.GenerativeModel
 
 func GeminiInit() {
 	// Gemini API の API キー
 	err := error(nil)
-	model, err = GeminiAI(os.Getenv("GEMINI_API_KEY"))
+	models, err = GeminiAI(os.Getenv("GEMINI_API_KEY"))
 	if err != nil {
 		log.Fatal(err)
 	}
@@ -39,7 +39,7 @@ func GeminiAI(apiKey string) (*genai.GenerativeModel, error) {
 func QuestionAI(issueID string) ([]map[string]interface{}, error) {
 	c := context.Background()
 	//モデル取得
-	aiModel := model
+	aiModel := models
 
 	url := "https://kokkai.ndl.go.jp/api/speech?issueID=" + issueID + "&recordPacking=json"
 	dietRes, err := http.Get(url)
@@ -77,7 +77,7 @@ func QuestionAI(issueID string) ([]map[string]interface{}, error) {
 						break
 					}
 					//生成
-					query := speech + "\nこの話を要点を押さえつつ最大100文字程度にまとめてください(人の名前などは省略しない)" // ここで文字列を正しく結合
+					query := "あなたは小学生です\n" + speech + "\n〔〕や()の中身は無視してこの文章を50字以内で小学生でも理解できる口調にして要約してください。文章は全て「」に入れて)" // ここで文字列を正しく結合
 					var response, err = aiModel.GenerateContent(c, genai.Text(query))
 					if err != nil {
 						log.Println(err)
@@ -109,7 +109,7 @@ func printResponse(resp *genai.GenerateContentResponse) string {
 }
 
 // AIに聞く
-func CallAI(id string, issueID string) ([]map[string]interface{}, error) {
+func CallAI(issueID string) ([]map[string]interface{}, error) {
 	//AI生成
 	aiGenerate, err := QuestionAI(issueID)
 	if err != nil {
