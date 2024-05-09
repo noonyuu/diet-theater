@@ -15,6 +15,7 @@ import TheaterCreate from "./pages/admin/TheaterCreate";
 import TheaterShow from "./pages/user/TheaterShow";
 import { Anime } from "./pages/user/Anime";
 import Login from "./pages/Login";
+import { Theater } from "./pages/user/Theater";
 
 const Routers = () => {
   const navigate = useNavigate();
@@ -63,6 +64,10 @@ const Routers = () => {
         <Route
           path="/login"
           element={<LayoutWithoutHeaderAndFooter element={<Login />} />}
+        />
+        <Route
+          path="/theater"
+          element={<LayoutWithoutHeaderAndFooter element={<Theater />} />}
         />
 
         {/* ヘッダーとフッターを含むページ */}
