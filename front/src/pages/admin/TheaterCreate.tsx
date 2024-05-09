@@ -1,8 +1,8 @@
 /**
  * 意義のナンバー
  * 0:   何もなし
- * 1: 〔「異議なし」と呼ぶ者あり〕
- * 2: 〔「異議あり」と呼ぶ者あり〕
+ * 1: 〔「異議あり」と呼ぶ者あり〕
+ * 2: 〔「異議なし」と呼ぶ者あり〕
  */
 
 import axios from "axios";
@@ -26,6 +26,7 @@ const TheaterCreate = () => {
   const [nameOfMeeting, setNameOfMeeting] = useState<string>(); // 会議名
   const [date, setDate] = useState<string>(); // 日付
   const [nameOfHouse, setNameOfHouse] = useState<string>(); // 党派名
+  const [oneDates, setOneDates] = useState<any>({}); // 会議データ
 
   const [speechData, setSpeechData] = useState<any[]>([]);
 
@@ -63,16 +64,21 @@ const TheaterCreate = () => {
         const dietData = await axios.get(
           `https://kokkai.ndl.go.jp/api/meeting?issueID=${issueID}&recordPacking=json`,
         );
-        const dietDataData = new Map<string, any>(Object.entries(dietData.data));
-        const dietDataMeetingRecord: MeetingRecord = dietDataData.get("meetingRecord"); // meetingRecordのデータを取得
+        const dietDataData = new Map<string, any>(
+          Object.entries(dietData.data),
+        );
+        const dietDataMeetingRecord: MeetingRecord =
+          dietDataData.get("meetingRecord"); // meetingRecordのデータを取得
 
         var oneData = new Map<string, any>(
           Object.entries(dietDataMeetingRecord || {}),
         );
+        setOneDates(oneData);
         console.log("TheaterCreate", oneData.get("0").speechRecord);
         const fixedSpeechData: any[] = oneData.get("0").speechRecord;
         // fixedSpeechData.shift();
         setSpeechData(fixedSpeechData);
+        console.log("fixedSpeechData", fixedSpeechData);
         setNameOfMeeting(oneData.get("0").nameOfMeeting);
         setDate(oneData.get("0").date);
         setNameOfHouse(oneData.get("0").nameOfHouse);
@@ -85,6 +91,11 @@ const TheaterCreate = () => {
 
     fetchData();
   }, [issueID]);
+
+  // TODO: speechDataの中身を確認
+  useEffect(() => {
+    console.log("speechData", speechData);
+  }, [speechData]);
 
   const generate = async () => {
     console.log("generate");
@@ -158,15 +169,13 @@ const TheaterCreate = () => {
   };
 
   const register = async () => {
-    console.log("register");
-    console.log("loadedData", summary);
     // 会議データの送信データの作成
     const meetingPostData = {
       IssueID: issueID,
-      Session: speechData[0].session,
+      Session: oneDates.get("0").session,
       NameOfHouse: nameOfHouse,
       NameOfMeeting: nameOfMeeting,
-      Issue: speechData[0].issue,
+      Issue: oneDates.get("0").issue,
       Date: date?.toString(),
     };
     // meetingPostData.set("Date", date.toISOString().split("T")[0]);
@@ -176,9 +185,10 @@ const TheaterCreate = () => {
       let igiContain: string = "0";
       if (speechData[index].speech.includes("〔「異議なし」と呼ぶ者あり〕")) {
         igiContain = "1";
-      } else if ("〔「異議あり」と呼ぶ者あり〕") {
-        igiContain = "1";
+      } else if (speechData[index].speech.includes("〔「異議あり」と呼ぶ者あり〕")) {
+        igiContain = "2";
       }
+      // speechdataがspeechRecordなのでspeechIDとspeakerは正しい挙動をする
       speechPostData.push({
         IssueID: issueID,
         SpeechID: data.speechID,
@@ -219,7 +229,7 @@ const TheaterCreate = () => {
       });
     // データの送信
     axios
-      .post("https://" + path + "/app/speech_record/insert", speechData)
+      .post("https://" + path + "/app/speech_record/insert", speechPostData)
       .then((response) => {
         console.log("response", response);
       })
@@ -242,13 +252,13 @@ const TheaterCreate = () => {
       });
   };
 
-  useEffect(() => {
-    if (registerCheck[0] && registerCheck[1]) {
-      // セッション削除
-      localStorage.removeItem("summary-data");
-      navigate("/secret/theater-create-table");
-    }
-  }, [registerCheck]);
+  // useEffect(() => {
+  //   if (registerCheck[0] && registerCheck[1]) {
+  //     // セッション削除
+  //     localStorage.removeItem("summary-data");
+  //     navigate("/secret/theater-create-table");
+  //   }
+  // }, [registerCheck]);
 
   if (isGeneConnect) {
     return <div className="mt-16 flex flex-1 justify-center">Loading...</div>;
