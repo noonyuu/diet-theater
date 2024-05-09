@@ -127,15 +127,6 @@ export const TheaterCreateTable = () => {
                       <button
                         type="button"
                         className="mx-auto flex items-center justify-center rounded-md border-2 border-green-500 bg-green-100 px-1 py-1 text-xs text-green-500 lg:w-24"
-                        onClick={() => generate(keys)}
-                      >
-                        NOT CREATED
-                      </button>
-                    </td>
-                    <td className="rounded-br-xl p-0 px-1 py-3 text-xs lg:text-lg">
-                      <button
-                        type="button"
-                        className="mx-auto flex items-center justify-center rounded-md border-2 border-green-500 bg-green-100 px-1 py-1 text-xs text-green-500 lg:w-24"
                         onClick={() => generate(pickData.get("issueID"))}
                       >
                         GENERATE
