@@ -13,7 +13,7 @@ const ExcelReader: React.FC = () => {
   };
 
   return (
-    <div>
+    <div className="mt-16 flex-1">
       <div className="flex w-full">
         <label
           htmlFor="file"
@@ -35,7 +35,11 @@ const ExcelReader: React.FC = () => {
         <thead className="">
           <tr className="">
             {data[0] &&
-              Object.keys(data[0]).map((key) => <th key={key} className="border">{key}</th>)}
+              Object.keys(data[0]).map((key) => (
+                <th key={key} className="border">
+                  {key}
+                </th>
+              ))}
           </tr>
         </thead>
         <tbody>
@@ -50,7 +54,6 @@ const ExcelReader: React.FC = () => {
           ))}
         </tbody>
       </table>
-
     </div>
   );
 };
