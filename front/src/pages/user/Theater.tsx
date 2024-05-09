@@ -1,7 +1,5 @@
 import React, { useEffect, useState } from "react";
 import "./theater.css";
-import ShowSpeech from "./ShowSpeech";
-import { Anime } from "./Anime";
 import axios from "axios";
 // TODO:リロード時に続きから表示するかの選択
 var path = import.meta.env.VITE_APP_PATH;
@@ -62,7 +60,7 @@ export const Theater = () => {
       >
         &lt;
       </button>
-      <div className="balloon1 absolute left-[50%] top-24 -translate-x-1/2 rounded-md p-24">
+      <div className="balloon1 absolute left-[50%] top-24 -translate-x-1/2 rounded-md p-24 text-2xl">
         {speechRecords.length > 0 && (
           <div className="w-full text-center">
             {speechRecords[currSpeechRecord].SpeechSummary.replaceAll(
