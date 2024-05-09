@@ -13,6 +13,7 @@ import AdminLogin from "./pages/admin/AdminLogin";
 import { TheaterCreateTable } from "./pages/admin/TheaterCreateTable";
 import TheaterCreate from "./pages/admin/TheaterCreate";
 import TheaterShow from "./pages/user/TheaterShow";
+import { Anime } from "./pages/user/Anime";
 
 const Routers = () => {
   const navigate = useNavigate();
@@ -53,6 +54,10 @@ const Routers = () => {
         <Route
           path="/"
           element={<LayoutWithoutHeaderAndFooter element={<Terms />} />}
+        />
+        <Route
+          path="/anime"
+          element={<LayoutWithoutHeaderAndFooter element={<Anime />} />}
         />
 
         {/* ヘッダーとフッターを含むページ */}
