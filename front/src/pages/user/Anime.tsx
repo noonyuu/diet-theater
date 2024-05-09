@@ -8,7 +8,8 @@ export const Anime = () => {
   return (
     <div>
       {/* <Animation arg={2}></Animation> */}
-      <Opning></Opning>
+      {/* <Opning></Opning> */}
+      <Ending></Ending>
     </div>
   );
 };
