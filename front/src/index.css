@@ -52,3 +52,12 @@ ul {
 .scroll-bar::-webkit-scrollbar-thumb:hover {
   background-color: red;
 }
+
+.scroll-custom {
+  scrollbar-width: thin;
+  scrollbar-color: black white;
+}
+
+.scroll-none {
+  scrollbar-width: none;
+}

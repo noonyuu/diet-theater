@@ -1,47 +1,68 @@
 import { useEffect, useState } from "react";
+import { getPostData } from "../../hooks/getOriginal";
+import { Form } from "../../component/form";
+import { Button } from "../../component/button";
 import { useNavigate } from "react-router-dom";
-// fail to import
-import { getPostData } from "../../../hooks/getOriginal";
-import { Form } from "../../../component/form";
-import { Button } from "../../../component/button";
-import { MdiChat } from "../../../assets/Chat";
-import { MaterialSymbolsSearch } from "../../../assets/Search";
-
 // アイコン
-// import { FaSearch } from "react-icons/fa";
+import { MaterialSymbolsSearch } from "../../assets/Search";
+import { TablerPencilPlus } from "../../assets/AddPen";
+import axios from "axios";
 
-export const Agenda = () => {
+export const TheaterCreateTable = () => {
   const navigate = useNavigate();
 
   const [api, setApi] = useState<Map<string, any>>(new Map());
   const [speaker, setSpeaker] = useState<any[]>([]);
 
   interface Entity {
-    detailId: string;
+    generates: any;
   }
 
-  const detail = (val: string) => {
+  interface MeetingRecord {
+    [key: string]: any;
+  }
+
+  const generate = (val: any) => {
     const entity: Entity = {
-      detailId: val,
+      generates: val,
     };
-    navigate("/chat", { state: entity });
+    // console.log("entity", entity.generates.get("issueID"));
+    navigate(`/secret/theater-create/${entity.generates}`);
   };
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const newData = await getPostData();
-        const speakers = newData?.get("speechRecord");
-        console.log("agenda", newData);
+        const response = await axios.get(
+          "https://kokkai.ndl.go.jp/api/meeting?sessionFrom=1&sessionTo=10&nameOfHouse=両院協議会&issueFrom=1&maximumRecords=5&recordPacking=json",
+        );
 
-        if (newData !== null) {
-          setApi(newData);
-          setSpeaker(speakers);
-        } else {
-          console.error("データが null です");
+        const kobe = await axios.get(
+          "https://kokkai.ndl.go.jp/api/meeting?issueID=121305261X00920240214&recordPacking=json",
+        );
+        const kobeData = new Map<string, any>(Object.entries(kobe.data));
+        const kobeMeetingRecord: MeetingRecord = kobeData.get("meetingRecord");
+        const kobeOneData = new Map<string, any>(
+          Object.entries(kobeMeetingRecord || {}),
+        );
+
+        const dataMap = new Map<string, any>(Object.entries(response.data));
+        const meetingRecord: MeetingRecord = dataMap.get("meetingRecord");
+
+        if (!meetingRecord) {
+          return null;
         }
+
+        var oneData = new Map<string, any>(Object.entries(meetingRecord || {}));
+
+        oneData.set("5", kobeOneData.get("0"));
+
+        console.log("AdminAgenda", oneData);
+        setApi(oneData);
+        return oneData;
       } catch (error) {
-        console.error(error);
+        console.error("Error fetching data:", error);
+        return null;
       }
     };
 
@@ -52,7 +73,7 @@ export const Agenda = () => {
     <main className="-mb-8 mt-16 flex flex-1 justify-center bg-gray-100">
       <div className="mx-4 my-auto h-[80vh] w-full rounded-3xl bg-white p-8 shadow lg:mx-24">
         <div className="flex space-x-8 lg:space-x-24">
-          <h1 className="text-lg font-bold lg:text-4xl">開演中</h1>
+          <h1 className="text-lg font-bold lg:text-4xl">劇作成</h1>
           <span className="flex items-center text-xs font-light lg:text-3xl">
             2024年シーズン
           </span>
@@ -76,13 +97,16 @@ export const Agenda = () => {
                 <th className="w-5/6 text-xs text-gray-400 lg:w-3/6 lg:text-xl">
                   議題
                 </th>
-                <th className="hidden w-1/6 text-xs text-gray-400 lg:table-cell lg:text-xl">
+                <th className="lg:ta jble-cell hidden w-1/6 text-xs text-gray-400 lg:text-xl">
                   政党
                 </th>
                 <th className="hidden w-1/6 text-xs text-gray-400 lg:table-cell lg:text-xl">
                   日付
                 </th>
-                <th className="w-1/6 text-xs text-gray-400 lg:text-xl"></th>
+                <th className="w-[(0.5/6)%] text-xs text-gray-400 lg:text-xl">
+                  作成状況
+                </th>
+                <th className="w-[(0.5/6)%] text-xs text-gray-400 lg:text-xl"></th>
               </tr>
             </thead>
             <tbody className="border-none">
@@ -102,10 +126,10 @@ export const Agenda = () => {
                     <td className="rounded-br-xl p-0 px-1 py-3 text-xs lg:text-lg">
                       <button
                         type="button"
-                        className="mx-auto flex items-center rounded-md border-2 border-green-500 bg-green-100 px-1 py-1 text-xs text-green-500 lg:px-8"
-                        onClick={() => detail(keys)}
+                        className="mx-auto flex items-center justify-center rounded-md border-2 border-green-500 bg-green-100 px-1 py-1 text-xs text-green-500 lg:w-24"
+                        onClick={() => generate(pickData.get("issueID"))}
                       >
-                        入場
+                        GENERATE
                       </button>
                     </td>
                   </tr>
