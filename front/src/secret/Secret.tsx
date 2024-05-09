@@ -11,12 +11,13 @@ import { Chat } from "../pages/user/summary/Chat";
 import Header from "../component/Header";
 import Footer from "../component/Footer";
 import { Anime } from "../pages/user/Anime";
+import { Theater } from "../pages/user/Theater";
 
 const Secret = () => {
   return (
     <>
       <ContextWrapper>
-        <Header />
+        {/* <Header /> */}
         <Routes>
           <Route path="/admin-agenda" element={<AdminAgenda />} />
           <Route path="/standby-screen/:issueID" element={<StandbyScreen />} />
@@ -26,8 +27,9 @@ const Secret = () => {
           <Route path="/" element={<Agenda />} />
           <Route path="/chat" element={<Chat />} />
           <Route path="/anime" element={<Anime />} />
+          <Route path="/theater" element={<Theater />} />
         </Routes>
-        <Footer />
+        {/* <Footer /> */}
       </ContextWrapper>
     </>
   );
