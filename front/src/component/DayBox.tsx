@@ -92,12 +92,14 @@ const DayBox = () => {
   };
 
   return (
-    <div className="flex">
+    <div className="flex overflow-x-auto justify-center">
       {/* 7日前に */}
       {/* {year} */}
-      <button className="my-auto w-4 text-center" onClick={() => back()}>
-        &lt;
-      </button>
+      <div className="my-auto">
+        <button className="w-8 text-lg" onClick={() => back()}>
+          &lt;
+        </button>
+      </div>
       {Array.from(date).map(([keys, value]) => {
         return (
           <div className="h-32 w-48 border" key={keys}>
@@ -116,9 +118,11 @@ const DayBox = () => {
         );
       })}
       {/* 7日後に */}
-      <button className="my-auto w-4 text-center" onClick={() => next()}>
-        &gt;
-      </button>
+      <div className="my-auto">
+        <button className="w-8 text-lg" onClick={() => next()}>
+          &gt;
+        </button>
+      </div>
     </div>
   );
 };
