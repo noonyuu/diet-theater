@@ -27,7 +27,7 @@ type SpeechRecord struct {
 	SpeakerYomi     string `gorm:"type:varchar(32)"`                     // 読み仮名
 	SpeakerRole     string `gorm:"type:varchar(32)"`                     // 役割
 	SpeakerGroup    string `gorm:"type:varchar(32)"`                     // 会派
-	SpeakerPosition string `gorm:"type:varchar(32)"`                     // 肩書き
+	SpeakerPosition string `gorm:"type:varchar(255)"`                    // 肩書き
 	SpeechOrigin    string `gorm:"type:text;not null"`                   // 原文
 	SpeechSummary   string `gorm:"type:text;not null"`                   // 要約
 	AnimationPoint  string `gorm:"type:varchar(5)"`                      // アニメーションポイント
