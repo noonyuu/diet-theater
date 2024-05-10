@@ -92,36 +92,42 @@ const DayBox = () => {
   };
 
   return (
-    <div className="flex overflow-x-auto justify-center">
+    <div className="">
       {/* 7日前に */}
       {/* {year} */}
-      <div className="my-auto">
-        <button className="w-8 text-lg" onClick={() => back()}>
-          &lt;
-        </button>
-      </div>
-      {Array.from(date).map(([keys, value]) => {
-        return (
-          <div className="h-32 w-48 border" key={keys}>
-            <div className="h-10 border-b">
-              <p className="text-center leading-10">{value}</p>
+      <div className="flex justify-center overflow-x-auto">
+        <div className="my-auto">
+          <button className="w-8 text-lg" onClick={() => back()}>
+            &lt;
+          </button>
+        </div>
+        {Array.from(date).map(([keys, value]) => {
+          return (
+            <div className="h-32 w-48 border" key={keys}>
+              <div className="h-10 border-b">
+                <p className="text-center leading-10">{value}</p>
+              </div>
+              {/* 日付ごとの会議 */}
+              <ul className="m-2">
+                <li>
+                  <p className="overflow-hidden text-ellipsis whitespace-nowrap text-center">
+                    予算委員会予算委員会予算委員会
+                  </p>
+                </li>
+              </ul>
             </div>
-            {/* 日付ごとの会議 */}
-            <ul className="m-2">
-              <li>
-                <p className="overflow-hidden text-ellipsis whitespace-nowrap text-center">
-                  予算委員会予算委員会予算委員会
-                </p>
-              </li>
-            </ul>
-          </div>
-        );
-      })}
-      {/* 7日後に */}
-      <div className="my-auto">
-        <button className="w-8 text-lg" onClick={() => next()}>
-          &gt;
-        </button>
+          );
+        })}
+        {/* 7日後に */}
+        <div className="my-auto">
+          <button className="w-8 text-lg" onClick={() => next()}>
+            &gt;
+          </button>
+        </div>
+      </div>
+
+      <div>
+        <div className="h-40 w-full bg-red-300"></div>
       </div>
     </div>
   );
