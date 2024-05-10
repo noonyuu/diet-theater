@@ -15,9 +15,8 @@
   padding: 7px 10px;
   min-width: 120px;
   max-width: 100%;
-  color: #555;
   font-size: 25px;
-  background: #79b1ff;
+  background: #85282b;
 }
 
 .balloon1:before {
@@ -27,7 +26,7 @@
   left: 50%;
   margin-left: -15px;
   border: 15px solid transparent;
-  border-top: 15px solid #79b1ff;
+  border-top: 15px solid #85282b;
 }
 
 .balloon1 p {

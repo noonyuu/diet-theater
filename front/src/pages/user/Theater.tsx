@@ -111,7 +111,7 @@ export const Theater = () => {
       </div> */}
       <div className="balloon1 absolute left-[50%] top-24 -translate-x-1/2 rounded-md p-24 text-2xl">
         {speechRecords.length > 0 && speechRecords[currSpeechRecord] && (
-          <div className="w-full text-center">
+          <div className="w-full text-center text-white">
             {speechRecords[currSpeechRecord].SpeechSummary.replaceAll("「", "")
               .replaceAll("」", "")
               .split("。")
