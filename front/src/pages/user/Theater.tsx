@@ -99,7 +99,7 @@ export const Theater = () => {
       >
         &lt;
       </button>
-      <div className="balloon1 absolute left-[50%] top-24 -translate-x-1/2 rounded-md p-24 text-2xl">
+      {/* <div className="balloon1 absolute left-[50%] top-24 -translate-x-1/2 rounded-md p-24 text-2xl">
         {speechRecords.length > 0 && speechRecords[currSpeechRecord] && (
           <div className="w-full text-center">
             {speechRecords[currSpeechRecord].SpeechSummary.replaceAll(
@@ -108,8 +108,25 @@ export const Theater = () => {
             ).replaceAll("」", "")}
           </div>
         )}
-      </div>
-
+      </div> */}
+      <div className="balloon1 absolute left-[50%] top-24 -translate-x-1/2 rounded-md p-24 text-2xl">
+        {speechRecords.length > 0 && speechRecords[currSpeechRecord] && (
+          <div className="w-full text-center">
+            {speechRecords[currSpeechRecord].SpeechSummary.replaceAll("「", "")
+              .replaceAll("」", "")
+              .split("。")
+              .map((sentence, index, array) => (
+                <React.Fragment key={index}>
+                  {sentence}
+                  {index !== array.length - 1 && "。"}{" "}
+                  {/* 最後の文以外は句点で結合 */}
+                  {index !== array.length - 1 && <br />}{" "}
+                  {/* 最後の文以外は改行 */}
+                </React.Fragment>
+              ))}
+          </div>
+        )}
+      </div>{" "}
       <button
         type="button"
         className="absolute right-[20%] top-[30%] text-3xl text-white"
