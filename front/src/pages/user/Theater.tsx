@@ -2,6 +2,7 @@ import React, { useCallback, useEffect, useState } from "react";
 import "./theater.css";
 import axios from "axios";
 import { useLocation } from "react-router-dom";
+import { Opning } from "./animation/opning/Opning";
 
 // TODO:リロード時に続きから表示するかの選択
 var path = import.meta.env.VITE_APP_PATH;
@@ -87,6 +88,7 @@ export const Theater = () => {
 
   return (
     <main className="theater-back relative h-full">
+      <Opning />
       {/* <Anime /> */}
       <button
         type="button"
