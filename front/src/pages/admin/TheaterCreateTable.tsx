@@ -14,6 +14,8 @@ export const TheaterCreateTable = () => {
   const [api, setApi] = useState<Map<string, any>>(new Map());
   const [speaker, setSpeaker] = useState<any[]>([]);
 
+  const [input, setInput] = useState<string>("");
+
   interface Entity {
     generates: any;
   }
@@ -28,6 +30,11 @@ export const TheaterCreateTable = () => {
     };
     // console.log("entity", entity.generates.get("issueID"));
     navigate(`/secret/theater-create/${entity.generates}`);
+  };
+
+  const sendInput = () => {
+    console.log("input", input);
+    navigate(`/secret/theater-create/${input}`);
   };
 
   useEffect(() => {
@@ -80,13 +87,17 @@ export const TheaterCreateTable = () => {
         </div>
 
         <div className="mt-4 flex items-center rounded-md bg-white">
-          <button className="px-1">
-            <MaterialSymbolsSearch />
+          <button className="px-1" onClick={() => sendInput()}>
+            {/* <MaterialSymbolsSearch /> */}
+            検索
           </button>
           <input
             type="search"
             className="w-full rounded-md border-[1px] border-gray-200 bg-white p-1 focus:border-green-200 focus:outline-none"
-            placeholder="検索"
+            placeholder="issue id"
+            onChange={(e) => {
+              setInput(e.target.value);
+            }}
           />
         </div>
 
