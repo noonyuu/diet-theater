@@ -1,10 +1,13 @@
 import React, { useCallback, useEffect, useState } from "react";
 import "./theater.css";
 import axios from "axios";
+import { useLocation } from "react-router-dom";
 
 // TODO:リロード時に続きから表示するかの選択
 var path = import.meta.env.VITE_APP_PATH;
 export const Theater = () => {
+  const location = useLocation();
+
   const [speechRecords, setSpeechRecords] = useState<any[]>([]); //  スピーチレコード
   const [currSpeechRecord, setCurrSpeechRecord] = useState<number>(0); //  現在のスピーチレコード
 
@@ -22,7 +25,7 @@ export const Theater = () => {
     const fetchData = async () => {
       try {
         const response = await axios.get(
-          "https://" + path + "/app/speech_record/select/all",
+          "https://" + path + "/app/speech_record/select/once/" + location.state.detailId,
           // "https://yeeeee-waaaaaa.noonyuu.com/app/speech_record/select/all",
         );
 
@@ -34,7 +37,7 @@ export const Theater = () => {
         }
       } catch (error) {
         console.error("Error fetching data:", error);
-      } 
+      }
     };
 
     fetchData();
@@ -64,7 +67,7 @@ export const Theater = () => {
   // 次のスピーチレコード
   const next = () => {
     setCurrSpeechRecord((curr) => {
-      // console.log("next length", speechRecords);
+      curr === speechRecords.length - 1 && finish();
       return curr === speechRecords.length - 1 ? curr : curr + 1;
     });
   };
@@ -76,7 +79,11 @@ export const Theater = () => {
     });
   };
 
-  const finish = () => {};
+  const finish = () => {
+    console.log("finish");
+    <div className="absolute left-52 top-20 bg-white">か</div>;
+  };
+  
 
   return (
     <main className="theater-back relative h-full">
