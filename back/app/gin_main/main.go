@@ -157,18 +157,18 @@ func main() {
 	//	発言レコードの登録
 	server.POST("/speech_record/insert", func(c *gin.Context) {
 		fmt.Println("speech_record insert")
-		    // リクエストボディを読み取る
-    bodyBytes, err := io.ReadAll(c.Request.Body)
-    if err != nil {
-        c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
-        return
-    }
-    // ioutil.ReadAllで読み取った後、c.Request.Bodyは空になるので、
-    // 読み取った内容を再度c.Request.Bodyに設定する
-    c.Request.Body = io.NopCloser(bytes.NewBuffer(bodyBytes))
+		// リクエストボディを読み取る
+		bodyBytes, err := io.ReadAll(c.Request.Body)
+		if err != nil {
+			c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
+			return
+		}
+		// ioutil.ReadAllで読み取った後、c.Request.Bodyは空になるので、
+		// 読み取った内容を再度c.Request.Bodyに設定する
+		c.Request.Body = io.NopCloser(bytes.NewBuffer(bodyBytes))
 
-    // リクエストボディの内容をログに出力
-    fmt.Println(string(bodyBytes))
+		// リクエストボディの内容をログに出力
+		fmt.Println(string(bodyBytes))
 		var speechRecords []*database.SpeechRecord
 		if err := c.ShouldBindJSON(&speechRecords); err != nil {
 			c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
@@ -220,6 +220,30 @@ func main() {
 		}
 		c.JSON(http.StatusOK, speechRecords)
 	})
+	// 	発言レコードの一件取得
+	server.GET("/speech_record/select/once/:issueID", func(c *gin.Context) {
+		issueID := c.Param("issueID")
+		var speechRecords []database.SpeechRecord
+
+		dbConn, err := database.GetDB()
+		if err != nil {
+			// データベース接続の取得に失敗した場合のエラーハンドリング
+			c.JSON(http.StatusInternalServerError, gin.H{"error": "Failed to connect to the database."})
+			return
+		}
+		if dbConn == nil {
+			// dbConnがnilの場合のエラーハンドリング
+			c.JSON(http.StatusInternalServerError, gin.H{"error": "Database connection is nil."})
+			return
+		}
+
+		if err := dbConn.Where("issue_id = ?", issueID).Find(&speechRecords).Error; err != nil {
+			c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
+			return
+		}
+		c.JSON(http.StatusOK, speechRecords)
+	})
+
 	// 	発言レコードの一件取得
 	server.GET("/speech_record/select/once/:issueID/:speechID", func(c *gin.Context) {
 		issueID := c.Param("issueID")
