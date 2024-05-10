@@ -26,7 +26,10 @@ export const Theater = () => {
     const fetchData = async () => {
       try {
         const response = await axios.get(
-          "https://" + path + "/app/speech_record/select/once/" + location.state.detailId,
+          "https://" +
+            path +
+            "/app/speech_record/select/once/" +
+            location.state.detailId,
           // "https://yeeeee-waaaaaa.noonyuu.com/app/speech_record/select/all",
         );
 
@@ -84,7 +87,6 @@ export const Theater = () => {
     console.log("finish");
     <div className="absolute left-52 top-20 bg-white">か</div>;
   };
-  
 
   return (
     <main className="theater-back relative h-full">
@@ -107,6 +109,7 @@ export const Theater = () => {
           </div>
         )}
       </div>
+
       <button
         type="button"
         className="absolute right-[20%] top-[30%] text-3xl text-white"
