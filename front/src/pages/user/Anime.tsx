@@ -7,9 +7,9 @@ export const Anime = () => {
   const argValue = 3;
   return (
     <div>
-      {/* <Animation arg={2}></Animation> */}
+      <Animation arg={4}></Animation>
       {/* <Opning></Opning> */}
-      <Ending></Ending>
+      {/* <Ending></Ending> */}
     </div>
   );
 };
