@@ -1,10 +1,14 @@
 import axios from "axios";
-import React, { useEffect, useState } from "react";
+import React, { FC, useEffect, useState } from "react";
+
+interface Props {
+  currPoint: number;
+}
 
 var path = import.meta.env.VITE_APP_PATH;
-const ShowSpeech = () => {
+const ShowSpeech: FC<Props> = (props) => {
   const [speechRecords, setSpeechRecords] = useState<any[]>([]); //  スピーチレコード
-  const [currSpeechRecord, setCurrSpeechRecord] = useState<number>(0); //  現在のスピーチレコード
+  const [currSpeechRecord, setCurrSpeechRecord] = useState<number>(props.currPoint); //  現在のスピーチレコード
 
   useEffect(() => {
     // APIを叩きに行く処理
@@ -28,7 +32,7 @@ const ShowSpeech = () => {
   }, []);
   // 次のスピーチレコード
   const next = () => {
-    if(currSpeechRecord === speechRecords.length - 1) {
+    if (currSpeechRecord === speechRecords.length - 1) {
       return;
     }
     setCurrSpeechRecord(currSpeechRecord + 1);
@@ -62,7 +66,7 @@ const ShowSpeech = () => {
         ))}
       </div> */}
 
-      <div className="h-48 w-36 border">
+      {/* <div className="h-48 w-36 border">
         {speechRecords.length > 0 && (
           <div className="h-48 w-36 border">
             <p>名前：{speechRecords[currSpeechRecord].Speaker}</p>
@@ -80,7 +84,7 @@ const ShowSpeech = () => {
             </p>
           </div>
         )}
-      </div>
+      </div> */}
     </div>
   );
 };
