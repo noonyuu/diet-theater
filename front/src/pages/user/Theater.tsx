@@ -87,7 +87,7 @@ export const Theater = () => {
   
 
   return (
-    <main className="theater-back relative h-full">
+    <main className="theater-back relative min-h-svh">
       <Opning />
       {/* <Anime /> */}
       <button
