@@ -1,19 +1,22 @@
 import React, { useCallback, useEffect, useState } from "react";
 import "./theater.css";
 import axios from "axios";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { Opning } from "./animation/opning/Opning";
 import {Animation} from "../user/animation/Animation";
+import { Ending } from "./animation/ending/Ending";
 
 // TODO:リロード時に続きから表示するかの選択
 var path = import.meta.env.VITE_APP_PATH;
 export const Theater = () => {
   const location = useLocation();
+  const navigate = useNavigate();
 
   const [speechRecords, setSpeechRecords] = useState<any[]>([]); //  スピーチレコード
   const [currSpeechRecord, setCurrSpeechRecord] = useState<number>(0); //  現在のスピーチレコード
 
   const [isFirstLoad, setIsFirstLoad] = useState<boolean>(false); //  初回ロード
+  const [isFinish, setIsFinish] = useState<boolean>(false); //  終了
 
   useEffect(() => {
     document.body.classList.add("no-scroll");
@@ -86,8 +89,9 @@ export const Theater = () => {
 
   const finish = () => {
     console.log("finish");
-    <div className="absolute left-52 top-20 bg-white">か</div>;
+    setIsFinish(true);
   };
+  
   const [showAnimation, setShowAnimation] = useState(false);
 
   useEffect(() => {
@@ -102,10 +106,31 @@ export const Theater = () => {
       return () => clearTimeout(timer);
     }
   }, [currSpeechRecord, speechRecords]); 
+
+  useEffect(() => {
+    if (isFinish) {
+      // エンディングアニメーションの終了を待つ
+      const timer = setTimeout(() => {
+        // アニメーションが終了したらagenda画面に遷移する
+        navigate('/agenda');
+      }, 3000); // 3000ミリ秒後に実行
+
+      return () => clearTimeout(timer); // コンポーネントのクリーンアップ時にタイマーをクリア
+    }
+  }, [isFinish, navigate]);
+
+  // if (isFinish) {
+  //   return (
+  //     <div className="absolute left-[50%] top-[50%] -translate-x-1/2 -translate-y-1/2 text-3xl text-white">
+  //       <Ending />
+  //     </div>
+  //   );
+  // }
   
 return (
   <main className="theater-back relative min-h-svh">
     <Opning />
+    {/* {isFinish && <Show isFinish={isFinish} />} */}
     {/* <Anime /> */}
     <button
       type="button"
@@ -135,6 +160,25 @@ return (
     >
       &gt;
     </button>
+    <div className="size-fit p-8 border absolute left-[5%] top-[50%] text-3xl">
+        {speechRecords.length > 0 && (
+          <div className="">
+            <p className="text-white">名前：{speechRecords[currSpeechRecord].Speaker}</p>
+            <p className="text-white">
+              所属：
+              {speechRecords[currSpeechRecord].SpeakerGroup
+                ? speechRecords[currSpeechRecord].SpeakerGroup
+                : "所属なし"}
+            </p>
+            <p className="text-white">
+              役職：
+              {speechRecords[currSpeechRecord].speakerRole
+                ? speechRecords[currSpeechRecord].speakerRole
+                : "役職なし"}
+            </p>
+          </div>
+        )}
+      </div>
       {/* showAnimationがtrueで、AnimationPointが"0"でない場合にアニメーションを表示 */}
       {showAnimation && speechRecords[currSpeechRecord].AnimationPoint !== "0" && (
         <Animation arg={speechRecords[currSpeechRecord].AnimationPoint} />
