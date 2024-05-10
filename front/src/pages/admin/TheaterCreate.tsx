@@ -191,6 +191,8 @@ const TheaterCreate = () => {
         igiContain = "4";
       } else if (speechData[index].speech.includes("起立")) {
         igiContain = "3";
+      } else if (speechData[index].speech.includes("挙手")) {
+        igiContain = "5";
       }
       // speechdataがspeechRecordなのでspeechIDとspeakerは正しい挙動をする
       speechPostData.push({
