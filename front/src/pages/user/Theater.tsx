@@ -3,6 +3,7 @@ import "./theater.css";
 import axios from "axios";
 import { useLocation } from "react-router-dom";
 import { Opning } from "./animation/opning/Opning";
+import {Animation} from "../user/animation/Animation";
 
 // TODO:リロード時に続きから表示するかの選択
 var path = import.meta.env.VITE_APP_PATH;
@@ -42,7 +43,7 @@ export const Theater = () => {
       } catch (error) {
         console.error("Error fetching data:", error);
       }
-    };
+    }
 
     fetchData();
   }, []);
@@ -87,35 +88,58 @@ export const Theater = () => {
     console.log("finish");
     <div className="absolute left-52 top-20 bg-white">か</div>;
   };
+  const [showAnimation, setShowAnimation] = useState(false);
 
-  return (
-    <main className="theater-back relative min-h-svh">
-      <Opning />
-      {/* <Anime /> */}
-      <button
-        type="button"
-        className="absolute left-[20%] top-[30%] text-3xl text-white"
-        onClick={() => back()}
-      >
-        &lt;
-      </button>
-      <div className="balloon1 absolute left-[50%] top-24 -translate-x-1/2 rounded-md p-24 text-2xl">
-        {speechRecords.length > 0 && speechRecords[currSpeechRecord] && (
+  useEffect(() => {
+    // アニメーション表示条件をリセット
+    setShowAnimation(false);
+    if (speechRecords[currSpeechRecord] && speechRecords[currSpeechRecord].AnimationPoint !== "0") {
+      // 1秒後にアニメーション表示状態をtrueに設定
+      const timer = setTimeout(() => {
+        setShowAnimation(true);
+      }, 1000);
+      // コンポーネントのアンマウント時にタイマーをクリア
+      return () => clearTimeout(timer);
+    }
+  }, [currSpeechRecord, speechRecords]); 
+  
+return (
+  <main className="theater-back relative min-h-svh">
+    <Opning />
+    {/* <Anime /> */}
+    <button
+      type="button"
+      className="absolute left-[20%] top-[30%] text-3xl text-white"
+      onClick={() => back()}
+    >
+      &lt;
+    </button>
+    <div className="balloon1 absolute left-[50%] top-24 -translate-x-1/2 rounded-md p-24 text-2xl">
+      {speechRecords.length > 0 && speechRecords[currSpeechRecord] && (
+        <>
           <div className="w-full text-center">
             {speechRecords[currSpeechRecord].SpeechSummary.replaceAll(
               "「",
               "",
             ).replaceAll("」", "")}
           </div>
-        )}
-      </div>
-      <button
-        type="button"
-        className="absolute right-[20%] top-[30%] text-3xl text-white"
-        onClick={() => next()}
-      >
-        &gt;
-      </button>
-    </main>
-  );
+          {/* アニメーションを発言の直後に表示 */}
+         
+        </>
+      )}
+    </div>
+    <button
+      type="button"
+      className="absolute right-[20%] top-[30%] text-3xl text-white"
+      onClick={() => next()}
+    >
+      &gt;
+    </button>
+      {/* showAnimationがtrueで、AnimationPointが"0"でない場合にアニメーションを表示 */}
+      {showAnimation && speechRecords[currSpeechRecord].AnimationPoint !== "0" && (
+        <Animation arg={speechRecords[currSpeechRecord].AnimationPoint} />
+      )}
+  </main>
+);
+
 };
