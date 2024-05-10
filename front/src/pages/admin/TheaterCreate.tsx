@@ -187,6 +187,10 @@ const TheaterCreate = () => {
         igiContain = "1";
       } else if (speechData[index].speech.includes("〔「異議あり」と呼ぶ者あり〕")) {
         igiContain = "2";
+      } else if (speechData[index].speech.includes("拍手")) {
+        igiContain = "4";
+      } else if (speechData[index].speech.includes("起立")) {
+        igiContain = "3";
       }
       // speechdataがspeechRecordなのでspeechIDとspeakerは正しい挙動をする
       speechPostData.push({
@@ -252,13 +256,13 @@ const TheaterCreate = () => {
       });
   };
 
-  // useEffect(() => {
-  //   if (registerCheck[0] && registerCheck[1]) {
-  //     // セッション削除
-  //     localStorage.removeItem("summary-data");
-  //     navigate("/secret/theater-create-table");
-  //   }
-  // }, [registerCheck]);
+  useEffect(() => {
+    if (registerCheck[0] && registerCheck[1]) {
+      // セッション削除
+      localStorage.removeItem("summary-data");
+      navigate("/secret/theater-create-table");
+    }
+  }, [registerCheck]);
 
   if (isGeneConnect) {
     return <div className="mt-16 flex flex-1 justify-center">Loading...</div>;
