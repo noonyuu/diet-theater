@@ -6,14 +6,15 @@ import { Form } from "../../../component/form";
 import { Button } from "../../../component/button";
 import { MdiChat } from "../../../assets/Chat";
 import { MaterialSymbolsSearch } from "../../../assets/Search";
+import axios from "axios";
 
 // アイコン
 // import { FaSearch } from "react-icons/fa";
-
+var path = import.meta.env.VITE_APP_PATH;
 export const Agenda = () => {
   const navigate = useNavigate();
 
-  const [api, setApi] = useState<Map<string, any>>(new Map());
+  const [meetingRecord, setMeetingRecord] = useState<any[]>([]);
   const [speaker, setSpeaker] = useState<any[]>([]);
 
   interface Entity {
@@ -24,22 +25,33 @@ export const Agenda = () => {
     const entity: Entity = {
       detailId: val,
     };
-    navigate("/chat", { state: entity });
+    navigate("/theater", { state: entity });
   };
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const newData = await getPostData();
-        const speakers = newData?.get("speechRecord");
-        console.log("agenda", newData);
+        const response = await axios.get(
+          "https://" + path + "/app/meeting_record/select/all",
+          // "https://yeeeee-waaaaaa.noonyuu.com/app/speech_record/select/all",
+        );
 
-        if (newData !== null) {
-          setApi(newData);
-          setSpeaker(speakers);
+        if (Array.isArray(response.data)) {
+          setMeetingRecord(response.data);
         } else {
-          console.error("データが null です");
+          console.error("Unexpected response structure:", response.data);
         }
+
+        // const newData = await getPostData();
+        // const speakers = newData?.get("speechRecord");
+        // console.log("agenda", newData);
+
+        // if (newData !== null) {
+        //   setApi(newData);
+        //   setSpeaker(speakers);
+        // } else {
+        //   console.error("データが null です");
+        // }
       } catch (error) {
         console.error(error);
       }
@@ -86,31 +98,31 @@ export const Agenda = () => {
               </tr>
             </thead>
             <tbody className="border-none">
-              {Array.from(api).map(([keys, values]) => {
-                const pickData = new Map(Object.entries(values));
-                return (
-                  <tr key={keys} className="border-gray-100 text-center">
-                    <td className="p-0 text-center text-xs font-thin lg:text-lg">
-                      <>{pickData.get("nameOfMeeting")}</>
-                    </td>
-                    <td className="hidden p-0 text-center text-xs lg:table-cell lg:text-lg">
-                      <>{pickData.get("nameOfHouse")}</>
-                    </td>
-                    <td className="hidden p-0 text-center text-xs lg:table-cell lg:text-lg">
-                      <>{pickData.get("date")}</>
-                    </td>
-                    <td className="rounded-br-xl p-0 px-1 py-3 text-xs lg:text-lg">
-                      <button
-                        type="button"
-                        className="mx-auto flex items-center rounded-md border-2 border-green-500 bg-green-100 px-1 py-1 text-xs text-green-500 lg:px-8"
-                        onClick={() => detail(keys)}
-                      >
-                        入場
-                      </button>
-                    </td>
-                  </tr>
-                );
-              })}
+              {meetingRecord.map((record, index) => (
+                <tr
+                  key={record.MeetingRecordId || index} // 修正箇所: record.MeetingRecordIdが一意でない、または存在しない場合に備えて、indexをフォールバックとして使用
+                  className="border-gray-100 text-center"
+                >
+                  <td className="text-xs text-gray-400 lg:text-xl">
+                    {record.NameOfMeeting}
+                  </td>
+                  <td className="hidden text-xs text-gray-400 lg:table-cell lg:text-xl">
+                    {record.NameOfHouse}
+                  </td>
+                  <td className="hidden text-xs text-gray-400 lg:table-cell lg:text-xl">
+                    {record.Date}
+                  </td>
+                  <td className="rounded-br-xl p-0 px-1 py-3 text-xs lg:text-lg">
+                    <button
+                      type="button"
+                      className="mx-auto flex items-center rounded-md border-2 border-green-500 bg-green-100 px-1 py-1 text-xs text-green-500 lg:px-8"
+                      onClick={() => detail(record.IssueID)}
+                    >
+                      入場
+                    </button>
+                  </td>
+                </tr>
+              ))}
             </tbody>
           </table>
         </div>
