@@ -3,6 +3,7 @@ import "./theater.css";
 import axios from "axios";
 import { useLocation } from "react-router-dom";
 import { Opning } from "./animation/opning/Opning";
+import {Animation} from "../user/animation/Animation";
 
 // TODO:リロード時に続きから表示するかの選択
 var path = import.meta.env.VITE_APP_PATH;
@@ -70,6 +71,7 @@ export const Theater = () => {
 
   // 次のスピーチレコード
   const next = () => {
+    console.log(speechRecords[currSpeechRecord].AnimationPoint);
     setCurrSpeechRecord((curr) => {
       curr === speechRecords.length - 1 && finish();
       return curr === speechRecords.length - 1 ? curr : curr + 1;
@@ -91,6 +93,16 @@ export const Theater = () => {
   return (
     <main className="theater-back relative min-h-svh">
       <Opning />
+      {speechRecords.length > 0 && speechRecords[currSpeechRecord] && (
+        <div>
+          {speechRecords[currSpeechRecord].AnimationPoint > 0 ? (
+            <Animation arg={speechRecords[currSpeechRecord].AnimationPoint} />
+          ) : (
+            ""
+          )}
+        </div>
+      )}
+
       {/* <Anime /> */}
       <button
         type="button"
