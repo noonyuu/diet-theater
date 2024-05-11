@@ -1,8 +1,9 @@
+import notfound from "../../src/pages/user/theater_img/404.png";
+
 const NotFound = () => {
   return (
     <div className="h-screen">
-      <h1>404 NotFound</h1>
-      <p>ページが見つかりませんでした。</p>
+      <img src={notfound} alt="" />
     </div>
   );
 };

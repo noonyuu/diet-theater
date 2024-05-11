@@ -46,7 +46,7 @@ export const Theater = () => {
       } catch (error) {
         console.error("Error fetching data:", error);
       }
-    }
+    };
 
     fetchData();
   }, []);
@@ -91,13 +91,16 @@ export const Theater = () => {
     console.log("finish");
     setIsFinish(true);
   };
-  
+
   const [showAnimation, setShowAnimation] = useState(false);
 
   useEffect(() => {
     // アニメーション表示条件をリセット
     setShowAnimation(false);
-    if (speechRecords[currSpeechRecord] && speechRecords[currSpeechRecord].AnimationPoint !== "0") {
+    if (
+      speechRecords[currSpeechRecord] &&
+      speechRecords[currSpeechRecord].AnimationPoint !== "0"
+    ) {
       // 1秒後にアニメーション表示状態をtrueに設定
       const timer = setTimeout(() => {
         setShowAnimation(true);
@@ -105,14 +108,14 @@ export const Theater = () => {
       // コンポーネントのアンマウント時にタイマーをクリア
       return () => clearTimeout(timer);
     }
-  }, [currSpeechRecord, speechRecords]); 
+  }, [currSpeechRecord, speechRecords]);
 
   useEffect(() => {
     if (isFinish) {
       // エンディングアニメーションの終了を待つ
       const timer = setTimeout(() => {
         // アニメーションが終了したらagenda画面に遷移する
-        navigate('/agenda');
+        navigate("/agenda");
       }, 3000); // 3000ミリ秒後に実行
 
       return () => clearTimeout(timer); // コンポーネントのクリーンアップ時にタイマーをクリア
@@ -126,64 +129,70 @@ export const Theater = () => {
   //     </div>
   //   );
   // }
-  
-return (
-  <main className="theater-back relative min-h-svh">
-    <Opning />
-    {/* {isFinish && <Show isFinish={isFinish} />} */}
-    {/* <Anime /> */}
-    <button
-      type="button"
-      className="absolute left-[20%] top-[30%] text-3xl text-white"
-      onClick={() => back()}
-    >
-      &lt;
-    </button>
-    <div className="balloon1 absolute left-[50%] top-24 -translate-x-1/2 rounded-md p-24 text-2xl">
-      {speechRecords.length > 0 && speechRecords[currSpeechRecord] && (
-        <>
+
+  return (
+    <main className="theater-back relative h-full">
+      <Opning />
+      {/* <Anime /> */}
+      <button
+        type="button"
+        className="absolute left-[20%] top-[30%] text-3xl text-white"
+        onClick={() => back()}
+      >
+        &lt;
+      </button>
+      {/* <div className="balloon1 absolute left-[50%] top-24 -translate-x-1/2 rounded-md p-24 text-2xl">
+        {speechRecords.length > 0 && speechRecords[currSpeechRecord] && (
           <div className="w-full text-center">
             {speechRecords[currSpeechRecord].SpeechSummary.replaceAll(
               "「",
               "",
             ).replaceAll("」", "")}
           </div>
-          {/* アニメーションを発言の直後に表示 */}
-         
-        </>
-      )}
-    </div>
-    <button
-      type="button"
-      className="absolute right-[20%] top-[30%] text-3xl text-white"
-      onClick={() => next()}
-    >
-      &gt;
-    </button>
-    <div className="size-fit p-8 border absolute left-[5%] top-[50%] text-3xl">
-        {speechRecords.length > 0 && (
-          <div className="">
-            <p className="text-white">名前：{speechRecords[currSpeechRecord].Speaker}</p>
-            <p className="text-white">
-              所属：
-              {speechRecords[currSpeechRecord].SpeakerGroup
-                ? speechRecords[currSpeechRecord].SpeakerGroup
-                : "所属なし"}
-            </p>
-            <p className="text-white">
-              役職：
-              {speechRecords[currSpeechRecord].speakerRole
-                ? speechRecords[currSpeechRecord].speakerRole
-                : "役職なし"}
-            </p>
+        )}
+      </div> */}
+      <div className="balloon1 absolute left-[50%] top-24 -translate-x-1/2 rounded-md p-24 text-2xl">
+        {speechRecords.length > 0 && speechRecords[currSpeechRecord] && (
+          <div className="w-full text-center text-white">
+            {speechRecords[currSpeechRecord].SpeechSummary.replaceAll("「", "")
+              .replaceAll("」", "")
+              .split("。")
+              .map(
+                (
+                  sentence:
+                    | string
+                    | number
+                    | boolean
+                    | React.ReactElement<
+                        any,
+                        string | React.JSXElementConstructor<any>
+                      >
+                    | Iterable<React.ReactNode>
+                    | React.ReactPortal
+                    | null
+                    | undefined,
+                  index: React.Key | null | undefined,
+                  array: string | any[],
+                ) => (
+                  <React.Fragment key={index}>
+                    {sentence}
+                    {index !== array.length - 1 && "。"}{" "}
+                    {/* 最後の文以外は句点で結合 */}
+                    {index !== array.length - 1 && <br />}{" "}
+                    {/* 最後の文以外は改行 */}
+                  </React.Fragment>
+                ),
+              )}
           </div>
         )}
-      </div>
-      {/* showAnimationがtrueで、AnimationPointが"0"でない場合にアニメーションを表示 */}
-      {showAnimation && speechRecords[currSpeechRecord].AnimationPoint !== "0" && (
-        <Animation arg={speechRecords[currSpeechRecord].AnimationPoint} />
-      )}
-  </main>
-);
-
+      </div>{" "}
+      <button
+        type="button"
+        className="absolute right-[20%] top-[30%] text-3xl text-white"
+        onClick={() => next()}
+      >
+        &gt;
+      </button>
+    </main>
+  );
 };
