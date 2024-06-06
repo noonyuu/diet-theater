@@ -4,3 +4,6 @@ server.key
 .devdbrc
 back/gin_goth/auth.db
 back/redis
+back/redis/dump.rdb
+.DS_Store
+back/.DS_Store
