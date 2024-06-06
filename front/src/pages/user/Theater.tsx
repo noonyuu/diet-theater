@@ -3,8 +3,9 @@ import "./theater.css";
 import axios from "axios";
 import { useLocation, useNavigate } from "react-router-dom";
 import { Opning } from "./animation/opning/Opning";
-import {Animation} from "../user/animation/Animation";
+import { Animation } from "../user/animation/Animation";
 import { Ending } from "./animation/ending/Ending";
+// import
 
 // TODO:リロード時に続きから表示するかの選択
 var path = import.meta.env.VITE_APP_PATH;
@@ -114,9 +115,10 @@ export const Theater = () => {
     if (isFinish) {
       // エンディングアニメーションの終了を待つ
       const timer = setTimeout(() => {
+        <div id="wrap"></div>;
         // アニメーションが終了したらagenda画面に遷移する
         navigate("/agenda");
-      }, 3000); // 3000ミリ秒後に実行
+      }, 1000); // 3000ミリ秒後に実行
 
       return () => clearTimeout(timer); // コンポーネントのクリーンアップ時にタイマーをクリア
     }
@@ -131,7 +133,7 @@ export const Theater = () => {
   // }
 
   return (
-    <main className="theater-back relative h-full">
+    <main className="theater-back relative min-h-svh">
       <Opning />
       {/* <Anime /> */}
       <button
@@ -151,9 +153,9 @@ export const Theater = () => {
           </div>
         )}
       </div> */}
-      <div className="balloon1 absolute left-[50%] top-24 -translate-x-1/2 rounded-md p-24 text-2xl">
+      <div className="balloon1 absolute left-[50%] top-0 w-fit -translate-x-1/2 rounded-md p-24 text-2xl">
         {speechRecords.length > 0 && speechRecords[currSpeechRecord] && (
-          <div className="w-full text-center text-white">
+          <div className="w-full text-center text-xs text-white md:text-lg">
             {speechRecords[currSpeechRecord].SpeechSummary.replaceAll("「", "")
               .replaceAll("」", "")
               .split("。")
@@ -193,6 +195,31 @@ export const Theater = () => {
       >
         &gt;
       </button>
+      <div className="absolute left-[5%] top-[50%] size-fit border border-black bg-black p-4 text-3xl md:p-8 lg:border-white">
+        {speechRecords.length > 0 && (
+          <div className="">
+            <p className="text-xs text-white lg:text-3xl">
+              名前：{speechRecords[currSpeechRecord].Speaker}
+            </p>
+            <p className="text-xs text-white lg:text-3xl">
+              所属：
+              {speechRecords[currSpeechRecord].SpeakerGroup
+                ? speechRecords[currSpeechRecord].SpeakerGroup
+                : "所属なし"}
+            </p>
+            <p className="text-xs text-white md:text-3xl">
+              役職：
+              {speechRecords[currSpeechRecord].speakerRole
+                ? speechRecords[currSpeechRecord].speakerRole
+                : "役職なし"}
+            </p>
+          </div>
+        )}
+      </div>
+      {showAnimation &&
+        speechRecords[currSpeechRecord].AnimationPoint !== "0" && (
+          <Animation arg={speechRecords[currSpeechRecord].AnimationPoint} />
+        )}
     </main>
   );
 };

@@ -2,6 +2,7 @@
   background-image: url(./theater_img/theater.png);
   background-repeat: no-repeat; /* 背景画像の繰り返しをやめる */
   background-size: cover; /* 背景画像を要素全体にカバーする */
+  background-position: center; /* 背景画像を中央中心に配置する */
 }
 
 .no-scroll {

@@ -81,7 +81,7 @@ export const Agenda = () => {
           />
         </div>
 
-        <div className="mt-4 lg:mt-10">
+        <div className="mt-4 max-h-[80%] overflow-y-auto lg:mt-10">
           <table className="table mx-auto w-full rounded-b-none bg-white">
             <thead className="">
               <tr className="border-gray-100 text-center text-base">
