@@ -9,4 +9,5 @@
 
 国立国会図書館が公開している国会議事録APIを使用してそれらをOpenAIで要約してアニメ帳で劇をみているかのように表示する
 
-![構成図](../diet-theater/front/public/diet-flow.png "構成図v2")
+![diet-flow-v2](https://github.com/noonyuu/diet-theater/assets/107845401/bc25b671-426a-4b19-a102-aae3f2160951)
+
