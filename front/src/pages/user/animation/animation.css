@@ -1,0 +1,36 @@
+.img-wrap {
+  overflow: hidden;
+  position: relative;
+}
+
+.img-wrap::before,
+.img-wrap::after {
+  animation: 2s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+  background: #fff;
+  content: "";
+  pointer-events: none;
+  position: absolute;
+  z-index: 1;
+}
+
+.img-wrap::before {
+  animation-name: img-wrap-before;
+  inset: 0 0 50%;
+}
+
+.img-wrap::after {
+  animation-name: img-wrap-after;
+  inset: 50% 0 0;
+}
+
+@keyframes img-wrap-before {
+  100% {
+    transform: translateX(100%);
+  }
+}
+
+@keyframes img-wrap-after {
+  100% {
+    transform: translateX(-100%);
+  }
+}

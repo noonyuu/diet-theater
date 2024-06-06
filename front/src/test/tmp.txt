@@ -1,0 +1,49 @@
+ const TabContent1 = () => (
+   <div>
+     {Array.from(api).map(([keys, values], index) => {
+       const pickData = new Map(Object.entries(values));
+       const speechRecords = pickData.get("speechRecord");
+
+       return (
+         <span
+           key={keys}
+           className="whitespace-pre "
+           style={{ whiteSpace: "pre-wrap" }}
+         >
+           {Array.isArray(speechRecords) &&
+             speechRecords.length > 0 &&
+             speechRecords.slice(1).map((speechRecord, recordIndex) => {
+               const speech = speechRecord["speech"];
+               const formattedSpeech = speech
+                 ? speech.replace(/\r\n/g, "\n")
+                 : null;
+               const isEven = (index + recordIndex) % 2 === 0;
+               const bubbleComponent = isEven ? (
+                 <div className="flex items-end justify-start">
+                   <div className="">
+                     <img src={icon} alt="logo" className="mx-auto" />
+                     <p>{speechRecord["speaker"]}</p>
+                   </div>
+                   <BubbleRight content={formattedSpeech} />
+                 </div>
+               ) : (
+                 <div className="flex items-end justify-end">
+                   <BubbleLeft content={formattedSpeech} />
+                   <div className="text-center">
+                     <img src={icon} alt="logo" className="mx-auto" />
+                     <p>{speechRecord["speaker"]}</p>
+                   </div>
+                 </div>
+               );
+               return (
+                 <React.Fragment key={recordIndex}>
+                   {bubbleComponent}
+                 </React.Fragment>
+               );
+             })}
+         </span>
+       );
+     })}
+   </div>
+ );
+

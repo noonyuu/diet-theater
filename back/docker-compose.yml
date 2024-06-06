@@ -1,0 +1,94 @@
+version: "3"
+
+services:
+  app:
+    build:
+      context: ./app
+      dockerfile: Dockerfile
+    container_name: app_server
+    image: app-server-image:latest
+    command: sh -c "cd gin_main && go run ."
+    ports:
+      - "8080:8080"
+    volumes:
+      - ./app:/root/app
+    restart: always
+    tty: true
+    depends_on:
+      - redis
+      - db_diet
+
+  gin_goth:
+    build:
+      context: ./gin_goth
+      dockerfile: Dockerfile
+    container_name: auth_server
+    image: auth-server-image:latest
+    command: sh -c "go run ."
+    ports:
+      - 10005:10005
+    volumes:
+      - ./gin_goth:/root/gin_goth
+    restart: always
+    tty: true
+    depends_on:
+      - redis
+      - db_diet
+      - app
+
+  db_diet:
+    image: mysql:8.0
+    environment:
+      - MYSQL_ROOT_HOST=${DB_ROOT_HOST}
+      - MYSQL_DATABASE=${DB_NAME}
+      - MYSQL_USER=${DB_USER}
+      - MYSQL_PASSWORD=${DB_PASS}
+      - MYSQL_ROOT_PASSWORD=${DB_ROOT_PASS}
+      - TZ=${TZ}
+    ports:
+      - "3306:3306"
+    volumes:
+      - .db//my.cnf:/etc/mysql/conf.d/my.cnf
+    tty: true
+    stdin_open: true
+
+  gpt:
+    image: gpt:latest
+    container_name: gpt
+    build: ./python
+    ports:
+      - "5050:5050"
+    environment:
+      - TZ=Asia/Tokyo
+    volumes:
+      - ./python:/python
+    restart: always
+    tty: true
+
+  nginx:
+    restart: always
+    image: nginx:latest
+    ports:
+      - "8443:80"
+    volumes:
+      - ./nginx/default.conf:/etc/nginx/conf.d/default.conf
+      - ../front/dist:/var/www
+      - ./nginx/static:/etc/nginx/static
+      - ./nginx/keys:/etc/nginx/keys
+    tty: true
+
+    extra_hosts:
+      - host.docker.internal:host-gateway
+
+  redis:
+    container_name: redis
+    image: "redis:latest"
+    ports:
+      - "6379:6379"
+    restart: always
+    volumes:
+      - ./redis:/data
+    command: redis-server --appendonly yes
+
+volumes:
+  db_data_diet:
