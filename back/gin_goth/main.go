@@ -50,7 +50,7 @@ func errorHandler(ctx *gin.Context, info ratelimit.Info) {
 
 func main() {
 	fmt.Println("Hello, World!")
-
+	
 	loadEnv()
 
 	// 初期化
@@ -88,7 +88,7 @@ func main() {
 
 	//プロバイダ設定
 	goth.UseProviders(
-		google.New(os.Getenv("Google_ID"), os.Getenv("Google_SECRET"), os.Getenv("Google_Redirect_URL"), "email", "profile"),
+		google.New(os.Getenv("GOOGLE_ID"), os.Getenv("GOOGLE_SECRET"), os.Getenv("GOOGLE_REDIRECT_URI"), "email", "profile"),
 		line.New(os.Getenv("Line_ID"), os.Getenv("Line_SECRET"), os.Getenv("Line_Redirect_URL"), "profile", "openid"),
 	)
 
