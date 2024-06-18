@@ -8,7 +8,7 @@ interface Props {
 const LoginBtn: React.FC<Props> = ({ name, icon }) => {
   const handleClick = () => {
     window.location.href =
-      "/auth/" + name.toLowerCase() + "?redirect_path=/app/";
+      "/auth/" + name.toLowerCase() + "?redirect_path=/";
   };
 
   return (

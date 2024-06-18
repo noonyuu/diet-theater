@@ -2,6 +2,7 @@ import React, { useContext, useEffect, useState } from "react";
 // context
 import { GlobalContext } from "../context/GlobalContext";
 import { useLocation, useNavigate } from "react-router-dom";
+import { GetUser } from "../script/Auth";
 // import { GetUser } from "../script/Auth";
 
 export default function App() {
@@ -20,28 +21,28 @@ export default function App() {
       setAdmin(true);
     }
   }, []);
-  // useEffect(() => {
-  //   // 初期化処理
-  //   if (!isLoad) return;
+  useEffect(() => {
+    // 初期化処理
+    if (!isLoad) return;
 
-  //   GetUser()
-  //     .then((res) => {
-  //       const [success, user] = res;
-  //       if (success) {
-  //         setProfile([
-  //           {
-  //             id: user.id,
-  //             name: user.name,
-  //             avatar_url: user.avatar_url,
-  //             email: user.email,
-  //           },
-  //         ]);
-  //       }
-  //     })
-  //     .then(() => {
-  //       setIsLoad(false);
-  //     });
-  // }, [isLoad]); // profileを依存配列から削除
+    GetUser()
+      .then((res) => {
+        const [success, user] = res;
+        if (success) {
+          setProfile([
+            {
+              id: user.id,
+              name: user.name,
+              avatar_url: user.avatar_url,
+              email: user.email,
+            },
+          ]);
+        }
+      })
+      .then(() => {
+        setIsLoad(false);
+      });
+  }, [isLoad]); // profileを依存配列から削除
 
   // profileが変更された時にのみ実行される
   useEffect(() => {}, [profile]);
