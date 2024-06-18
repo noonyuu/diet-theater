@@ -16,6 +16,7 @@ import TheaterShow from "./pages/user/TheaterShow";
 import { Anime } from "./pages/user/Anime";
 import Login from "./pages/Login";
 import { Theater } from "./pages/user/Theater";
+import { GetUser, RefreshToken } from "./script/Auth";
 
 const Routers = () => {
   const navigate = useNavigate();
@@ -23,90 +24,70 @@ const Routers = () => {
   useEffect(() => {
     localStorage.getItem("terms") ? "" : navigate("/");
   }, []);
-  // useEffect(() => {
-  //   const fetchUser = async () => {
-  //     try {
-  //       const [logInned, userInfo] = await GetUser();
-  //       if (logInned && userInfo) {
-  //         // トークン更新
-  //         RefreshToken();
-  //         // ログイン済みの場合
-  //         if (
-  //           window.location.pathname === "/" ||
-  //           window.location.pathname === "/login-test"
-  //         ) {
-  //           navigate("/secret/agenda");
-  //         } else {
-  //           navigate(window.location.pathname, { replace: true });
-  //         }
-  //       } else {
-  //         navigate("/login-test");
-  //       }
-  //     } catch (e) {
-  //       console.log(e);
-  //     }
-  //   };
-  //   fetchUser();
-  // }, []);
+
+  useEffect(() => {
+    const fetchUser = async () => {
+      try {
+        const [logInned, userInfo] = await GetUser();
+        console.log(userInfo);
+        if (logInned && userInfo) {
+          // トークン更新
+          RefreshToken();
+          // ログイン済みの場合
+          if (
+            window.location.pathname === "/" ||
+            window.location.pathname === "/login"
+          ) {
+            navigate("/agenda");
+          } else {
+            navigate(window.location.pathname, { replace: true });
+          }
+        } else {
+          navigate("/login");
+        }
+      } catch (e) {
+        console.log(e);
+      }
+    };
+    fetchUser();
+  }, []);
+
+  const routesWithoutHeaderAndFooter = [
+    { path: "/", element: <Terms /> },
+    { path: "/anime", element: <Anime /> },
+    { path: "/login", element: <Login /> },
+    { path: "/theater", element: <Theater /> },
+  ];
+
+  const routesWithHeaderAndFooter = [
+    { path: "/agenda", element: <Agenda /> },
+    { path: "/chat", element: <Chat /> },
+    { path: "/theater-show", element: <TheaterShow /> },
+    { path: `/${import.meta.env.VITE_APP_ADMIN}`, element: <AdminLogin /> },
+    { path: `/secret/admin-agenda`, element: <AdminAgenda /> },
+    { path: `/secret/theater-create-table`, element: <TheaterCreateTable /> },
+    { path: `/secret/theater-create/:issueID`, element: <TheaterCreate /> },
+  ];
 
   return (
     <ContextWrapper>
       <Routes>
         {/* ヘッダーとフッターなしで表示したいページ */}
-        <Route
-          path="/"
-          element={<LayoutWithoutHeaderAndFooter element={<Terms />} />}
-        />
-        <Route
-          path="/anime"
-          element={<LayoutWithoutHeaderAndFooter element={<Anime />} />}
-        />
-        <Route
-          path="/login"
-          element={<LayoutWithoutHeaderAndFooter element={<Login />} />}
-        />
-        <Route
-          path="/theater"
-          element={<LayoutWithoutHeaderAndFooter element={<Theater />} />}
-        />
-
+        {routesWithoutHeaderAndFooter.map(({ path, element }) => (
+          <Route
+            key={path}
+            path={path}
+            element={<LayoutWithoutHeaderAndFooter element={element} />}
+          />
+        ))}
         {/* ヘッダーとフッターを含むページ */}
-        {/* 一覧画面 */}
-        <Route
-          path="/agenda"
-          element={<LayoutWithHeaderAndFooter element={<Agenda />} />}
-        />
-        {/* チャット画面 */}
-        <Route
-          path="/chat"
-          element={<LayoutWithHeaderAndFooter element={<Chat />} />}
-        />
-        {/* 劇一覧 */}
-        <Route
-          path="/theater-show"
-          element={<LayoutWithHeaderAndFooter element={<TheaterShow />} />}
-        />
-
-        {/* 管理者 */}
-        <Route
-          path={`/${import.meta.env.VITE_APP_ADMIN}`}
-          element={<LayoutWithHeaderAndFooter element={<AdminLogin />} />}
-        />
-        <Route
-          path={`/secret/admin-agenda`}
-          element={<LayoutWithHeaderAndFooter element={<AdminAgenda />} />}
-        />
-        <Route
-          path={`/secret/theater-create-table`}
-          element={
-            <LayoutWithHeaderAndFooter element={<TheaterCreateTable />} />
-          }
-        />
-        <Route
-          path={`/secret/theater-create/:issueID`}
-          element={<LayoutWithHeaderAndFooter element={<TheaterCreate />} />}
-        />
-
+        {routesWithHeaderAndFooter.map(({ path, element }) => (
+          <Route
+            key={path}
+            path={path}
+            element={<LayoutWithHeaderAndFooter element={element} />}
+          />
+        ))}
         {/* 404 NotFound ページ */}
         <Route path="*" element={<NotFound />} />
       </Routes>
@@ -133,4 +114,5 @@ function LayoutWithHeaderAndFooter({ element }: LayoutProps) {
     </>
   );
 }
+
 export default Routers;
