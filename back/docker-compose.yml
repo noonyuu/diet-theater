@@ -7,12 +7,11 @@ services:
       dockerfile: Dockerfile
     container_name: app_server
     image: app-server-image:latest
-    command: sh -c "cd gin_main && go run ."
+    command: air
     ports:
       - "8080:8080"
     volumes:
       - ./app:/root/app
-    restart: always
     tty: true
     depends_on:
       - redis
@@ -24,12 +23,11 @@ services:
       dockerfile: Dockerfile
     container_name: auth_server
     image: auth-server-image:latest
-    command: sh -c "go run ."
+    command: air
     ports:
       - 10005:10005
     volumes:
       - ./gin_goth:/root/gin_goth
-    restart: always
     tty: true
     depends_on:
       - redis
