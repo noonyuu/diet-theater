@@ -49,8 +49,8 @@ func errorHandler(ctx *gin.Context, info ratelimit.Info) {
 }
 
 func main() {
-	fmt.Println("Hello, World!")
-	
+	fmt.Println("Hello, World")
+
 	loadEnv()
 
 	// 初期化
@@ -232,7 +232,7 @@ func main() {
 				c.JSON(500, gin.H{"error": err.Error()})
 				return
 			}
-		}else if err != nil {
+		} else if err != nil {
 			c.JSON(500, gin.H{"error": err.Error()})
 			return
 		} else {
