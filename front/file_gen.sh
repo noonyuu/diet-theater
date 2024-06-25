@@ -6,7 +6,7 @@ if [ -d "$dir_name" ]; then
   echo "ディレクトリ '$dir_name' は既に存在します。"
 else
   # ディレクトリを生成
-  cd src/pages
+  cd src/features
   mkdir "$dir_name"
   if [ $? -eq 0 ]; then
     echo "ディレクトリ '$dir_name' を生成しました。"
