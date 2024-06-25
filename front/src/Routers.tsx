@@ -25,32 +25,32 @@ const Routers = () => {
     localStorage.getItem("terms") ? "" : navigate("/");
   }, []);
 
-  useEffect(() => {
-    const fetchUser = async () => {
-      try {
-        const [logInned, userInfo] = await GetUser();
-        console.log(userInfo);
-        if (logInned && userInfo) {
-          // トークン更新
-          RefreshToken();
-          // ログイン済みの場合
-          if (
-            window.location.pathname === "/" ||
-            window.location.pathname === "/login"
-          ) {
-            navigate("/agenda");
-          } else {
-            navigate(window.location.pathname, { replace: true });
-          }
-        } else {
-          navigate("/login");
-        }
-      } catch (e) {
-        console.log(e);
-      }
-    };
-    fetchUser();
-  }, []);
+  // useEffect(() => {
+  //   const fetchUser = async () => {
+  //     try {
+  //       const [logInned, userInfo] = await GetUser();
+  //       console.log(userInfo);
+  //       if (logInned && userInfo) {
+  //         // トークン更新
+  //         RefreshToken();
+  //         // ログイン済みの場合
+  //         if (
+  //           window.location.pathname === "/" ||
+  //           window.location.pathname === "/login"
+  //         ) {
+  //           navigate("/agenda");
+  //         } else {
+  //           navigate(window.location.pathname, { replace: true });
+  //         }
+  //       } else {
+  //         navigate("/login");
+  //       }
+  //     } catch (e) {
+  //       console.log(e);
+  //     }
+  //   };
+  //   fetchUser();
+  // }, []);
 
   const routesWithoutHeaderAndFooter = [
     { path: "/", element: <Terms /> },
