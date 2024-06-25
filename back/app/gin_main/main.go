@@ -36,7 +36,7 @@ func hello(c *gin.Context) {
 func main() {
 	loadEnv()
 	middleware.Init()
-	GeminiInit()
+	// GeminiInit()
 
 	err := database.Init()
 
