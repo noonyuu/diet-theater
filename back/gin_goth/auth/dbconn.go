@@ -1,9 +1,11 @@
 package auth
 
 import (
+	"fmt"
+	"os"
 	"time"
 
-	"gorm.io/driver/sqlite"
+	"gorm.io/driver/mysql"
 	"gorm.io/gorm"
 )
 
@@ -18,30 +20,42 @@ var (
 	// DB接続
 	dbConn *gorm.DB
 	// 初期化確認
-	initFlag = false
+	isInit = false
 )
 
 func InitDB() error {
+	fmt.Println("InitDB")
+	var db *gorm.DB
+	var err error
+
+	uname := os.Getenv("DB_USER")
+	dbname := os.Getenv("DB_NAME")
+	password := os.Getenv("DB_PASS")
+	host := os.Getenv("DB_ROOT_HOST")
+	port := os.Getenv("DB_PORT")
+
+	dsn := fmt.Sprintf("%s:%s@tcp(%s:%s)/%s?charset=utf8mb4&parseTime=True&loc=Local", uname, password, host, port, dbname)
+	fmt.Println(dsn)
 	// DBを開く
-	db_conn, err := gorm.Open(sqlite.Open("auth.db"), &gorm.Config{})
+	dbConn, err = gorm.Open(mysql.Open(dsn), &gorm.Config{})
 	if err != nil {
-		return nil
+		return err
 	}
 
+	db = dbConn
+
 	// マイグレーション
-	db_conn.AutoMigrate(&Token{})
-	db_conn.AutoMigrate(&User{})
+	if err := db.AutoMigrate(&Token{}, &User{}); err != nil {
+		return err
+	}
 
-	// グローバル変数に保存
-	dbConn = db_conn
-
-	initFlag = true
+	isInit = true
 
 	return nil
 }
 
 func GetDB() (*gorm.DB, error) {
-	if !initFlag {
+	if !isInit {
 		err := InitDB()
 		if err != nil {
 			return nil, err

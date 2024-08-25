@@ -49,7 +49,7 @@ func errorHandler(ctx *gin.Context, info ratelimit.Info) {
 }
 
 func main() {
-	fmt.Println("Hello, World!")
+	fmt.Println("Hello, World")
 
 	loadEnv()
 
@@ -88,7 +88,7 @@ func main() {
 
 	//プロバイダ設定
 	goth.UseProviders(
-		google.New(os.Getenv("Google_ID"), os.Getenv("Google_SECRET"), os.Getenv("Google_Redirect_URL"), "email", "profile"),
+		google.New(os.Getenv("GOOGLE_ID"), os.Getenv("GOOGLE_SECRET"), os.Getenv("GOOGLE_REDIRECT_URI"), "email", "profile"),
 		line.New(os.Getenv("Line_ID"), os.Getenv("Line_SECRET"), os.Getenv("Line_Redirect_URL"), "profile", "openid"),
 	)
 
@@ -232,7 +232,7 @@ func main() {
 				c.JSON(500, gin.H{"error": err.Error()})
 				return
 			}
-		}else if err != nil {
+		} else if err != nil {
 			c.JSON(500, gin.H{"error": err.Error()})
 			return
 		} else {

@@ -1,5 +1,5 @@
-const base_path = "https://yeeeee-waaaaaa.noonyuu.com/";
-// const base_path = "https://localhost:8443/";
+// const base_path = "https://diet-theater.noonyuu.com/";
+const base_path = "https://localhost:8443/";
 
 // トークンの更新
 export const RefreshToken = async () => {
