@@ -12,7 +12,7 @@ type MeetingRecord struct {
 	Date          string `json:"date"`
 }
 
-func FromDomainModel(m *entities.MeetingRecord) *MeetingRecord {
+func FromMeetingDomainModel(m *entities.MeetingRecord) *MeetingRecord {
 	return &MeetingRecord{
 		ID:            m.GetID(),
 		IssueID:       m.GetIssueID(),
@@ -24,6 +24,6 @@ func FromDomainModel(m *entities.MeetingRecord) *MeetingRecord {
 	}
 }
 
-func (m *MeetingRecord) ToDomainModel() *entities.MeetingRecord {
+func (m *MeetingRecord) ToDomainMeetingModel() *entities.MeetingRecord {
 	return entities.NewMeetingRecord(m.ID, m.IssueID, m.Session, m.NameOfHouse, m.NameOfMeeting, m.Issue, m.Date)
 }
