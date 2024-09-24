@@ -1,8 +1,8 @@
 package repositories
 
 import (
-	"api/domain/entities"
 	"context"
+	"diet-theater/back/diet_api/domain/entities"
 )
 
 type IViewHistoryRepository interface {
