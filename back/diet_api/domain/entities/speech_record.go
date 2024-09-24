@@ -34,6 +34,46 @@ func (s *SpeechRecord) GetID() uint {
 	return s.id
 }
 
+func (s *SpeechRecord) GetIssueID() string {
+	return s.issue_id
+}
+
+func (s *SpeechRecord) GetSpeechID() string {
+	return s.speech_id
+}
+
+func (s *SpeechRecord) GetSpeaker() string {
+	return s.speaker
+}
+
+func (s *SpeechRecord) GetSpeakerYomi() string {
+	return s.speaker_yomi
+}
+
+func (s *SpeechRecord) GetSpeakerRole() string {
+	return s.speaker_role
+}
+
+func (s *SpeechRecord) GetSpeakerGroup() string {
+	return s.speaker_group
+}
+
+func (s *SpeechRecord) GetSpeakerPosition() string {
+	return s.speaker_position
+}
+
+func (s *SpeechRecord) GetSpeechOrigin() string {
+	return s.speech_origin
+}
+
+func (s *SpeechRecord) GetSpeechSummary() string {
+	return s.speech_summary
+}
+
+func (s *SpeechRecord) GetAnimationPoint() string {
+	return s.animation_point
+}
+
 func (s *SpeechRecord) SetSpeechRecordID(id uint) {
 	s.id = id
 }
