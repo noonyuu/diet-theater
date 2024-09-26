@@ -1,55 +1,55 @@
 package entities
 
 type MeetingRecord struct {
-	id              uint
-	issue_id        string
-	session         int
-	name_of_house   string
-	name_of_meeting string
-	issue           string
-	date            string
+	ID            uint
+	IssueID       string
+	Session       int
+	NameOfHouse   string
+	NameOfMeeting string
+	Issue         string
+	Date          string
 }
 
-func NewMeetingRecord(id uint, issue_id string, session int, name_of_house string, name_of_meeting string, issue string, date string) *MeetingRecord {
+func NewMeetingRecord(id uint, issueID string, session int, nameOfHouse string, nameOfMeeting string, issue string, date string) *MeetingRecord {
 	return &MeetingRecord{
-		id:              id,
-		issue_id:        issue_id,
-		session:         session,
-		name_of_house:   name_of_house,
-		name_of_meeting: name_of_meeting,
-		issue:           issue,
-		date:            date,
+		ID:            id,
+		IssueID:       issueID,
+		Session:       session,
+		NameOfHouse:   nameOfHouse,
+		NameOfMeeting: nameOfMeeting,
+		Issue:         issue,
+		Date:          date,
 	}
 }
 
 func (m *MeetingRecord) GetID() uint {
-	return m.id
+	return m.ID
 }
 
 func (m *MeetingRecord) GetIssueID() string {
-	return m.issue_id
+	return m.IssueID
 }
 
 func (m *MeetingRecord) GetSession() int {
-	return m.session
+	return m.Session
 }
 
 func (m *MeetingRecord) GetNameOfHouse() string {
-	return m.name_of_house
+	return m.NameOfHouse
 }
 
 func (m *MeetingRecord) GetNameOfMeeting() string {
-	return m.name_of_meeting
+	return m.NameOfMeeting
 }
 
 func (m *MeetingRecord) GetIssue() string {
-	return m.issue
+	return m.Issue
 }
 
 func (m *MeetingRecord) GetDate() string {
-	return m.date
+	return m.Date
 }
 
 func (m *MeetingRecord) SetMeetingRecordID(id uint) {
-	m.id = id
+	m.ID = id
 }
