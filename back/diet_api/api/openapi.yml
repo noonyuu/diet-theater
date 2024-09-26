@@ -1,0 +1,287 @@
+openapi: "3.0.3"
+info:
+  title: API Title
+  version: "1.0"
+servers:
+  # - url: https://diet-theater.noonyuu.com/app/
+  - url: https://localhost:8443/app/
+paths:
+  /:
+    get:
+      tags:
+        - default
+      summary: 疎通確認用
+      responses:
+        200:
+          description: success operation
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: "Hello, World!!!!!!!!!!!!"
+  /meeting-record/insert:
+    post:
+      tags:
+        - meeting
+      summary: 会議レコードの登録
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/MeetingRecord"
+      responses:
+        200:
+          description: success operation
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/MeetingRecord"
+  /meeting-record/select/all:
+    get:
+      tags:
+        - meeting
+      summary: 会議レコードの全件取得
+      responses:
+        200:
+          description: success operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/MeetingRecord"
+  /meeting-record/select/once/{issueID}:
+    get:
+      tags:
+        - meeting
+      summary: 会議レコードの1件取得
+      parameters:
+        - name: issueID
+          in: path
+          required: true
+          schema:
+            type: string
+          description: 議案ID
+      responses:
+        200:
+          description: success operation
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/MeetingRecord"
+  /speech-record/insert:
+    post:
+      tags:
+        - speech
+      summary: 発言レコードの登録
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/SpeechRecord"
+      responses:
+        200:
+          description: success operation
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/SpeechRecord"
+  /speech-record/select/all:
+    get:
+      tags:
+        - speech
+      summary: 発言レコードの全件取得
+      responses:
+        200:
+          description: success operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/SpeechRecord"
+  /speech-record/select/once/{issueID}:
+    get:
+      tags:
+        - speech
+      summary: 発言レコードの1件取得
+      parameters:
+        - name: issueID
+          in: path
+          required: true
+          schema:
+            type: string
+          description: 議案ID
+      responses:
+        200:
+          description: success operation
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/SpeechRecord"
+  /speech-record/select/once/{issueID}/{speechID}:
+    get:
+      tags:
+        - speech
+      summary: 発言レコードの1件取得
+      parameters:
+        - name: issueID
+          in: path
+          required: true
+          schema:
+            type: string
+          description: 議案ID
+        - name: speechID
+          in: path
+          required: true
+          schema:
+            type: string
+          description: 発言ID
+      responses:
+        200:
+          description: success operation
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/SpeechRecord"
+  /view-history/insert:
+    post:
+      tags:
+        - view_history
+      summary: 閲覧履歴の登録
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                issue_id:
+                  type: string
+                  example: "123456789123456789123"
+                user_id:
+                  type: string
+                  example: "123456789123456789123"
+                created_at:
+                  type: string
+                  format: date-time
+                  example: "2021-01-01T00:00:00"
+      responses:
+        200:
+          description: success operation
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: "Hello, World!!!!!!!!!!!!"
+  /view-history/select/{userID}:
+    get:
+      tags:
+        - view_history
+      summary: 閲覧履歴の取得
+      parameters:
+        - name: userID
+          in: path
+          required: true
+          schema:
+            type: string
+          description: ユーザID
+      responses:
+        200:
+          description: success operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    issue_id:
+                      type: string
+                      example: "123456789123456789123"
+                    created_at:
+                      type: string
+                      format: date-time
+                      example: "2021-01-01T00:00:00"
+components:
+  schemas:
+    MeetingRecord:
+      type: object
+      properties:
+        id:
+          type: integer
+          example: 1
+        issue_id:
+          type: string
+          example: "123456789123456789123"
+        session:
+          type: integer
+          example: 1
+        name_of_house:
+          type: string
+          example: "衆議院"
+        name_of_meeting:
+          type: string
+          example: "予算会議"
+        issue:
+          type: string
+          example: "2"
+        date:
+          type: string
+          example: "2021-01-01"
+        created_at:
+          type: string
+          format: date-time
+          example: "2021-01-01T00:00:00"
+        updated_at:
+          type: string
+          format: date-time
+          example: "2021-01-01T00:00:00"
+        deleted_at:
+          type: string
+          format: date-time
+          example: "2021-01-01T00:00:00"
+    SpeechRecord:
+      type: object
+      properties:
+        id:
+          type: integer
+          example: 1
+        issue_id:
+          type: string
+          example: "123456789123456789123"
+        speech_id:
+          type: string
+          example: "4567890123456789012345"
+        speaker:
+          type: string
+          example: "山田太郎"
+        speaker_yomi:
+          type: string
+          example: "やまだたろう"
+        speaker_role:
+          type: string
+          example: "委員長"
+        speaker_group:
+          type: string
+          example: "自由民主党"
+        speaker_position:
+          type: string
+          example: "内閣総理大臣"
+        speech_origin:
+          type: string
+          example: "これからは、..."
+        speech_summary:
+          type: string
+          example: "会議で新しい政策が発表されました。"
+        animation_point:
+          type: string
+          example: "1"
