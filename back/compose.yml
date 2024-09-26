@@ -1,17 +1,17 @@
 version: "3"
 
 services:
-  app:
+  diet_api:
     build:
-      context: ./app
+      context: ./diet_api
       dockerfile: Dockerfile
-    container_name: app_server
-    image: app-server-image:latest
+    container_name: diet_api_server
+    image: diet_api_server-image:latest
     command: air
     ports:
       - "8080:8080"
     volumes:
-      - ./app:/root/app
+      - ./diet_api:/root/diet_api
     tty: true
     depends_on:
       - redis
@@ -32,7 +32,7 @@ services:
     depends_on:
       - redis
       - db_diet
-      - app
+      - diet_api
 
   db_diet:
     image: mysql:8.0
