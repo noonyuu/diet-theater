@@ -1,8 +1,13 @@
 package models
 
-import "diet-theater/back/diet_api/domain/entities"
+import (
+	"diet-theater/back/diet_api/domain/entities"
+
+	"gorm.io/gorm"
+)
 
 type ViewHistory struct {
+	gorm.Model
 	ID      uint   `json:"id"`
 	UserID  string `json:"user_id"`
 	IssueID string `json:"issue_id"`

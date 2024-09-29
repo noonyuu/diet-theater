@@ -1,8 +1,13 @@
 package models
 
-import "diet-theater/back/diet_api/domain/entities"
+import (
+	"diet-theater/back/diet_api/domain/entities"
+
+	"gorm.io/gorm"
+)
 
 type MeetingRecord struct {
+	gorm.Model
 	ID            uint   `json:"id"`
 	IssueID       string `json:"issue_id"`
 	Session       int    `json:"session"`
