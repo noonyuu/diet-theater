@@ -1,6 +1,7 @@
 package main
 
 import (
+	"diet-theater/back/diet_api/infrastructure"
 	"log"
 
 	"github.com/joho/godotenv"
@@ -15,4 +16,5 @@ func loadEnv() {
 
 func main() {
 	loadEnv()
+	infrastructure.InitRouter()
 }
