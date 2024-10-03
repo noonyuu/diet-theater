@@ -36,7 +36,7 @@ func (s *Server) GetMeetingRecordSelectAll(c *gin.Context) {
 
 // GetMeetingRecordSelectOnceIssueID implements api.ServerInterface.
 func (s *Server) GetMeetingRecordSelectOnceIssueID(c *gin.Context, issueID string) {
-	s.meetingRecordController.GetMeetingRecordOnce(c)
+	s.meetingRecordController.GetMeetingRecordOnce(c, issueID)
 }
 
 // PostMeetingRecordInsert implements api.ServerInterface.
@@ -46,12 +46,12 @@ func (s *Server) PostMeetingRecordInsert(c *gin.Context) {
 
 // GetSpeechRecordSelectAll implements api.ServerInterface.
 func (s *Server) GetSpeechRecordSelectAll(c *gin.Context) {
-	panic("unimplemented")
+	s.speechRecordController.GetSpeechRecordAll(c)
 }
 
 // GetSpeechRecordSelectOnceIssueID implements api.ServerInterface.
 func (s *Server) GetSpeechRecordSelectOnceIssueID(c *gin.Context, issueID string) {
-	panic("unimplemented")
+	s.speechRecordController.GetSpeechRecordOnce(c, issueID)
 }
 
 // GetSpeechRecordSelectOnceIssueIDSpeechID implements api.ServerInterface.

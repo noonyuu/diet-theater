@@ -60,13 +60,7 @@ func (c *MeetingRecordController) CreateMeetingRecord(g *gin.Context) {
 	c.meetingRecordPresenter.PresentCreateMeetingRecord(g, output)
 }
 
-func (c *MeetingRecordController) GetMeetingRecordOnce(g *gin.Context) {
-	// リクエストからIDを取得
-	issueId := g.Param("issueID")
-	if issueId == "" {
-		c.errorPresenter.PresentBadRequest(g, "missing id parameter")
-		return
-	}
+func (c *MeetingRecordController) GetMeetingRecordOnce(g *gin.Context, issueId string) {
 
 	ctx := g.Request.Context()
 
