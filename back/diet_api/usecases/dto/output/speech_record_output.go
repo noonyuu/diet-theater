@@ -3,7 +3,7 @@ package output
 import "diet-theater/back/diet_api/domain/entities"
 
 type CreateSpeechRecordOutput struct {
-	SpeechRecord *entities.SpeechRecord
+	SpeechRecord []*entities.SpeechRecord
 }
 
 type GetSpeechRecordAllOutput struct {
