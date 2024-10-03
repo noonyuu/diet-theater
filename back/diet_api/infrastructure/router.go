@@ -10,13 +10,16 @@ import (
 
 type Server struct {
 	meetingRecordController *controllers.MeetingRecordController
+	speechRecordController  *controllers.SpeechRecordController
 }
 
 func NewServer(
 	meetingRecordController *controllers.MeetingRecordController,
+	speechRecordController *controllers.SpeechRecordController,
 ) *Server {
 	return &Server{
 		meetingRecordController: meetingRecordController,
+		speechRecordController:  speechRecordController,
 	}
 }
 
@@ -63,7 +66,7 @@ func (s *Server) GetViewHistorySelectUserID(c *gin.Context, userID string) {
 
 // PostSpeechRecordInsert implements api.ServerInterface.
 func (s *Server) PostSpeechRecordInsert(c *gin.Context) {
-	panic("unimplemented")
+	s.speechRecordController.CreateSpeechRecord(c)
 }
 
 // PostViewHistoryInsert implements api.ServerInterface.
