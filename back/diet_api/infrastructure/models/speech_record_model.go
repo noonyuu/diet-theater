@@ -2,12 +2,9 @@ package models
 
 import (
 	"diet-theater/back/diet_api/domain/entities"
-
-	"gorm.io/gorm"
 )
 
 type SpeechRecord struct {
-	gorm.Model
 	ID              uint   `json:"id"`
 	IssueID         string `json:"issue_id"`
 	SpeechID        string `json:"speech_id"`
@@ -19,6 +16,14 @@ type SpeechRecord struct {
 	SpeechOrigin    string `json:"speech_origin"`
 	SpeechSummary   string `json:"speech_summary"`
 	AnimationPoint  string `json:"animation_point"`
+}
+
+func FromSpeechDomainModels(speechRecords []*entities.SpeechRecord) []*SpeechRecord {
+	records := make([]*SpeechRecord, len(speechRecords))
+	for i, s := range speechRecords {
+		records[i] = FromSpeechDomainModel(s)
+	}
+	return records
 }
 
 func FromSpeechDomainModel(s *entities.SpeechRecord) *SpeechRecord {

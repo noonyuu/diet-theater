@@ -21,16 +21,21 @@ func NewSpeechRecordRepository(db *gorm.DB) repositories.ISpeechRecordRepository
 }
 
 // CreateSpeechRecord implements repositories.ISpeechRecordRepository.
-func (s *SpeechRecordRepository) CreateSpeechRecord(ctx context.Context, speechRecord *entities.SpeechRecord) (uint, error) {
-	speech_record := models.FromSpeechDomainModel(speechRecord)
+func (s *SpeechRecordRepository) CreateSpeechRecord(ctx context.Context, speechRecord []*entities.SpeechRecord) ([]*entities.SpeechRecord, error) {
+	// スライス全体を変換する
+	speech_record := models.FromSpeechDomainModels(speechRecord)
 
-	result := s.db.Create(&speech_record)
-	if result.Error != nil {
-		log.Fatal(result.Error)
-		return 0, result.Error
+	if err := s.db.WithContext(ctx).Create(&speech_record).Error; err != nil {
+		return nil, err
 	}
 
-	return speech_record.ID, nil
+	// ドメインモデルに変換する
+	createdSpeechRecords := []*entities.SpeechRecord{}
+	for _, record := range speech_record {
+		createdSpeechRecords = append(createdSpeechRecords, record.ToDomainSpeechModel())
+	}
+
+	return createdSpeechRecords, nil
 }
 
 // GetSpeechRecordAll implements repositories.ISpeechRecordRepository.
