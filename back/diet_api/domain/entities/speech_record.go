@@ -1,79 +1,79 @@
 package entities
 
 type SpeechRecord struct {
-	id               uint
-	issue_id         string
-	speech_id        string
-	speaker          string
-	speaker_yomi     string
-	speaker_role     string
-	speaker_group    string
-	speaker_position string
-	speech_origin    string
-	speech_summary   string
-	animation_point  string
+	ID              uint
+	IssueID         string
+	SpeechID        string
+	Speaker         string
+	SpeakerYomi     string
+	SpeakerRole     string
+	SpeakerGroup    string
+	SpeakerPosition string
+	SpeechOrigin    string
+	SpeechSummary   string
+	AnimationPoint  string
 }
 
-func NewSpeechRecord(id uint, issue_id string, speech_id string, speaker string, speaker_yomi string, speaker_role string, speaker_group string, speaker_position string, speech_origin string, speech_summary string, animation_point string) *SpeechRecord {
+func NewSpeechRecord(id uint, issueID string, speechID string, speaker string, speakerYomi string, speakerRole string, speakerGroup string, speakerPosition string, speechOrigin string, speechSummary string, animationPoint string) *SpeechRecord {
 	return &SpeechRecord{
-		id:               id,
-		issue_id:         issue_id,
-		speech_id:        speech_id,
-		speaker:          speaker,
-		speaker_yomi:     speaker_yomi,
-		speaker_role:     speaker_role,
-		speaker_group:    speaker_group,
-		speaker_position: speaker_position,
-		speech_origin:    speech_origin,
-		speech_summary:   speech_summary,
-		animation_point:  animation_point,
+		ID:              id,
+		IssueID:         issueID,
+		SpeechID:        speechID,
+		Speaker:         speaker,
+		SpeakerYomi:     speakerYomi,
+		SpeakerRole:     speakerRole,
+		SpeakerGroup:    speakerGroup,
+		SpeakerPosition: speakerPosition,
+		SpeechOrigin:    speechOrigin,
+		SpeechSummary:   speechSummary,
+		AnimationPoint:  animationPoint,
 	}
 }
 
 func (s *SpeechRecord) GetID() uint {
-	return s.id
+	return s.ID
 }
 
 func (s *SpeechRecord) GetIssueID() string {
-	return s.issue_id
+	return s.IssueID
 }
 
 func (s *SpeechRecord) GetSpeechID() string {
-	return s.speech_id
+	return s.SpeechID
 }
 
 func (s *SpeechRecord) GetSpeaker() string {
-	return s.speaker
+	return s.Speaker
 }
 
 func (s *SpeechRecord) GetSpeakerYomi() string {
-	return s.speaker_yomi
+	return s.SpeakerYomi
 }
 
 func (s *SpeechRecord) GetSpeakerRole() string {
-	return s.speaker_role
+	return s.SpeakerRole
 }
 
 func (s *SpeechRecord) GetSpeakerGroup() string {
-	return s.speaker_group
+	return s.SpeakerGroup
 }
 
 func (s *SpeechRecord) GetSpeakerPosition() string {
-	return s.speaker_position
+	return s.SpeakerPosition
 }
 
 func (s *SpeechRecord) GetSpeechOrigin() string {
-	return s.speech_origin
+	return s.SpeechOrigin
 }
 
 func (s *SpeechRecord) GetSpeechSummary() string {
-	return s.speech_summary
+	return s.SpeechSummary
 }
 
 func (s *SpeechRecord) GetAnimationPoint() string {
-	return s.animation_point
+	return s.AnimationPoint
 }
 
 func (s *SpeechRecord) SetSpeechRecordID(id uint) {
-	s.id = id
+	s.ID = id
 }
