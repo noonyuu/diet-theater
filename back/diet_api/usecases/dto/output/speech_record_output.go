@@ -7,7 +7,7 @@ type CreateSpeechRecordOutput struct {
 }
 
 type GetSpeechRecordAllOutput struct {
-	SpeechRecord *entities.SpeechRecord
+	SpeechRecord []*entities.SpeechRecord
 }
 
 type GetSpeechRecordOnceOutput struct {

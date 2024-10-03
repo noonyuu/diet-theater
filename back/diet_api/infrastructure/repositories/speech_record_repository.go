@@ -56,9 +56,9 @@ func (s *SpeechRecordRepository) GetSpeechRecordAll(ctx context.Context) ([]*ent
 }
 
 // GetSpeechRecordOnce implements repositories.ISpeechRecordRepository.
-func (s *SpeechRecordRepository) GetSpeechRecordOnce(ctx context.Context, issue_id uint) (*entities.SpeechRecord, error) {
+func (s *SpeechRecordRepository) GetSpeechRecordOnce(ctx context.Context, issueId string) (*entities.SpeechRecord, error) {
 	speech_record := &models.SpeechRecord{}
-	result := s.db.Where("issue_id = ?", issue_id).First(&speech_record)
+	result := s.db.Where("issue_id = ?", issueId).First(&speech_record)
 	if result.Error != nil {
 		log.Fatal(result.Error)
 		return nil, result.Error
@@ -68,9 +68,9 @@ func (s *SpeechRecordRepository) GetSpeechRecordOnce(ctx context.Context, issue_
 }
 
 // GetSpeechRecordOnceBySpeechID implements repositories.ISpeechRecordRepository.
-func (s *SpeechRecordRepository) GetSpeechRecordOnceBySpeechID(ctx context.Context, issue_id uint, speech_id uint) (*entities.SpeechRecord, error) {
+func (s *SpeechRecordRepository) GetSpeechRecordOnceBySpeechID(ctx context.Context, issueId string, speechId string) (*entities.SpeechRecord, error) {
 	speech_record := &models.SpeechRecord{}
-	result := s.db.Where("issue_id = ? AND speech_id = ?", issue_id, speech_id).First(&speech_record)
+	result := s.db.Where("issue_id = ? AND speech_id = ?", issueId, speechId).First(&speech_record)
 	if result.Error != nil {
 		log.Fatal(result.Error)
 		return nil, result.Error
