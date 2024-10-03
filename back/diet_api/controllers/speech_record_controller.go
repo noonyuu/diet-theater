@@ -10,26 +10,29 @@ import (
 )
 
 type SpeechRecordController struct {
-	createSpeechRecordInteractor  usecases.ICreateSpeechRecordInteractor
-	getSpeechRecordAllInteractor  usecases.IGetSpeechRecordAllInteractor
-	getSpeechRecordOnceInteractor usecases.IGetSpeechRecordOnceInteractor
-	speechRecordPresenter         presenters.ISpeechRecordPresenter
-	errorPresenter                presenters.IErrorPresenter
+	createSpeechRecordInteractor        usecases.ICreateSpeechRecordInteractor
+	getSpeechRecordAllInteractor        usecases.IGetSpeechRecordAllInteractor
+	getSpeechRecordOnceInteractor       usecases.IGetSpeechRecordOnceInteractor
+	getSpeechRecordBySpeechIdInteractor usecases.IGetSpeechRecordBySpeechIdInteractor
+	speechRecordPresenter               presenters.ISpeechRecordPresenter
+	errorPresenter                      presenters.IErrorPresenter
 }
 
 func NewSpeechRecordController(
 	createSpeechRecordInteractor usecases.ICreateSpeechRecordInteractor,
 	getMeetingRecordAllInteractor usecases.IGetSpeechRecordAllInteractor,
 	getSpeechRecordOnceInteractor usecases.IGetSpeechRecordOnceInteractor,
+	getSpeechRecordBySpeechIdInteractor usecases.IGetSpeechRecordBySpeechIdInteractor,
 	speechRecordPresenter presenters.ISpeechRecordPresenter,
 	errorPresenter presenters.IErrorPresenter,
 ) *SpeechRecordController {
 	return &SpeechRecordController{
-		createSpeechRecordInteractor:  createSpeechRecordInteractor,
-		getSpeechRecordAllInteractor:  getMeetingRecordAllInteractor,
-		getSpeechRecordOnceInteractor: getSpeechRecordOnceInteractor,
-		speechRecordPresenter:         speechRecordPresenter,
-		errorPresenter:                errorPresenter,
+		createSpeechRecordInteractor:        createSpeechRecordInteractor,
+		getSpeechRecordAllInteractor:        getMeetingRecordAllInteractor,
+		getSpeechRecordOnceInteractor:       getSpeechRecordOnceInteractor,
+		getSpeechRecordBySpeechIdInteractor: getSpeechRecordBySpeechIdInteractor,
+		speechRecordPresenter:               speechRecordPresenter,
+		errorPresenter:                      errorPresenter,
 	}
 }
 
@@ -98,4 +101,23 @@ func (c *SpeechRecordController) GetSpeechRecordOnce(g *gin.Context, issueID str
 
 	// 会議記録をレスポンスとして返す
 	c.speechRecordPresenter.PresentGetSpeechRecordOnce(g, output)
+}
+
+func (c *SpeechRecordController) GetSpeechRecordBySpeechID(g *gin.Context, issueID string, speechID string) {
+	// 標準のcontext.Contextを取得できる
+	ctx := g.Request.Context()
+	output, err := c.getSpeechRecordBySpeechIdInteractor.Execute(ctx, issueID, speechID)
+	if err != nil {
+		c.errorPresenter.PresentInternalServerError(g, err.Error())
+		return
+	}
+
+	// output または output.MeetingRecord がnilでないかをチェック
+	if output == nil || output.SpeechRecord == nil {
+		c.errorPresenter.PresentNotFound(g, "speech record not found")
+		return
+	}
+
+	// 会議記録をレスポンスとして返す
+	c.speechRecordPresenter.PresentGetSpeechRecordBySpeechId(g, output)
 }

@@ -31,7 +31,7 @@ func BuildContainer() *dig.Container {
 	c.Provide(meeting_record.NewGetMeetingRecordAllInteractor)
 
 	c.Provide(speech_record.NewSpeechRecordInteractor)
-
+	c.Provide(speech_record.NewGetSpeechRecordBySpeechIdInteractor)
 	c.Provide(speech_record.NewGetSpeechRecordAllInteractor)
 	c.Provide(speech_record.NewGetSpeechRecordOnceInteractor)
 

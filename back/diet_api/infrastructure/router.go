@@ -56,7 +56,7 @@ func (s *Server) GetSpeechRecordSelectOnceIssueID(c *gin.Context, issueID string
 
 // GetSpeechRecordSelectOnceIssueIDSpeechID implements api.ServerInterface.
 func (s *Server) GetSpeechRecordSelectOnceIssueIDSpeechID(c *gin.Context, issueID string, speechID string) {
-	panic("unimplemented")
+	s.speechRecordController.GetSpeechRecordBySpeechID(c, issueID, speechID)
 }
 
 // GetViewHistorySelectUserID implements api.ServerInterface.
