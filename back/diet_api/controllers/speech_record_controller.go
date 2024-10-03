@@ -5,24 +5,27 @@ import (
 	"diet-theater/back/diet_api/presenters"
 	"diet-theater/back/diet_api/usecases/dto/input"
 	usecases "diet-theater/back/diet_api/usecases/speech_record"
-	"fmt"
 
 	"github.com/gin-gonic/gin"
 )
 
 type SpeechRecordController struct {
-	createSpeechRecordInteractor usecases.ICreateSpeechRecordInteractor
-	speechRecordPresenter        presenters.ISpeechRecordPresenter
-	errorPresenter               presenters.IErrorPresenter
+	createSpeechRecordInteractor  usecases.ICreateSpeechRecordInteractor
+	getSpeechRecordAllInteractor  usecases.IGetSpeechRecordAllInteractor
+	getSpeechRecordOnceInteractor usecases.IGetSpeechRecordOnceInteractor
+	speechRecordPresenter         presenters.ISpeechRecordPresenter
+	errorPresenter                presenters.IErrorPresenter
 }
 
 func NewSpeechRecordController(
 	createSpeechRecordInteractor usecases.ICreateSpeechRecordInteractor,
+	getMeetingRecordAllInteractor usecases.IGetSpeechRecordAllInteractor,
 	speechRecordPresenter presenters.ISpeechRecordPresenter,
 	errorPresenter presenters.IErrorPresenter,
 ) *SpeechRecordController {
 	return &SpeechRecordController{
 		createSpeechRecordInteractor: createSpeechRecordInteractor,
+		getSpeechRecordAllInteractor: getMeetingRecordAllInteractor,
 		speechRecordPresenter:        speechRecordPresenter,
 		errorPresenter:               errorPresenter,
 	}
@@ -53,8 +56,6 @@ func (c *SpeechRecordController) CreateSpeechRecord(g *gin.Context) {
 
 		inputs = append(inputs, input)
 	}
-
-	fmt.Println("IssueId:", req)
 	// 標準のcontext.Contextを取得できる
 	ctx := g.Request.Context()
 
@@ -64,4 +65,36 @@ func (c *SpeechRecordController) CreateSpeechRecord(g *gin.Context) {
 	}
 
 	c.speechRecordPresenter.PresentCreateSpeechRecord(g, output)
+}
+
+func (c *SpeechRecordController) GetSpeechRecordAll(g *gin.Context) {
+	// 標準のcontext.Contextを取得できる
+	ctx := g.Request.Context()
+
+	output, err := c.getSpeechRecordAllInteractor.Execute(ctx)
+	if err != nil {
+		c.errorPresenter.PresentInternalServerError(g, err.Error())
+	}
+
+	c.speechRecordPresenter.PresentGetSpeechRecordAll(g, output)
+}
+
+func (c *SpeechRecordController) GetSpeechRecordOnce(g *gin.Context, issueID string) {
+	// 標準のcontext.Contextを取得できる
+	ctx := g.Request.Context()
+
+	output, err := c.getSpeechRecordOnceInteractor.Execute(ctx, issueID)
+	if err != nil {
+		c.errorPresenter.PresentInternalServerError(g, err.Error())
+		return
+	}
+
+	// output または output.MeetingRecord がnilでないかをチェック
+	if output == nil || output.SpeechRecord == nil {
+		c.errorPresenter.PresentNotFound(g, "speech record not found")
+		return
+	}
+
+	// 会議記録をレスポンスとして返す
+	c.speechRecordPresenter.PresentGetSpeechRecordOnce(g, output)
 }

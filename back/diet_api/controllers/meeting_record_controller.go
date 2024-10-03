@@ -61,7 +61,6 @@ func (c *MeetingRecordController) CreateMeetingRecord(g *gin.Context) {
 }
 
 func (c *MeetingRecordController) GetMeetingRecordOnce(g *gin.Context, issueId string) {
-
 	ctx := g.Request.Context()
 
 	// GetMeetingRecordInteractorを使用して会議記録を取得
