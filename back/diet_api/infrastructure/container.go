@@ -5,6 +5,7 @@ import (
 	"diet-theater/back/diet_api/infrastructure/repositories"
 	"diet-theater/back/diet_api/presenters"
 	"diet-theater/back/diet_api/usecases/meeting_record"
+	"diet-theater/back/diet_api/usecases/speech_record"
 
 	"go.uber.org/dig"
 )
@@ -15,16 +16,25 @@ func BuildContainer() *dig.Container {
 	c.Provide(NewServer)
 	c.Provide(NewDB)
 
+	// controllers
 	c.Provide(controllers.NewMeetingRecordController)
+	c.Provide(controllers.NewSpeechRecordController)
 
+	// presenters
 	c.Provide(presenters.NewMeetingRecordPresenter)
+	c.Provide(presenters.NewSpeechRecordPresenter)
 	c.Provide(presenters.NewErrorPresenter)
 
-	c.Provide(usecases.NewMeetingRecordInteractor)
-	c.Provide(usecases.NewGetMeetingRecordInteractor)
-	c.Provide(usecases.NewGetMeetingRecordAllInteractor)
+	// usecases
+	c.Provide(meeting_record.NewMeetingRecordInteractor)
+	c.Provide(meeting_record.NewGetMeetingRecordInteractor)
+	c.Provide(meeting_record.NewGetMeetingRecordAllInteractor)
 
+	c.Provide(speech_record.NewSpeechRecordInteractor)
+
+	// repositories
 	c.Provide(repositories.NewMeetingRecordRepository)
+	c.Provide(repositories.NewSpeechRecordRepository)
 
 	return c
 }
