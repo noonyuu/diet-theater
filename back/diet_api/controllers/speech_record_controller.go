@@ -20,14 +20,16 @@ type SpeechRecordController struct {
 func NewSpeechRecordController(
 	createSpeechRecordInteractor usecases.ICreateSpeechRecordInteractor,
 	getMeetingRecordAllInteractor usecases.IGetSpeechRecordAllInteractor,
+	getSpeechRecordOnceInteractor usecases.IGetSpeechRecordOnceInteractor,
 	speechRecordPresenter presenters.ISpeechRecordPresenter,
 	errorPresenter presenters.IErrorPresenter,
 ) *SpeechRecordController {
 	return &SpeechRecordController{
-		createSpeechRecordInteractor: createSpeechRecordInteractor,
-		getSpeechRecordAllInteractor: getMeetingRecordAllInteractor,
-		speechRecordPresenter:        speechRecordPresenter,
-		errorPresenter:               errorPresenter,
+		createSpeechRecordInteractor:  createSpeechRecordInteractor,
+		getSpeechRecordAllInteractor:  getMeetingRecordAllInteractor,
+		getSpeechRecordOnceInteractor: getSpeechRecordOnceInteractor,
+		speechRecordPresenter:         speechRecordPresenter,
+		errorPresenter:                errorPresenter,
 	}
 }
 
@@ -82,7 +84,6 @@ func (c *SpeechRecordController) GetSpeechRecordAll(g *gin.Context) {
 func (c *SpeechRecordController) GetSpeechRecordOnce(g *gin.Context, issueID string) {
 	// 標準のcontext.Contextを取得できる
 	ctx := g.Request.Context()
-
 	output, err := c.getSpeechRecordOnceInteractor.Execute(ctx, issueID)
 	if err != nil {
 		c.errorPresenter.PresentInternalServerError(g, err.Error())
