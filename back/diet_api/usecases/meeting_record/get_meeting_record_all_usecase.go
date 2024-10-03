@@ -1,4 +1,4 @@
-package usecases
+package meeting_record
 
 import (
 	"context"

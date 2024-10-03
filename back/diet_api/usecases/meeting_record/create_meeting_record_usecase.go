@@ -1,4 +1,4 @@
-package usecases
+package meeting_record
 
 import (
 	"context"
@@ -27,15 +27,14 @@ func NewMeetingRecordInteractor(
 // Execute implements ICreateMeetingRecordInteractor.
 func (c *CreateMeetingRecordInteractor) Execute(ctx context.Context, r *input.CreateMeetingRecordInput) (*output.CreateMeetingRecordOutput, error) {
 	meetingRecord := entities.NewMeetingRecord(
-		r.MeetingRecordID,
-		r.IssueID,
+		r.Id,
+		r.IssueId,
 		r.Session,
 		r.NameOfHouse,
 		r.NameOfMeeting,
 		r.Issue,
 		r.Date,
 	)
-
 	meetingRecord, err := c.meeting_record_repository.CreateMeetingRecord(ctx, meetingRecord)
 	if err != nil {
 		return nil, err
