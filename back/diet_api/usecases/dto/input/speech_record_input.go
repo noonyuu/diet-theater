@@ -1,15 +1,15 @@
 package input
 
 type CreateSpeechRecordInput struct {
-	SpeechRecordID  uint
-	IssueID         string
-	SpeechID        string
-	Speaker         string
-	SpeakerYomi     string
-	SpeakerRole     string
-	SpeakerGroup    string
-	SpeakerPosition string
-	SpeechOrigin    string
+	Id              uint       
+	IssueId         string    
+	SpeechId        string    
+	Speaker         string    
+	SpeakerGroup    string    
+	SpeakerPosition string    
+	SpeakerRole     string    
+	SpeakerYomi     string    
+	SpeechOrigin    string    
 	SpeechSummary   string
 	AnimationPoint  string
 }
