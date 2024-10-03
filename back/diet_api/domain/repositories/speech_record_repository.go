@@ -6,7 +6,7 @@ import (
 )
 
 type ISpeechRecordRepository interface {
-	GetSpeechRecordOnce(ctx context.Context, issueId string) (*entities.SpeechRecord, error)
+	GetSpeechRecordOnce(ctx context.Context, issueId string) ([]*entities.SpeechRecord, error)
 	GetSpeechRecordOnceBySpeechID(ctx context.Context, issueId string, speechId string) (*entities.SpeechRecord, error)
 	GetSpeechRecordAll(ctx context.Context) ([]*entities.SpeechRecord, error)
 	CreateSpeechRecord(ctx context.Context, speechRecord []*entities.SpeechRecord) ([]*entities.SpeechRecord, error)

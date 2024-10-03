@@ -11,7 +11,7 @@ type GetSpeechRecordAllOutput struct {
 }
 
 type GetSpeechRecordOnceOutput struct {
-	SpeechRecord *entities.SpeechRecord
+	SpeechRecord []*entities.SpeechRecord
 }
 
 type GetSpeechRecordOnceBySpeechIDOutput struct {

@@ -56,15 +56,19 @@ func (s *SpeechRecordRepository) GetSpeechRecordAll(ctx context.Context) ([]*ent
 }
 
 // GetSpeechRecordOnce implements repositories.ISpeechRecordRepository.
-func (s *SpeechRecordRepository) GetSpeechRecordOnce(ctx context.Context, issueId string) (*entities.SpeechRecord, error) {
-	speech_record := &models.SpeechRecord{}
-	result := s.db.Where("issue_id = ?", issueId).First(&speech_record)
+func (s *SpeechRecordRepository) GetSpeechRecordOnce(ctx context.Context, issueId string) ([]*entities.SpeechRecord, error) {
+	speech_records := []*models.SpeechRecord{}
+	result := s.db.Where("issue_id = ?", issueId).Find(&speech_records)
 	if result.Error != nil {
 		log.Fatal(result.Error)
 		return nil, result.Error
 	}
+	var speech_records_domain []*entities.SpeechRecord
+	for _, speech_record := range speech_records {
+		speech_records_domain = append(speech_records_domain, speech_record.ToDomainSpeechModel())
+	}
 
-	return speech_record.ToDomainSpeechModel(), nil
+	return speech_records_domain, nil
 }
 
 // GetSpeechRecordOnceBySpeechID implements repositories.ISpeechRecordRepository.
