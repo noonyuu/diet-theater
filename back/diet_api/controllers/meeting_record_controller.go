@@ -3,8 +3,8 @@ package controllers
 import (
 	"diet-theater/back/diet_api/api"
 	"diet-theater/back/diet_api/presenters"
-	"diet-theater/back/diet_api/usecases/meeting_record"
 	"diet-theater/back/diet_api/usecases/dto/input"
+	usecases "diet-theater/back/diet_api/usecases/meeting_record"
 
 	"github.com/gin-gonic/gin"
 )
@@ -40,13 +40,13 @@ func (c *MeetingRecordController) CreateMeetingRecord(g *gin.Context) {
 	}
 
 	input := &input.CreateMeetingRecordInput{
-		MeetingRecordID: uint(req.Id),
-		IssueID:         req.IssueId,
-		Session:         req.Session,
-		NameOfHouse:     req.NameOfHouse,
-		NameOfMeeting:   req.NameOfMeeting,
-		Issue:           req.Issue,
-		Date:            req.Date,
+		Id:            uint(req.Id),
+		IssueId:       req.IssueId,
+		Session:       req.Session,
+		NameOfHouse:   req.NameOfHouse,
+		NameOfMeeting: req.NameOfMeeting,
+		Issue:         req.Issue,
+		Date:          req.Date,
 	}
 
 	// 標準のcontext.Context を取得できる
@@ -61,7 +61,7 @@ func (c *MeetingRecordController) CreateMeetingRecord(g *gin.Context) {
 }
 
 func (c *MeetingRecordController) GetMeetingRecordOnce(g *gin.Context) {
-	// リクエストからIDを取得（パスパラメータやクエリパラメータから取得可能）
+	// リクエストからIDを取得
 	issueId := g.Param("issueID")
 	if issueId == "" {
 		c.errorPresenter.PresentBadRequest(g, "missing id parameter")
@@ -77,7 +77,7 @@ func (c *MeetingRecordController) GetMeetingRecordOnce(g *gin.Context) {
 		return
 	}
 
-	// output または output.MeetingRecord が nil でないかをチェック
+	// output または output.MeetingRecord が cnil でないかをチェック
 	if output == nil || output.MeetingRecord == nil {
 		c.errorPresenter.PresentNotFound(g, "meeting record not found")
 		return
