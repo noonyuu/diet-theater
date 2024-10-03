@@ -285,3 +285,15 @@ components:
         animation_point:
           type: string
           example: "1"
+        created_at:
+          type: string
+          format: date-time
+          example: "2021-01-01T00:00:00"
+        updated_at:
+          type: string
+          format: date-time
+          example: "2021-01-01T00:00:00"
+        deleted_at:
+          type: string
+          format: date-time
+          example: "2021-01-01T00:00:00"
