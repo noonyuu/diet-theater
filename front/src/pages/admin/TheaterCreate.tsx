@@ -185,7 +185,9 @@ const TheaterCreate = () => {
       let igiContain: string = "0";
       if (speechData[index].speech.includes("〔「異議なし」と呼ぶ者あり〕")) {
         igiContain = "1";
-      } else if (speechData[index].speech.includes("〔「異議あり」と呼ぶ者あり〕")) {
+      } else if (
+        speechData[index].speech.includes("〔「異議あり」と呼ぶ者あり〕")
+      ) {
         igiContain = "2";
       } else if (speechData[index].speech.includes("拍手")) {
         igiContain = "4";
@@ -207,10 +209,11 @@ const TheaterCreate = () => {
         SpeechSummary: summary[index].speech,
         AnimationPoint: igiContain,
       });
+
     });
     // データの送信
     await axios
-      .post("https://" + path + "/app/meeting_record/insert", meetingPostData)
+      .post("https://" + path + "/app/meeting-record/insert", meetingPostData)
       .then(
         (response) => {
           console.log("response", response);
@@ -235,7 +238,7 @@ const TheaterCreate = () => {
       });
     // データの送信
     axios
-      .post("https://" + path + "/app/speech_record/insert", speechPostData)
+      .post("https://" + path + "/app/speech-record/insert", speechPostData)
       .then((response) => {
         console.log("response", response);
       })

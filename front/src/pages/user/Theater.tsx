@@ -33,7 +33,7 @@ export const Theater = () => {
         const response = await axios.get(
           "https://" +
             path +
-            "/app/speech_record/select/once/" +
+            "/app/speech-record/select/once/" +
             location.state.detailId,
           // "https://yeeeee-waaaaaa.noonyuu.com/app/speech_record/select/all",
         );

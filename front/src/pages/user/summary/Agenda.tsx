@@ -29,10 +29,11 @@ export const Agenda = () => {
   };
 
   useEffect(() => {
+    console.log("Agenda.tsx: useEffect");
     const fetchData = async () => {
       try {
         const response = await axios.get(
-          "https://" + path + "/app/meeting_record/select/all",
+          "https://" + path + "/app/meeting-record/select/all",
           // "https://yeeeee-waaaaaa.noonyuu.com/app/speech_record/select/all",
         );
 
@@ -116,7 +117,7 @@ export const Agenda = () => {
                     <button
                       type="button"
                       className="mx-auto flex items-center rounded-md border-2 border-green-500 bg-green-100 px-1 py-1 text-xs text-green-500 lg:px-8"
-                      onClick={() => detail(record.IssueID)}
+                      onClick={() => detail(record.IssueId)}
                     >
                       入場
                     </button>
