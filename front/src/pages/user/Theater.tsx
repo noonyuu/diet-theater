@@ -1,23 +1,34 @@
-import React, { useCallback, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import "./theater.css";
-import axios from "axios";
 import { useLocation, useNavigate } from "react-router-dom";
 import { Opning } from "./animation/opning/Opning";
 import { Animation } from "../user/animation/Animation";
-import { Ending } from "./animation/ending/Ending";
-// import
+import { useFetchSpeech } from "../../hooks/useFetchSpeech";
+import { useKey } from "../../hooks/useKey";
+import { Layout } from "../Layout";
 
 // TODO:リロード時に続きから表示するかの選択
-var path = import.meta.env.VITE_APP_PATH;
+var path = import.meta.env.VITE_APP_SPEECH_PATH;
+
 export const Theater = () => {
   const location = useLocation();
   const navigate = useNavigate();
-
-  const [speechRecords, setSpeechRecords] = useState<any[]>([]); //  スピーチレコード
-  const [currSpeechRecord, setCurrSpeechRecord] = useState<number>(0); //  現在のスピーチレコード
+  const url = path + "select/once/" + location.state.IssueId;
 
   const [isFirstLoad, setIsFirstLoad] = useState<boolean>(false); //  初回ロード
-  const [isFinish, setIsFinish] = useState<boolean>(false); //  終了
+  const [showAnimation, setShowAnimation] = useState(false);
+  const { speech, error, isLoading } = useFetchSpeech(url);
+
+  useEffect(() => {
+    if (!isLoading) {
+      setIsFirstLoad(true);
+    }
+  }, [speech]);
+
+  const { next, back, currSpeechRecord, isFinish } = useKey(
+    speech,
+    isFirstLoad,
+  );
 
   useEffect(() => {
     document.body.classList.add("no-scroll");
@@ -27,89 +38,22 @@ export const Theater = () => {
   }, []);
 
   useEffect(() => {
-    // APIを叩きに行く処理
-    const fetchData = async () => {
-      try {
-        const response = await axios.get(
-          "https://" +
-            path +
-            "/app/speech_record/select/once/" +
-            location.state.detailId,
-          // "https://yeeeee-waaaaaa.noonyuu.com/app/speech_record/select/all",
-        );
-
-        if (Array.isArray(response.data)) {
-          setSpeechRecords(response.data);
-          setIsFirstLoad(true);
-        } else {
-          console.error("Unexpected response structure:", response.data);
-        }
-      } catch (error) {
-        console.error("Error fetching data:", error);
-      }
-    };
-
-    fetchData();
-  }, []);
-
-  // キーボード操作
-  const handleKeyUp = useCallback(
-    (e: { keyCode: any }) => {
-      const keyCode = e.keyCode;
-
-      if (keyCode === 37) {
-        back();
-      }
-      if (keyCode === 39) {
-        next();
-      }
-    },
-    [isFirstLoad],
-  );
-
-  useEffect(() => {
-    if (isFirstLoad) {
-      addEventListener("keyup", (e) => handleKeyUp(e));
-    }
-  }, [isFirstLoad]);
-
-  // 次のスピーチレコード
-  const next = () => {
-    setCurrSpeechRecord((curr) => {
-      curr === speechRecords.length - 1 && finish();
-      return curr === speechRecords.length - 1 ? curr : curr + 1;
-    });
-  };
-
-  // 前のスピーチレコード
-  const back = () => {
-    setCurrSpeechRecord((curr) => {
-      return curr === 0 ? curr : curr - 1;
-    });
-  };
-
-  const finish = () => {
-    console.log("finish");
-    setIsFinish(true);
-  };
-
-  const [showAnimation, setShowAnimation] = useState(false);
-
-  useEffect(() => {
     // アニメーション表示条件をリセット
     setShowAnimation(false);
-    if (
-      speechRecords[currSpeechRecord] &&
-      speechRecords[currSpeechRecord].AnimationPoint !== "0"
-    ) {
-      // 1秒後にアニメーション表示状態をtrueに設定
-      const timer = setTimeout(() => {
-        setShowAnimation(true);
-      }, 1000);
-      // コンポーネントのアンマウント時にタイマーをクリア
-      return () => clearTimeout(timer);
+    if (speech) {
+      if (
+        speech[currSpeechRecord] &&
+        speech[currSpeechRecord].AnimationPoint !== "0"
+      ) {
+        // 1秒後にアニメーション表示状態をtrueに設定
+        const timer = setTimeout(() => {
+          setShowAnimation(true);
+        }, 1000);
+        // コンポーネントのアンマウント時にタイマーをクリア
+        return () => clearTimeout(timer);
+      }
     }
-  }, [currSpeechRecord, speechRecords]);
+  }, [currSpeechRecord, speech]);
 
   useEffect(() => {
     if (isFinish) {
@@ -144,9 +88,9 @@ export const Theater = () => {
         &lt;
       </button>
       {/* <div className="balloon1 absolute left-[50%] top-24 -translate-x-1/2 rounded-md p-24 text-2xl">
-        {speechRecords.length > 0 && speechRecords[currSpeechRecord] && (
+        {speech.length > 0 && speech[currSpeechRecord] && (
           <div className="w-full text-center">
-            {speechRecords[currSpeechRecord].SpeechSummary.replaceAll(
+            {speech[currSpeechRecord].SpeechSummary.replaceAll(
               "「",
               "",
             ).replaceAll("」", "")}
@@ -154,9 +98,9 @@ export const Theater = () => {
         )}
       </div> */}
       <div className="balloon1 absolute left-[50%] top-0 w-fit -translate-x-1/2 rounded-md p-24 text-2xl">
-        {speechRecords.length > 0 && speechRecords[currSpeechRecord] && (
+        {speech && speech!.length > 0 && speech![currSpeechRecord] && (
           <div className="w-full text-center text-xs text-white md:text-lg">
-            {speechRecords[currSpeechRecord].SpeechSummary.replaceAll("「", "")
+            {speech![currSpeechRecord].SpeechSummary.replaceAll("「", "")
               .replaceAll("」", "")
               .split("。")
               .map(
@@ -196,30 +140,29 @@ export const Theater = () => {
         &gt;
       </button>
       <div className="absolute left-[5%] top-[50%] size-fit border border-black bg-black p-4 text-3xl md:p-8 lg:border-white">
-        {speechRecords.length > 0 && (
+        {speech && speech!.length > 0 && (
           <div className="">
             <p className="text-xs text-white lg:text-3xl">
-              名前：{speechRecords[currSpeechRecord].Speaker}
+              名前：{speech![currSpeechRecord].Speaker}
             </p>
             <p className="text-xs text-white lg:text-3xl">
               所属：
-              {speechRecords[currSpeechRecord].SpeakerGroup
-                ? speechRecords[currSpeechRecord].SpeakerGroup
+              {speech![currSpeechRecord].SpeakerGroup
+                ? speech![currSpeechRecord].SpeakerGroup
                 : "所属なし"}
             </p>
             <p className="text-xs text-white md:text-3xl">
               役職：
-              {speechRecords[currSpeechRecord].speakerRole
-                ? speechRecords[currSpeechRecord].speakerRole
+              {speech![currSpeechRecord].SpeakerRole
+                ? speech![currSpeechRecord].SpeakerRole
                 : "役職なし"}
             </p>
           </div>
         )}
       </div>
-      {showAnimation &&
-        speechRecords[currSpeechRecord].AnimationPoint !== "0" && (
-          <Animation arg={speechRecords[currSpeechRecord].AnimationPoint} />
-        )}
+      {showAnimation && speech![currSpeechRecord].AnimationPoint !== "0" && (
+        <Animation arg={Number(speech![currSpeechRecord].AnimationPoint)} />
+      )}
     </main>
   );
 };
