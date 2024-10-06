@@ -1,18 +1,5 @@
 import useSWR from "swr";
-
-interface Speech {
-  ID: number;
-  IssueID: string;
-  SpeechID: string;
-  Speaker: string;
-  SpeakerGroup: string;
-  SpeakerPosition: string;
-  SpeakerRole: string;
-  SpeakerYomi: string;
-  SpeakerOrigin: string;
-  SpeakerSummary: string;
-  AnimationPoint: string;
-}
+import { Speech } from "../types/speech";
 
 async function fetcher(key: string) {
   return fetch(key).then((res) => res.json() as Promise<Speech[] | null>);

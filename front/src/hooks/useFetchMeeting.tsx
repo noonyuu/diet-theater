@@ -1,17 +1,5 @@
 import useSWR from "swr";
-
-interface Meeting {
-  ID: number;
-  IssueID: string;
-  Session: number;
-  Issue: string;
-  NameOfHouse: string;
-  NameOfMeeting: string;
-  Date: string;
-  CreatedAt: string;
-  UpdatedAt: string;
-  DeletedAt: string;
-}
+import { Meeting } from "../types/meeting";
 
 async function fetcher(key: string) {
   return fetch(key).then((res) => res.json() as Promise<Meeting[] | null>);
