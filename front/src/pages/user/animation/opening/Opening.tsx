@@ -1,6 +1,6 @@
 import React from "react";
-import "./opning.css";
+import "./opening.css";
 
-export const Opning = () => {
+export const Opening = () => {
   return <div id="wrap"></div>;
 };

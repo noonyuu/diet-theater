@@ -1,11 +1,10 @@
 import React, { useEffect, useState } from "react";
 import "./theater.css";
 import { useLocation, useNavigate } from "react-router-dom";
-import { Opning } from "./animation/opning/Opning";
-import { Animation } from "../user/animation/Animation";
+import { Opening } from "./animation/opening/Opening";
+import { Animation } from "./animation/Animation";
 import { useFetchSpeech } from "../../hooks/useFetchSpeech";
 import { useKey } from "../../hooks/useKey";
-import { Layout } from "../Layout";
 
 // TODO:リロード時に続きから表示するかの選択
 var path = import.meta.env.VITE_APP_SPEECH_PATH;
@@ -78,7 +77,7 @@ export const Theater = () => {
 
   return (
     <main className="theater-back relative min-h-svh">
-      <Opning />
+      <Opening />
       {/* <Anime /> */}
       <button
         type="button"
