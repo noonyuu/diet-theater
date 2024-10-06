@@ -7,7 +7,11 @@ async function fetcher(key: string) {
 
 export const useFetchSpeech = (
   url: string,
-): { speech: Speech[] | null | undefined; error: any; isLoading: boolean } => {
+): {
+  speech: Speech[] | null | undefined;
+  error: any;
+  isLoading: boolean;
+} => {
   const { data, error, isLoading } = useSWR(url, fetcher);
 
   return {

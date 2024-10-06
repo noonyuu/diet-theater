@@ -8,6 +8,6 @@ export interface Speech {
   SpeakerRole: string;
   SpeakerYomi: string;
   SpeakerOrigin: string;
-  SpeakerSummary: string;
+  SpeechSummary: string;
   AnimationPoint: string;
 }
