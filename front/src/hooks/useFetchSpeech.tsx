@@ -1,9 +1,9 @@
 import useSWR from "swr";
 
 interface Speech {
-  Id: number;
-  IssueId: string;
-  SpeechId: string;
+  ID: number;
+  IssueID: string;
+  SpeechID: string;
   Speaker: string;
   SpeakerGroup: string;
   SpeakerPosition: string;

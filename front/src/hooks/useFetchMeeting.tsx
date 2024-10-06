@@ -1,8 +1,8 @@
 import useSWR from "swr";
 
 interface Meeting {
-  Id: number;
-  IssueId: string;
+  ID: number;
+  IssueID: string;
   Session: number;
   Issue: string;
   NameOfHouse: string;
