@@ -6,7 +6,7 @@ import React, { useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import ListSvg from "../../../assets/ListSvg";
 import { iconRandomColor } from "../../../logic/iconRandomColor";
-import { Button } from "../../../component/button";
+import { Button } from "../../../component/Button";
 import { testSetData } from "../../../test/testSet";
 // アイコン
 import { IcSharpKeyboardReturn } from "../../../assets/Return";

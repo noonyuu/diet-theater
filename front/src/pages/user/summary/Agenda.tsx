@@ -2,8 +2,7 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 // fail to import
 import { getPostData } from "../../../hooks/getOriginal";
-import { Form } from "../../../component/form";
-import { Button } from "../../../component/button";
+import { Button } from "../../../component/Button";
 import { MdiChat } from "../../../assets/Chat";
 import { MaterialSymbolsSearch } from "../../../assets/Search";
 import axios from "axios";

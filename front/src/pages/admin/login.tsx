@@ -1,6 +1,6 @@
 import { useNavigate } from "react-router-dom";
-import { Form } from "../../component/form";
-import { Button } from "../../component/button";
+import { Form } from "../../component/Form";
+import { Button } from "../../component/Button";
 
 export const LoginPage = () => {
   return (
@@ -41,4 +41,3 @@ export const LoginPage = () => {
     </main>
   );
 };
-

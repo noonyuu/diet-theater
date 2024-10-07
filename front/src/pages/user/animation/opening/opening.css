@@ -8,7 +8,15 @@
   width: 50%;
   height: 130%;
   content: "";
-  background-color: #85c6bf;
+  /* background-color: #85c6bf; */
+  background-image: repeating-linear-gradient(
+    to right,
+    /* transparent,
+    transparent 20px, */ #e66465,
+    #e66465 20px,
+    #be4f4f 20px,
+    #be4f4f 25px
+  );
 }
 #wrap::before {
   left: 0;

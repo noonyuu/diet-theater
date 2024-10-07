@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 import { getPostData } from "../../hooks/getOriginal";
-import { Form } from "../../component/form";
-import { Button } from "../../component/button";
+import { Button } from "../../component/Button";
 import { useNavigate } from "react-router-dom";
 // アイコン
 import { MaterialSymbolsSearch } from "../../assets/Search";

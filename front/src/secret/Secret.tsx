@@ -4,7 +4,7 @@ import { AdminAgenda } from "../pages/admin/AdminAgenda";
 import StandbyScreen from "../pages/admin/StandbyScreen";
 import HamburgerMenu from "../component/Header";
 import ExcelReader from "../pages/admin/xlsx";
-import { LoginPage } from "../pages/admin/login";
+import { LoginPage } from "../pages/admin/Login";
 import { Terms } from "../pages/Terms";
 import { Agenda } from "../pages/user/summary/Agenda";
 import { Chat } from "../pages/user/summary/Chat";
