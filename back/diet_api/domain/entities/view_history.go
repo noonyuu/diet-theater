@@ -1,31 +1,31 @@
 package entities
 
 type ViewHistory struct {
-	id       uint
-	user_id  string
-	issue_id string
+	ID      uint
+	UserID  string
+	IssueID string
 }
 
-func NewViewHistory(id uint, user_id string, issue_id string) *ViewHistory {
+func NewViewHistory(id uint, userID string, issueID string) *ViewHistory {
 	return &ViewHistory{
-		id:       id,
-		user_id:  user_id,
-		issue_id: issue_id,
+		ID:       id,
+		UserID:  userID,
+		IssueID: issueID,
 	}
 }
 
 func (v *ViewHistory) GetID() uint {
-	return v.id
+	return v.ID
 }
 
 func (v *ViewHistory) GetUserID() string {
-	return v.user_id
+	return v.UserID
 }
 
 func (v *ViewHistory) GetIssueID() string {
-	return v.issue_id
+	return v.IssueID
 }
 
 func (v *ViewHistory) SetViewHistoryID(id uint) {
-	v.id = id
+	v.ID = id
 }

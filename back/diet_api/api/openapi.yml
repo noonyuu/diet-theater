@@ -159,29 +159,14 @@ paths:
         content:
           application/json:
             schema:
-              type: object
-              properties:
-                issue_id:
-                  type: string
-                  example: "123456789123456789123"
-                user_id:
-                  type: string
-                  example: "123456789123456789123"
-                created_at:
-                  type: string
-                  format: date-time
-                  example: "2021-01-01T00:00:00"
+              $ref: "#/components/schemas/ViewHistory"
       responses:
         200:
           description: success operation
           content:
             application/json:
               schema:
-                type: object
-                properties:
-                  message:
-                    type: string
-                    example: "Hello, World!!!!!!!!!!!!"
+                $ref: "#/components/schemas/ViewHistory"
   /view-history/select/{userID}:
     get:
       tags:
@@ -294,6 +279,19 @@ components:
           format: date-time
           example: "2021-01-01T00:00:00"
         deleted_at:
+          type: string
+          format: date-time
+          example: "2021-01-01T00:00:00"
+    ViewHistory:
+      type: object
+      properties:
+        issue_id:
+          type: string
+          example: "123456789123456789123"
+        user_id:
+          type: string
+          example: "123456789123456789123"
+        created_at:
           type: string
           format: date-time
           example: "2021-01-01T00:00:00"
