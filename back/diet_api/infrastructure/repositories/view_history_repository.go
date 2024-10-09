@@ -20,24 +20,28 @@ func NewViewHistoryRepository(db *gorm.DB) repositories.IViewHistoryRepository {
 }
 
 // CreateViewHistory implements repositories.IViewHistoryRepository.
-func (v *ViewHistoryRepository) CreateViewHistory(ctx context.Context, viewHistory *entities.ViewHistory) (uint, error) {
+func (v *ViewHistoryRepository) CreateViewHistory(ctx context.Context, viewHistory *entities.ViewHistory) (*entities.ViewHistory, error) {
 	view_history := models.FromViewHistoryDomainModel(viewHistory)
 
-	result := v.db.Create(&view_history)
-	if result.Error != nil {
-		return 0, result.Error
-	}
-
-	return view_history.ID, nil
-}
-
-// GetViewHistory implements repositories.IViewHistoryRepository.
-func (v *ViewHistoryRepository) GetViewHistory(ctx context.Context, user_id string) (*entities.ViewHistory, error) {
-	view_history := &models.ViewHistory{}
-	result := v.db.Where("user_id = ?", user_id).First(&view_history)
-	if result.Error != nil {
-		return nil, result.Error
+	if err := v.db.WithContext(ctx).Create(&view_history).Error; err != nil {
+		return nil, err
 	}
 
 	return view_history.ToDomainViewHistoryModel(), nil
+}
+
+// GetViewHistory implements repositories.IViewHistoryRepository.
+func (v *ViewHistoryRepository) GetViewHistory(ctx context.Context, user_id string) ([]*entities.ViewHistory, error) {
+	view_history := []*models.ViewHistory{}
+
+	if err := v.db.WithContext(ctx).Where("user_id = ?", user_id).Find(&view_history).Error; err != nil {
+		return nil, err
+	}
+
+	var view_history_domain []*entities.ViewHistory
+	for _, view := range view_history {
+		view_history_domain = append(view_history_domain, view.ToDomainViewHistoryModel())
+	}
+
+	return view_history_domain, nil
 }

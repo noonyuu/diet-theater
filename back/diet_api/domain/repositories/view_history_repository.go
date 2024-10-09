@@ -6,6 +6,6 @@ import (
 )
 
 type IViewHistoryRepository interface {
-	GetViewHistory(ctx context.Context, user_id string) (*entities.ViewHistory, error)
-	CreateViewHistory(ctx context.Context, viewHistory *entities.ViewHistory) (uint, error)
+	GetViewHistory(ctx context.Context, user_id string) ([]*entities.ViewHistory, error)
+	CreateViewHistory(ctx context.Context, viewHistory *entities.ViewHistory) (*entities.ViewHistory, error)
 }

@@ -54,6 +54,7 @@ type SpeechRecord struct {
 // ViewHistory defines model for ViewHistory.
 type ViewHistory struct {
 	CreatedAt time.Time
+	Id        int       
 	IssueId   string
 	UserId    string
 }

@@ -6,6 +6,7 @@ import (
 	"diet-theater/back/diet_api/presenters"
 	"diet-theater/back/diet_api/usecases/meeting_record"
 	"diet-theater/back/diet_api/usecases/speech_record"
+	"diet-theater/back/diet_api/usecases/view_history"
 
 	"go.uber.org/dig"
 )
@@ -19,10 +20,12 @@ func BuildContainer() *dig.Container {
 	// controllers
 	c.Provide(controllers.NewMeetingRecordController)
 	c.Provide(controllers.NewSpeechRecordController)
+	c.Provide(controllers.NewViewHistoryController)
 
 	// presenters
 	c.Provide(presenters.NewMeetingRecordPresenter)
 	c.Provide(presenters.NewSpeechRecordPresenter)
+	c.Provide(presenters.NewViewHistoryPresenter)
 	c.Provide(presenters.NewErrorPresenter)
 
 	// usecases
@@ -35,9 +38,13 @@ func BuildContainer() *dig.Container {
 	c.Provide(speech_record.NewGetSpeechRecordAllInteractor)
 	c.Provide(speech_record.NewGetSpeechRecordOnceInteractor)
 
+	c.Provide(view_history.NewViewHistoryInteractor)
+	c.Provide(view_history.NewGetViewHistoryInteractor)
+
 	// repositories
 	c.Provide(repositories.NewMeetingRecordRepository)
 	c.Provide(repositories.NewSpeechRecordRepository)
+	c.Provide(repositories.NewViewHistoryRepository)
 
 	return c
 }

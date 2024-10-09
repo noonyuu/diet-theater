@@ -38,7 +38,7 @@ func NewDB() (*gorm.DB, error) {
 	}
 
 	// MeetingRecordとSpeechRecordのスキーマをマイグレート
-	if err := db.AutoMigrate(&models.MeetingRecord{}, &models.SpeechRecord{}); err != nil {
+	if err := db.AutoMigrate(&models.MeetingRecord{}, &models.SpeechRecord{}, &models.ViewHistory{}); err != nil {
 		return nil, fmt.Errorf("failed to migrate schema: %w", err)
 	}
 

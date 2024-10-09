@@ -11,15 +11,18 @@ import (
 type Server struct {
 	meetingRecordController *controllers.MeetingRecordController
 	speechRecordController  *controllers.SpeechRecordController
+	viewHistoryController   *controllers.ViewHistoryController
 }
 
 func NewServer(
 	meetingRecordController *controllers.MeetingRecordController,
 	speechRecordController *controllers.SpeechRecordController,
+	viewHistoryController *controllers.ViewHistoryController,
 ) *Server {
 	return &Server{
 		meetingRecordController: meetingRecordController,
 		speechRecordController:  speechRecordController,
+		viewHistoryController:   viewHistoryController,
 	}
 }
 
@@ -61,7 +64,7 @@ func (s *Server) GetSpeechRecordSelectOnceIssueIDSpeechID(c *gin.Context, issueI
 
 // GetViewHistorySelectUserID implements api.ServerInterface.
 func (s *Server) GetViewHistorySelectUserID(c *gin.Context, userID string) {
-	panic("unimplemented")
+	s.viewHistoryController.GetViewHistory(c, userID)
 }
 
 // PostSpeechRecordInsert implements api.ServerInterface.
@@ -71,7 +74,7 @@ func (s *Server) PostSpeechRecordInsert(c *gin.Context) {
 
 // PostViewHistoryInsert implements api.ServerInterface.
 func (s *Server) PostViewHistoryInsert(c *gin.Context) {
-	panic("unimplemented")
+	s.viewHistoryController.CreateViewHistory(c)
 }
 
 func InitRouter() {
