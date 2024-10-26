@@ -61,3 +61,10 @@ ul {
 .scroll-none {
   scrollbar-width: none;
 }
+
+@font-face {
+  font-family: "Reggae";
+  src: url("/public/ReggaeOne-Regular.ttf") format("truetype");
+  font-weight: normal;
+  font-style: normal;
+}

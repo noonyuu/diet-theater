@@ -17,6 +17,8 @@ import { Anime } from "./pages/user/Anime";
 import Login from "./pages/Login";
 import { Theater } from "./pages/user/Theater";
 import { GetUser, RefreshToken } from "./script/Auth";
+import path from "path";
+import { MainTheater } from "./pages/user/theater/MainTheater";
 
 const Routers = () => {
   const navigate = useNavigate();
@@ -57,6 +59,7 @@ const Routers = () => {
     { path: "/anime", element: <Anime /> },
     { path: "/login", element: <Login /> },
     { path: "/theater", element: <Theater /> },
+    { path: "/mainTheater", element: <MainTheater /> },
   ];
 
   const routesWithHeaderAndFooter = [
