@@ -1,19 +1,12 @@
 import { useEffect, useState } from "react";
-import { getPostData } from "../../hooks/getOriginal";
-import { Form } from "../../component/form";
-import { Button } from "../../component/button";
 import { useNavigate } from "react-router-dom";
 // アイコン
-import { MaterialSymbolsSearch } from "../../assets/Search";
-import { TablerPencilPlus } from "../../assets/AddPen";
 import axios from "axios";
 
 export const TheaterCreateTable = () => {
   const navigate = useNavigate();
 
   const [api, setApi] = useState<Map<string, any>>(new Map());
-  const [speaker, setSpeaker] = useState<any[]>([]);
-
   const [input, setInput] = useState<string>("");
 
   interface Entity {
@@ -28,7 +21,6 @@ export const TheaterCreateTable = () => {
     const entity: Entity = {
       generates: val,
     };
-    // console.log("entity", entity.generates.get("issueID"));
     navigate(`/secret/theater-create/${entity.generates}`);
   };
 
@@ -88,7 +80,6 @@ export const TheaterCreateTable = () => {
 
         <div className="mt-4 flex items-center rounded-md bg-white">
           <button className="px-1" onClick={() => sendInput()}>
-            {/* <MaterialSymbolsSearch /> */}
             検索
           </button>
           <input
