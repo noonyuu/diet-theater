@@ -23,12 +23,6 @@ ul {
   padding-left: 1rem;
 }
 
-/* タブ選択時のテキストカラー */
-.tabs-boxed .tab-active:not(.tab-disabled):not([disabled]),
-.tabs-boxed :is(input:checked) {
-  color: #020202;
-}
-
 /* スクロールバー削除*/
 @layer utilities {
   .hidden-scrollbar {
@@ -60,4 +54,11 @@ ul {
 
 .scroll-none {
   scrollbar-width: none;
+}
+
+@font-face {
+  font-family: "Reggae";
+  src: url("/public/ReggaeOne-Regular.ttf") format("truetype");
+  font-weight: normal;
+  font-style: normal;
 }
