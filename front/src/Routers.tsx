@@ -1,23 +1,20 @@
 import { useEffect } from "react";
 import { Routes, Route, useNavigate } from "react-router-dom";
+
+import { ContextWrapper } from "./context/ContextWrapper";
 // components
-import NotFound from "./component/notFound";
-import { Terms } from "./pages/Terms";
 import Footer from "./component/Footer";
 import Header from "./component/Header";
-import { ContextWrapper } from "./context/ContextWrapper";
-import { AdminAgenda } from "./pages/admin/AdminAgenda";
+import { Terms } from "./pages/Terms"
 import { Agenda } from "./pages/user/Agenda";
-// import { Agenda } from "./pages/user/summary/Agenda";
-import { Chat } from "./pages/user/summary/Chat";
-import AdminLogin from "./pages/admin/AdminLogin";
+import { History } from "./pages/user/History";
 import { TheaterCreateTable } from "./pages/admin/TheaterCreateTable";
-import TheaterCreate from "./pages/admin/TheaterCreate";
-import TheaterShow from "./pages/user/TheaterShow";
-import { Anime } from "./pages/user/Anime";
 import Login from "./pages/Login";
-import { Theater } from "./pages/user/Theater";
-import { GetUser, RefreshToken } from "./script/Auth";
+import TheaterCreate from "./pages/admin/TheaterCreate";
+import { MainTheater } from "./pages/user/theater/MainTheater";
+
+import NotFound from "./component/notFound";
+import AdminLogin from "./pages/admin/AdminLogin";
 
 const Routers = () => {
   const navigate = useNavigate();
@@ -55,17 +52,16 @@ const Routers = () => {
 
   const routesWithoutHeaderAndFooter = [
     { path: "/", element: <Terms /> },
-    { path: "/anime", element: <Anime /> },
     { path: "/login", element: <Login /> },
-    { path: "/theater", element: <Theater /> },
+    { path: "/theater", element: <MainTheater /> },
   ];
 
   const routesWithHeaderAndFooter = [
+    // { path: "/agenda", element: <Agenda /> },
+
     { path: "/agenda", element: <Agenda /> },
-    { path: "/chat", element: <Chat /> },
-    { path: "/theater-show", element: <TheaterShow /> },
+    { path: "/history", element: <History /> },
     { path: `/${import.meta.env.VITE_APP_ADMIN}`, element: <AdminLogin /> },
-    { path: `/secret/admin-agenda`, element: <AdminAgenda /> },
     { path: `/secret/theater-create-table`, element: <TheaterCreateTable /> },
     { path: `/secret/theater-create/:issueID`, element: <TheaterCreate /> },
   ];

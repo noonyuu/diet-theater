@@ -1,6 +1,5 @@
-import { useNavigate } from "react-router-dom";
-import { Form } from "../../component/Form";
 import { Button } from "../../component/Button";
+import { Form } from "../../component/form";
 
 export const LoginPage = () => {
   return (

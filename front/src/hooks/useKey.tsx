@@ -3,7 +3,7 @@ import { Speech } from "../types/speech";
 
 export const useKey = (
   speech: Speech[] | null | undefined,
-  isFirstLoad: boolean,
+  isFirstLoad?: boolean,
 ): {
   next: () => void;
   back: () => void;
@@ -36,8 +36,12 @@ export const useKey = (
   // 次のスピーチレコード
   const next = () => {
     setCurrSpeechRecord((curr) => {
-      curr === speech!.length - 1 && finish();
-      return curr === speech!.length - 1 ? curr : curr + 1;
+      if (curr < speech!.length - 1) {
+        return curr + 1;
+      } else {
+        finish();
+        return curr;
+      }
     });
   };
 
