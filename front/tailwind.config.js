@@ -6,6 +6,7 @@ module.exports = withMT({
   theme: {
     extend: {
       colors: {
+        subwhite: "#F7F7F7",
         "main-color": "#8FCDDB",
         sub_blue: "#DEF0F5",
         "custom-black": "#323232",
@@ -18,5 +19,5 @@ module.exports = withMT({
       nikomoji: ["nikomoji-plus-v2"],
     },
   },
-  plugins: [require("daisyui")],
+  plugins: [],
 });
