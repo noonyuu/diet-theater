@@ -6,8 +6,8 @@
  */
 
 import axios from "axios";
-import React, { useEffect, useState } from "react";
-import { useFetcher, useNavigate, useParams } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { useNavigate, useParams } from "react-router-dom";
 import { TablerPencilPlus } from "../../assets/AddPen";
 
 var path = import.meta.env.VITE_APP_PATH;

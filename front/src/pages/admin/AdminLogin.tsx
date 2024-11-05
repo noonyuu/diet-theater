@@ -1,6 +1,5 @@
 import React, { useState } from "react";
-import Search from "../../component/Search";
-import { Button } from "../../component/button";
+import { Button } from "../../component/Button";
 import { useNavigate } from "react-router-dom";
 
 const AdminLogin = () => {

@@ -1,6 +1,7 @@
 import React, { useContext, useEffect, useState } from "react";
 // context
 import { GlobalContext } from "../context/GlobalContext";
+import { FiBook } from "react-icons/fi";
 import { useLocation, useNavigate } from "react-router-dom";
 import { GetUser } from "../script/Auth";
 // import { GetUser } from "../script/Auth";
@@ -52,10 +53,10 @@ export default function App() {
   };
 
   // メニュー選択
-  useEffect(()=>{
-    if(location.pathname === "/secret/admin-agenda"){
+  useEffect(() => {
+    if (location.pathname === "/secret/admin-agenda") {
       setSelectMenu(1);
-    }else if (location.pathname === "/secret/theater-create-table") {
+    } else if (location.pathname === "/secret/theater-create-table") {
       setSelectMenu(2);
     } else if (location.pathname === "/secret/theater-edit") {
       setSelectMenu(3);
@@ -64,7 +65,7 @@ export default function App() {
     } else if (location.pathname === "/secret/logout") {
       setSelectMenu(5);
     }
-  },[location.pathname])
+  }, [location.pathname]);
 
   // メニュー選択->画面遷移
   const handleSelectMenu = (path: string) => {
@@ -104,9 +105,13 @@ export default function App() {
           />
         </button>
       )}
-      <h1 className="z-50 ml-4 flex items-center text-xl font-bold text-black">
+      <h1 className="z-50 ml-4 flex flex-grow items-center text-xl font-bold text-black">
         国会劇場
       </h1>
+      <div className="flex">
+        <img src="./ai.png" alt="" className="size-16" />
+        <FiBook onClick={() => navigate("/history")} className="size-12" />
+      </div>
       <div className="absolute right-2 flex h-full items-center">
         {/* TODO: icon */}
         {profile.length > 0 && (

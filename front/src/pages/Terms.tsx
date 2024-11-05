@@ -1,5 +1,5 @@
 import { useNavigate } from "react-router-dom";
-import { Button } from "../component/button";
+import { Button } from "../component/Button";
 import { useContext, useEffect } from "react";
 import { GlobalContext } from "../context/GlobalContext";
 
@@ -20,12 +20,12 @@ export const Terms = () => {
 
   useEffect(() => {
     localStorage.getItem("terms") ? navigate("/agenda") : navigate("/");
-  },[]);
+  }, []);
 
   return (
     <main className="flex-1 bg-bac-main">
       <section className="flex justify-center font-meiryo">
-        <div className="mx-[10%] my-[5%] w-10/12 bg-white p-[5%] text-custom-black shadow-md shadow-slate-200">
+        <div className="shadow-slate-200 mx-[10%] my-[5%] w-10/12 bg-white p-[5%] text-custom-black shadow-md">
           <h1 className="mb-16 text-center text-4xl font-bold">利用規約</h1>
           <p>
             この規約はお客様が、神楽（以下「神楽」）が提供する「国会劇場」サービス（以下「本サービス」）

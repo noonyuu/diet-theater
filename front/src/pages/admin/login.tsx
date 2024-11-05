@@ -1,6 +1,5 @@
-import { useNavigate } from "react-router-dom";
+import { Button } from "../../component/Button";
 import { Form } from "../../component/form";
-import { Button } from "../../component/button";
 
 export const LoginPage = () => {
   return (
@@ -41,4 +40,3 @@ export const LoginPage = () => {
     </main>
   );
 };
-
